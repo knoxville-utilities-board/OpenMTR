@@ -1,5 +1,0 @@
-<html>
-<body>
-There is nothing to see here right now, thanks for visiting.
-</body>
-</html>
