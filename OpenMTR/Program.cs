@@ -11,7 +11,6 @@ namespace OpenMTR
     {
         static void Main(string[] args)
         {
-
         }
     }
 }
