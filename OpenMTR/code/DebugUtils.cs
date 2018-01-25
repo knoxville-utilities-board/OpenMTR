@@ -8,11 +8,6 @@ namespace OpenMTR
 {
     class DebugUtils
     {
-        /// <summary>
-        /// Logs a message to the console
-        /// </summary>
-        /// <param name="message">[string] The message to display</param>
-        /// <param name="newLine">[bool] Add a new line to the end</param>
         public static void Log(string message, bool newLine = true)
         {
             if (Program.DEBUG)
