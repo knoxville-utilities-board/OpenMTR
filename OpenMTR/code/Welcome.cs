@@ -39,8 +39,7 @@ namespace OpenMTR
             }
 
             Program.DirectoryPath = tempPath;
-
-            DebugUtils.Log($"Process path is: {Program.DirectoryPath}", true);
+            DebugUtils.Log("Process path is: " + Program.DirectoryPath, true);
         }
     }
 }
