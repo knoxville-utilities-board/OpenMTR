@@ -17,3 +17,4 @@
 - Then using this command you can commit your changes ``git commit -m "chore: Added information to allow a user to pull down and run locally"``
 - When you are satisfied with your changes and you have already committed them to your branch create a pull request (PR) in Github. This will allow others to review your changes and if they are good merge them in.
 - When merging a PR into master make sure you use the "Squash and Merge Option". This basically squashes all of your commits into one with your PR message being noted in the commit history of the project.
+test PR jenkins integration
