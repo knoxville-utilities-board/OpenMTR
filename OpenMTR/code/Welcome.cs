@@ -40,7 +40,11 @@ namespace OpenMTR
 
             Program.DirectoryPath = tempPath;
 
+            FHTestDriver FHT = new FHTestDriver(tempPath);
+
             DebugUtils.Log($"Process path is: {Program.DirectoryPath}", true);
+
+            FHT.test();
         }
     }
 }
