@@ -14,7 +14,7 @@ namespace OpenMTR
             List<DataObject> data = new List<DataObject>();
             foreach (string filePath in Directory.GetFiles(directoryPath))
             {
-                if (Regex.IsMatch(filePath, ".(jpe?g|png)$"))
+                if (Regex.IsMatch(filePath, @"\.(jpe?g|png)$", RegexOptions.IgnoreCase))
                 {
                     data.Add(GetDataObject(filePath));
                 }
@@ -36,9 +36,7 @@ namespace OpenMTR
         // Get a metadata file path with the same name as the provided file
         private static int ReadMetaData(string imagePath)
         {
-            string metaPath = Path.GetFullPath(imagePath);
-            metaPath = (Path.HasExtension(metaPath)) ? Regex.Replace(metaPath, ".(jpe?g|png)$", ".txt", RegexOptions.IgnoreCase) : metaPath + ".txt";
-
+            string metaPath = Regex.Replace(Path.GetFullPath(imagePath), @"\.(jpe?g|png)$", ".txt", RegexOptions.IgnoreCase);
             try
             {
                 return int.Parse(File.ReadAllText(metaPath));
