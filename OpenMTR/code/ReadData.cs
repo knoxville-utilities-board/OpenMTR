@@ -50,17 +50,9 @@ namespace OpenMTR
             {
                 return int.Parse(File.ReadAllText(metaPath));
             }
-            catch (FormatException fmx)
+            catch (Exception)
             {
                 return -1;
-            }
-            catch (NullReferenceException nre)
-            {
-                return -2;
-            }
-            catch (FileNotFoundException fnf)
-            {
-                return -3;
             }
         }
     }
