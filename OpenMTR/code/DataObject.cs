@@ -1,6 +1,6 @@
 ﻿using OpenCvSharp;
 
-namespace OpenMTR.code
+namespace OpenMTR
 {
     public class DataObject
     {
