@@ -58,7 +58,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="code\DebugUtils.cs" />
-    <Compile Include="code\FileHandler.cs" />
+    <Compile Include="code\ReadData.cs" />
+    <Compile Include="code\DataObject.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="code\Welcome.cs" />
