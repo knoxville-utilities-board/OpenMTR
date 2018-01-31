@@ -4,16 +4,16 @@ namespace OpenMTR
 {
     public class DataObject
     {
-        public string FileName { get; set; }
-        public Mat Image { get; set; }
-        public int MeterRead { get; set; }
+        public string FileName { get; private set; }
+        public Mat Image { get; private set; }
+        public int MeterRead { get; private set; }
 
         public DataObject() { }
-        public DataObject(string name, Mat imageMat, int parsedMeterMetaData)
+        public DataObject(string fileName, Mat image, int meterRead)
         {
-            this.FileName = name;
-            this.Image = imageMat;
-            this.MeterRead = parsedMeterMetaData;
+            this.FileName = fileName;
+            this.Image = image;
+            this.MeterRead = meterRead;
         }
     }
 }
