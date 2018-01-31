@@ -1,52 +1,67 @@
 ﻿using System.IO;
+using System;
 using System.Text.RegularExpressions;
 using OpenCvSharp;
 using System.Collections.Generic;
 
-
 namespace OpenMTR
 {
-    static class ReadData
+    public static class ReadData
     {
         // Get a list of data objects built from all the images found in a directory
-        public static List<DataObject> GetDataObjectList(string DirectoryPath)
+        public static List<DataObject> GetDataObjectList(string directoryPath)
         {
-            List<DataObject> Data = new List<DataObject>();
-            foreach (string FilePath in Directory.GetFiles(DirectoryPath))
+            List<DataObject> data = new List<DataObject>();
+            foreach (string filePath in Directory.GetFiles(directoryPath))
             {
-                if (Regex.IsMatch(FilePath, ".(jpe?g|png)$"))
+                if (Regex.IsMatch(filePath, ".(jpe?g|png)$"))
                 {
-                    Data.Add(GetDataObject(FilePath));
+                    data.Add(GetDataObject(filePath));
                 }
             }
-            return Data;
+            return data;
         }
-        public static void GetDataObjectList(string DirectoryPath, List<DataObject> Data)
+        public static void GetDataObjectList(string directoryPath, List<DataObject> data)
         {
-            Data = GetDataObjectList(DirectoryPath);
+            data = GetDataObjectList(directoryPath);
         }
 
         // Get a single data object from a path to the image file
-        public static DataObject GetDataObject(string ImagePath)
+        private static DataObject GetDataObject(string imagePath)
         {
-            string Filename = Path.GetFileNameWithoutExtension(ImagePath);
-            int MetaReading = int.Parse(File.ReadAllLines(GetMetaPath(ImagePath))[0]);
-            return new DataObject(Filename, new Mat(ImagePath), MetaReading);
-        }
-        public static void GetDataObject(string ImagePath, DataObject Data)
-        {
-            Data = GetDataObject(ImagePath);
+            string Filename = Path.GetFileNameWithoutExtension(imagePath);
+            return new DataObject(Filename, new Mat(imagePath), ReadMetaData(imagePath));
         }
 
         // Get a metadata file path with the same name as the provided file
-        private static string GetMetaPath(string ImagePath)
+        private static int ReadMetaData(string imagePath)
         {
-            string MetaPath = Path.GetFullPath(ImagePath);
-            if (Path.HasExtension(MetaPath))
+            string metaPath = Path.GetFullPath(imagePath);
+            if (Path.HasExtension(metaPath))
             {
-                return MetaPath + ".txt";
+                metaPath = Regex.Replace(metaPath, ".(jpe?g|png)$", ".txt", RegexOptions.IgnoreCase);
             }
-            return Regex.Replace(MetaPath, ".(jpe?g|png)$", ".txt", RegexOptions.IgnoreCase);
+            else
+            {
+                metaPath += ".txt";
+            }
+
+            try
+            {
+                return int.Parse(File.ReadAllText(metaPath));
+            }
+            catch (FormatException fmx)
+            {
+                return -1;
+            }
+            catch (NullReferenceException nre)
+            {
+                return -2;
+            }
+            catch (FileNotFoundException fnf)
+            {
+                return -3;
+            }
         }
     }
 }
