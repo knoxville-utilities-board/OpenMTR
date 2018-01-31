@@ -38,14 +38,9 @@ namespace OpenMTR
         {
             string metaPath = Path.GetFullPath(imagePath);
             if (Path.HasExtension(metaPath))
-            {
                 metaPath = Regex.Replace(metaPath, ".(jpe?g|png)$", ".txt", RegexOptions.IgnoreCase);
-            }
             else
-            {
                 metaPath += ".txt";
-            }
-
             try
             {
                 return int.Parse(File.ReadAllText(metaPath));
