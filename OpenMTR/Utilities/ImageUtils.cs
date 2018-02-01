@@ -11,29 +11,28 @@ namespace OpenMTR.code
     {
         public static void ColorToGray(DataObject dataObject)
         {
-            Mat tempImage = new Mat();
-            Cv2.CvtColor(dataObject.Image, tempImage, ColorConversionCodes.BGR2GRAY);
-            dataObject.Image = tempImage;
+            Cv2.CvtColor(dataObject.Image, dataObject.Image, ColorConversionCodes.BGR2GRAY);
         }
 
         public static void ColorToGray(List<DataObject> dataObjectList)
         {
             foreach (DataObject dataObject in dataObjectList)
             {
-                Mat tempImage = new Mat();
-                Cv2.CvtColor(dataObject.Image, tempImage, ColorConversionCodes.BGR2GRAY);
-                dataObject.Image = tempImage;
+                Cv2.CvtColor(dataObject.Image, dataObject.Image, ColorConversionCodes.BGR2GRAY);
             }
-
         }
 
         public static void ApplyGaussianBlur(DataObject dataObject)
         {
-            Mat tempImage = new Mat();
-            Cv2.GaussianBlur(dataObject.Image, tempImage, new Size(3, 3), 0, 0, BorderTypes.Default);
-            dataObject.Image = tempImage;
+            Cv2.GaussianBlur(dataObject.Image, dataObject.Image, new Size(3, 3), 0, 0, BorderTypes.Default);
         }
 
-        
+        public static void ApplyGaussianBlur(List<DataObject> dataObjectList)
+        {
+            foreach(DataObject dataObject in dataObjectList)
+            {
+                Cv2.GaussianBlur(dataObject.Image, dataObject.Image, new Size(3, 3), 0, 0, BorderTypes.Default);
+            }
+        }
     }
 }
