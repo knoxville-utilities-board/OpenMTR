@@ -15,5 +15,12 @@ namespace OpenMTR.code
             Cv2.CvtColor(dataObject.Image, tempImage, ColorConversionCodes.BGR2GRAY);
             dataObject.Image = tempImage;
         }
+
+        public static void ApplyGaussianBlur(DataObject dataObject)
+        {
+            Mat tempImage = new Mat();
+            Cv2.GaussianBlur(dataObject.Image, tempImage, new Size(3, 3), 0, 0, BorderTypes.Default);
+            dataObject.Image = tempImage;
+        }
     }
 }
