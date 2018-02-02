@@ -30,7 +30,7 @@ namespace OpenMTR
         private static DataObject GetDataObject(string imagePath)
         {
             string Filename = Path.GetFileNameWithoutExtension(imagePath);
-            return new DataObject(Filename, new Mat(imagePath), ReadMetaData(imagePath));
+            return new DataObject(Filename, new Mat(imagePath), new Mat(imagePath), ReadMetaData(imagePath));
         }
 
         // Get a metadata file path with the same name as the provided file
