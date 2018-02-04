@@ -34,5 +34,10 @@ namespace OpenMTR
                 Cv2.GaussianBlur(dataObject.SourceImage, dataObject.ModifiedImage, new Size(3, 3), 0, 0, BorderTypes.Default);
             }
         }
+
+        public static Mat GetKernel(Mat sourceImage, int size = 3)
+        {
+            return Cv2.GetStructuringElement(MorphShapes.Rect, new Size(size,size));
+        }
     }
 }
