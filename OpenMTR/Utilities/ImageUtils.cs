@@ -35,7 +35,7 @@ namespace OpenMTR
             }
         }
 
-        public static Mat GetKernel(int size = 3)
+        public static Mat GetKernel(int size)
         {
             return Cv2.GetStructuringElement(MorphShapes.Rect, new Size(size,size));
         }
