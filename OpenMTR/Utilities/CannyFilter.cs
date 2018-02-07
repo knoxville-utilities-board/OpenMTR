@@ -19,9 +19,9 @@ namespace OpenMTR
             Cv2.Canny(sourceImage, destinationImage, minThreshold, maxThreshold);
         }
 
-        public static void ApplyCannyFilter(List<DataObject> dataObjectList)
+        public static void ApplyCannyFilter(List<Meter> dataObjectList)
         {
-            foreach (DataObject dataObject in dataObjectList)
+            foreach (Meter dataObject in dataObjectList)
             {
                 Cv2.Canny(dataObject.ModifiedImage, dataObject.ModifiedImage, 100, 150);
             }

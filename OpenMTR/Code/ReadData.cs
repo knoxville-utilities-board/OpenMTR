@@ -9,9 +9,9 @@ namespace OpenMTR
     public static class ReadData
     {
         // Get a list of data objects built from all the images found in a directory
-        public static List<DataObject> GetDataObjectList(string directoryPath)
+        public static List<Meter> GetDataObjectList(string directoryPath)
         {
-            List<DataObject> data = new List<DataObject>();
+            List<Meter> data = new List<Meter>();
             foreach (string filePath in Directory.GetFiles(directoryPath))
             {
                 if (Regex.IsMatch(filePath, @"\.(jpe?g|png)$", RegexOptions.IgnoreCase))
@@ -21,16 +21,16 @@ namespace OpenMTR
             }
             return data;
         }
-        public static void GetDataObjectList(string directoryPath, List<DataObject> data)
+        public static void GetDataObjectList(string directoryPath, List<Meter> data)
         {
             data = GetDataObjectList(directoryPath);
         }
 
         // Get a single data object from a path to the image file
-        private static DataObject GetDataObject(string imagePath)
+        private static Meter GetDataObject(string imagePath)
         {
             string Filename = Path.GetFileNameWithoutExtension(imagePath);
-            return new DataObject(Filename, new Mat(imagePath), new Mat(imagePath), ReadMetaData(imagePath));
+            return new Meter(Filename, new Mat(imagePath), new Mat(imagePath), ReadMetaData(imagePath));
         }
 
         // Get a metadata file path with the same name as the provided file
