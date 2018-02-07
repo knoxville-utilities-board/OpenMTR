@@ -14,9 +14,9 @@ namespace OpenMTR
             Cv2.Sobel(source, destination, MatType.CV_32F, xorder: 1, yorder: 0, ksize: -1);
         }
 
-        public static void ApplySobelFilter(List<DataObject> dataObjectList)
+        public static void ApplySobelFilter(List<Meter> dataObjectList)
         {
-            foreach(DataObject dataObject in dataObjectList)
+            foreach(Meter dataObject in dataObjectList)
             {
                 Cv2.Sobel(dataObject.ModifiedImage, dataObject.ModifiedImage, MatType.CV_32F, xorder: 1, yorder: 0, ksize: -1);
             }
