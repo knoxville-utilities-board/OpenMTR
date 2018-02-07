@@ -9,25 +9,25 @@ namespace OpenMTR
     public static class ReadData
     {
         // Get a list of data objects built from all the images found in a directory
-        public static List<Meter> GetDataObjectList(string directoryPath)
+        public static List<Meter> GetMeterList(string directoryPath)
         {
             List<Meter> data = new List<Meter>();
             foreach (string filePath in Directory.GetFiles(directoryPath))
             {
                 if (Regex.IsMatch(filePath, @"\.(jpe?g|png)$", RegexOptions.IgnoreCase))
                 {
-                    data.Add(GetDataObject(filePath));
+                    data.Add(GetMeter(filePath));
                 }
             }
             return data;
         }
-        public static void GetDataObjectList(string directoryPath, List<Meter> data)
+        public static void GetMeterList(string directoryPath, List<Meter> data)
         {
-            data = GetDataObjectList(directoryPath);
+            data = GetMeterList(directoryPath);
         }
 
         // Get a single data object from a path to the image file
-        private static Meter GetDataObject(string imagePath)
+        private static Meter GetMeter(string imagePath)
         {
             string Filename = Path.GetFileNameWithoutExtension(imagePath);
             return new Meter(Filename, new Mat(imagePath), new Mat(imagePath), ReadMetaData(imagePath));
