@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenMTR
+namespace OpenMTRUtilities
 {
     public static class SobelFilter
     {
