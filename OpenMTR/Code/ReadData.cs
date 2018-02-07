@@ -27,7 +27,7 @@ namespace OpenMTR
         }
 
         // Get a single data object from a path to the image file
-        private static Meter GetMeter(string imagePath)
+        public static Meter GetMeter(string imagePath)
         {
             string Filename = Path.GetFileNameWithoutExtension(imagePath);
             return new Meter(Filename, new Mat(imagePath), new Mat(imagePath), ReadMetaData(imagePath));
