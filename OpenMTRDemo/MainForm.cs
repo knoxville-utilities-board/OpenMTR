@@ -13,30 +13,30 @@ namespace OpenMTRDemo
 {
     public partial class MainForm : Form
     {
-        OpenFileDialog fileBrowser;
+        OpenFileDialog FileBrowser;
         Meter meter;
         public MainForm()
         {
-            fileBrowser = new OpenFileDialog();
-            fileBrowser.Filter = "Image Files|*.bmp;*.jpeg;*.jpg;*.gif";
+            FileBrowser = new OpenFileDialog();
+            FileBrowser.Filter = "Image Files|*.bmp;*.jpeg;*.jpg;*.gif";
             InitializeComponent();
         }
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (fileBrowser.ShowDialog() == DialogResult.OK)
+            if (FileBrowser.ShowDialog() == DialogResult.OK)
             {
-                meter = ReadData.GetMeter(fileBrowser.FileName);
-                render();
+                meter = ReadData.GetMeter(FileBrowser.FileName);
+                Render();
             }
         }
 
-        private void render()
+        private void Render()
         {
             inputImageBox.Image = DemoUtilities.MatToBitmap(meter.SourceImage);
-            renderOutput();
+            RenderOutput();
         }
-        private void renderOutput()
+        private void RenderOutput()
         {
             outputImageBox.Image = DemoUtilities.MatToBitmap(meter.ModifiedImage);
         }
