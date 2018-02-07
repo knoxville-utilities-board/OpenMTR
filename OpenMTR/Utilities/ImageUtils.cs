@@ -14,11 +14,11 @@ namespace OpenMTR
             Cv2.CvtColor(sourceImage, destinationImage, ColorConversionCodes.BGR2GRAY);
         }
 
-        public static void ColorToGray(List<Meter> dataObjectList)
+        public static void ColorToGray(List<Meter> meterList)
         {
-            foreach (Meter dataObject in dataObjectList)
+            foreach (Meter meter in meterList)
             {
-                Cv2.CvtColor(dataObject.SourceImage, dataObject.ModifiedImage, ColorConversionCodes.BGR2GRAY);
+                Cv2.CvtColor(meter.SourceImage, meter.ModifiedImage, ColorConversionCodes.BGR2GRAY);
             }
         }
 
@@ -27,11 +27,11 @@ namespace OpenMTR
             Cv2.GaussianBlur(sourceImage, destinationImage, new Size(3, 3), 0, 0, BorderTypes.Default);
         }
 
-        public static void ApplyGaussianBlur(List<Meter> dataObjectList)
+        public static void ApplyGaussianBlur(List<Meter> meterList)
         {
-            foreach(Meter dataObject in dataObjectList)
+            foreach(Meter meter in meterList)
             {
-                Cv2.GaussianBlur(dataObject.SourceImage, dataObject.ModifiedImage, new Size(3, 3), 0, 0, BorderTypes.Default);
+                Cv2.GaussianBlur(meter.SourceImage, meter.ModifiedImage, new Size(3, 3), 0, 0, BorderTypes.Default);
             }
         }
 
