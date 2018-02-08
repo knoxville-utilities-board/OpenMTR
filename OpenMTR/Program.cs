@@ -16,6 +16,11 @@ namespace OpenMTR
         static void Main(string[] args)
         {
             Welcome.WelcomeUser();
+
+            List<Meter> meters = ReadData.GetMeterList(DirectoryPath);
+
+            ImageUtils.ColorToGray(meters);
+            
             Console.Read();
         }
     }
