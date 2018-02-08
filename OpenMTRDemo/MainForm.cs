@@ -15,6 +15,7 @@ namespace OpenMTRDemo
     {
         OpenFileDialog FileBrowser;
         Meter meter;
+
         public MainForm()
         {
             FileBrowser = new OpenFileDialog();
@@ -29,6 +30,7 @@ namespace OpenMTRDemo
                 meter = ReadData.GetMeter(FileBrowser.FileName);
                 Render();
             }
+            metaDataTextBox.Text = meter.MeterRead + "";
         }
 
         private void Render()
