@@ -41,10 +41,12 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.metaDataLabel = new System.Windows.Forms.Label();
             this.metaDataTextBox = new System.Windows.Forms.TextBox();
+            this.FilterListBox = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.inputImageBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.outputImageBox)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // inputImageBox
@@ -127,6 +129,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.FilterListBox);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage1.Name = "tabPage1";
@@ -178,6 +181,21 @@
             this.metaDataTextBox.Size = new System.Drawing.Size(170, 13);
             this.metaDataTextBox.TabIndex = 0;
             // 
+            // FilterListBox
+            // 
+            this.FilterListBox.FormattingEnabled = true;
+            this.FilterListBox.Items.AddRange(new object[] {
+            "Black and White",
+            "Canny",
+            "Gaussian Blur",
+            "Sobel Filter"});
+            this.FilterListBox.Location = new System.Drawing.Point(5, 5);
+            this.FilterListBox.Name = "FilterListBox";
+            this.FilterListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.FilterListBox.Size = new System.Drawing.Size(238, 56);
+            this.FilterListBox.TabIndex = 0;
+            this.FilterListBox.SelectedIndexChanged += new System.EventHandler(this.FilterListBox_SelectedIndexChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -199,6 +217,7 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -219,6 +238,7 @@
         private System.Windows.Forms.Label metaDataLabel;
         private System.Windows.Forms.TextBox metaDataTextBox;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ListBox FilterListBox;
     }
 }
 

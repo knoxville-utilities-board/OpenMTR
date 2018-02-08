@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using OpenMTR;
+using OpenCvSharp;
 
 namespace OpenMTRDemo
 {
@@ -43,6 +44,25 @@ namespace OpenMTRDemo
         }
         private void RenderOutput()
         {
+            meter.ModifiedImage = meter.SourceImage.Clone();
+            foreach (string filter in FilterListBox.SelectedItems)
+            {
+                switch (filter)
+                {
+                    case "Black and White":
+                        ImageUtils.ColorToGray(meter.ModifiedImage, meter.ModifiedImage);
+                        break;
+                    case "Canny":
+                        CannyFilter.ApplyCannyFilter(meter.ModifiedImage.Clone(), meter.ModifiedImage);
+                        break;
+                    case "Gaussian Blur":
+                        ImageUtils.ApplyGaussianBlur(meter.ModifiedImage, meter.ModifiedImage);
+                        break;
+                    case "Sobel":
+                        SobelFilter.ApplySobelFilter(meter.ModifiedImage, meter.ModifiedImage);
+                        break;
+                }
+            }
             outputImageBox.Image = DemoUtilities.MatToBitmap(meter.ModifiedImage);
         }
 
@@ -52,6 +72,11 @@ namespace OpenMTRDemo
             {
                 meter.ModifiedImage.SaveImage(SaveBrowser.FileName);
             }
+        }
+
+        private void FilterListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RenderOutput();
         }
     }
 }
