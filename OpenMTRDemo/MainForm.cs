@@ -27,46 +27,54 @@ namespace OpenMTRDemo
             InitializeComponent();
         }
 
-        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (OpenBrowser.ShowDialog() == DialogResult.OK)
             {
                 meter = ReadData.GetMeter(OpenBrowser.FileName);
                 Render();
             }
-            metaDataTextBox.Text = meter.MeterRead + "";
+            MetaDataTextBox.Text = meter.MeterRead + "";
+            SetDisableableControls(true);
+            WidthTextBox.Text = meter.SourceImage.Width + " px";
+            HeightTextBox.Text = meter.SourceImage.Height + " px";
         }
 
         private void Render()
         {
-            inputImageBox.Image = DemoUtilities.MatToBitmap(meter.SourceImage);
+            InputImageBox.Image = DemoUtilities.MatToBitmap(meter.SourceImage);
             RenderOutput();
         }
         private void RenderOutput()
         {
             meter.ModifiedImage = meter.SourceImage.Clone();
+            ApplyFilters(meter.ModifiedImage);
+            OutputImageBox.Image = DemoUtilities.MatToBitmap(meter.ModifiedImage);
+        }
+
+        private void ApplyFilters(Mat imageToFilter)
+        {
             foreach (string filter in FilterListBox.SelectedItems)
             {
                 switch (filter)
                 {
                     case "Black and White":
-                        ImageUtils.ColorToGray(meter.ModifiedImage, meter.ModifiedImage);
+                        ImageUtils.ColorToGray(imageToFilter, imageToFilter);
                         break;
                     case "Canny":
-                        CannyFilter.ApplyCannyFilter(meter.ModifiedImage.Clone(), meter.ModifiedImage);
+                        CannyFilter.ApplyCannyFilter(imageToFilter.Clone(), imageToFilter, (double)CannyThreshold1Number.Value, (double)CannyThreshold2Number.Value);
                         break;
                     case "Gaussian Blur":
-                        ImageUtils.ApplyGaussianBlur(meter.ModifiedImage, meter.ModifiedImage);
+                        ImageUtils.ApplyGaussianBlur(imageToFilter, imageToFilter);
                         break;
                     case "Sobel":
-                        SobelFilter.ApplySobelFilter(meter.ModifiedImage, meter.ModifiedImage);
+                        SobelFilter.ApplySobelFilter(imageToFilter, imageToFilter);
                         break;
                 }
             }
-            outputImageBox.Image = DemoUtilities.MatToBitmap(meter.ModifiedImage);
         }
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (SaveBrowser.ShowDialog() == DialogResult.OK)
             {
@@ -76,6 +84,49 @@ namespace OpenMTRDemo
 
         private void FilterListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            CannyThresholdBox.Enabled = FilterListBox.SelectedItems.Contains("Canny");
+            RenderOutput();
+        }
+
+        private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetDisableableControls(false);
+            WidthTextBox.Text = "";
+            HeightTextBox.Text = "";
+            MetaDataTextBox.Text = "";
+            InputImageBox.Image = null;
+            OutputImageBox.Image = null;
+        }
+
+        private void SetDisableableControls(bool state)
+        {
+            SaveToolStripMenuItem.Enabled = state;
+            CloseToolStripMenuItem.Enabled = state;
+            FilterListBox.Enabled = state;
+            CannyThresholdBox.Enabled = state && FilterListBox.SelectedItems.Contains("Canny");
+        }
+
+        private void CannyThreshold1Number_ValueChanged(object sender, EventArgs e)
+        {
+            CannyThreshold1Slider.Value = (int)CannyThreshold1Number.Value;
+            RenderOutput();
+        }
+
+        private void CannyThreshold2Number_ValueChanged(object sender, EventArgs e)
+        {
+            CannyThreshold2Slider.Value = (int)CannyThreshold2Number.Value;
+            RenderOutput();
+        }
+
+        private void CannyThreshold1Slider_Scroll(object sender, EventArgs e)
+        {
+            CannyThreshold1Number.Value = CannyThreshold1Slider.Value;
+            RenderOutput();
+        }
+
+        private void CannyThreshold2Slider_Scroll(object sender, EventArgs e)
+        {
+            CannyThreshold2Number.Value = CannyThreshold2Slider.Value;
             RenderOutput();
         }
     }
