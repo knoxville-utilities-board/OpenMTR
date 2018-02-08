@@ -186,8 +186,8 @@
             this.FilterListBox.FormattingEnabled = true;
             this.FilterListBox.Items.AddRange(new object[] {
             "Black and White",
-            "Canny",
             "Gaussian Blur",
+            "Canny",
             "Sobel Filter"});
             this.FilterListBox.Location = new System.Drawing.Point(5, 5);
             this.FilterListBox.Name = "FilterListBox";
