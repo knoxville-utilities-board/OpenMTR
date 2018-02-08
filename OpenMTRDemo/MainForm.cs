@@ -13,21 +13,24 @@ namespace OpenMTRDemo
 {
     public partial class MainForm : Form
     {
-        OpenFileDialog FileBrowser;
+        OpenFileDialog OpenBrowser;
+        SaveFileDialog SaveBrowser;
         Meter meter;
 
         public MainForm()
         {
-            FileBrowser = new OpenFileDialog();
-            FileBrowser.Filter = "Image Files|*.bmp;*.jpeg;*.jpg;*.gif";
+            OpenBrowser = new OpenFileDialog();
+            SaveBrowser = new SaveFileDialog();
+            OpenBrowser.Filter = "Image Files|*.bmp;*.gif;*.jpg;*.jpeg;*.png";
+            SaveBrowser.Filter = "JPG|*.jpg";
             InitializeComponent();
         }
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (FileBrowser.ShowDialog() == DialogResult.OK)
+            if (OpenBrowser.ShowDialog() == DialogResult.OK)
             {
-                meter = ReadData.GetMeter(FileBrowser.FileName);
+                meter = ReadData.GetMeter(OpenBrowser.FileName);
                 Render();
             }
             metaDataTextBox.Text = meter.MeterRead + "";
@@ -41,6 +44,14 @@ namespace OpenMTRDemo
         private void RenderOutput()
         {
             outputImageBox.Image = DemoUtilities.MatToBitmap(meter.ModifiedImage);
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (SaveBrowser.ShowDialog() == DialogResult.OK)
+            {
+                meter.ModifiedImage.SaveImage(SaveBrowser.FileName);
+            }
         }
     }
 }
