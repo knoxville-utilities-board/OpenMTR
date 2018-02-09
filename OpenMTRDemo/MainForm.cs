@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using OpenMTR;
 using OpenCvSharp;
 
 namespace OpenMTRDemo
@@ -16,7 +15,7 @@ namespace OpenMTRDemo
     {
         OpenFileDialog OpenBrowser;
         SaveFileDialog SaveBrowser;
-        Meter meter;
+        OpenMTR.Meter meter;
 
         public MainForm()
         {
@@ -31,7 +30,7 @@ namespace OpenMTRDemo
         {
             if (OpenBrowser.ShowDialog() == DialogResult.OK)
             {
-                meter = ReadData.GetMeter(OpenBrowser.FileName);
+                meter = OpenMTRInterface.GetMeter(OpenBrowser.FileName);
                 Render();
             }
             MetaDataTextBox.Text = meter.MeterRead + "";
@@ -59,16 +58,16 @@ namespace OpenMTRDemo
                 switch (filter)
                 {
                     case "Black and White":
-                        ImageUtils.ColorToGray(imageToFilter, imageToFilter);
+                        OpenMTRInterface.BlackAndWhite(imageToFilter, imageToFilter);
                         break;
                     case "Canny":
-                        CannyFilter.ApplyCannyFilter(imageToFilter.Clone(), imageToFilter, (double)CannyThreshold1Number.Value, (double)CannyThreshold2Number.Value);
+                        OpenMTRInterface.CannyFilter(imageToFilter.Clone(), imageToFilter, (double)CannyThreshold1Number.Value, (double)CannyThreshold2Number.Value);
                         break;
                     case "Gaussian Blur":
-                        ImageUtils.ApplyGaussianBlur(imageToFilter, imageToFilter);
+                        OpenMTRInterface.GaussianBlur(imageToFilter, imageToFilter);
                         break;
                     case "Sobel":
-                        SobelFilter.ApplySobelFilter(imageToFilter, imageToFilter);
+                        OpenMTRInterface.SobelFilter(imageToFilter, imageToFilter);
                         break;
                 }
             }
