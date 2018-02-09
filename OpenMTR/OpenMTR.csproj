@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Meter.cs" />
+    <Compile Include="Code\OMTR.cs" />
     <Compile Include="Utilities\CannyFilter.cs" />
     <Compile Include="Utilities\SobelFilter.cs" />
     <Compile Include="Utilities\ImageUtils.cs" />
