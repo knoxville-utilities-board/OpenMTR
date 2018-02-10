@@ -27,7 +27,7 @@ namespace OpenMTRDemo
             InitializeComponent();
         }
 
-        private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (OpenBrowser.ShowDialog() == DialogResult.OK)
             {
@@ -74,7 +74,7 @@ namespace OpenMTRDemo
             }
         }
 
-        private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (SaveBrowser.ShowDialog() == DialogResult.OK)
             {
@@ -82,13 +82,13 @@ namespace OpenMTRDemo
             }
         }
 
-        private void FilterListBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void filterListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             CannyThresholdBox.Enabled = FilterListBox.SelectedItems.Contains("Canny");
             RenderOutput();
         }
 
-        private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SetDisableableControls(false);
             WidthTextBox.Text = "";
@@ -106,25 +106,25 @@ namespace OpenMTRDemo
             CannyThresholdBox.Enabled = state && FilterListBox.SelectedItems.Contains("Canny");
         }
 
-        private void CannyThreshold1Number_ValueChanged(object sender, EventArgs e)
+        private void cannyThreshold1Number_ValueChanged(object sender, EventArgs e)
         {
             CannyThreshold1Slider.Value = (int)CannyThreshold1Number.Value;
             RenderOutput();
         }
 
-        private void CannyThreshold2Number_ValueChanged(object sender, EventArgs e)
+        private void cannyThreshold2Number_ValueChanged(object sender, EventArgs e)
         {
             CannyThreshold2Slider.Value = (int)CannyThreshold2Number.Value;
             RenderOutput();
         }
 
-        private void CannyThreshold1Slider_Scroll(object sender, EventArgs e)
+        private void cannyThreshold1Slider_Scroll(object sender, EventArgs e)
         {
             CannyThreshold1Number.Value = CannyThreshold1Slider.Value;
             RenderOutput();
         }
 
-        private void CannyThreshold2Slider_Scroll(object sender, EventArgs e)
+        private void cannyThreshold2Slider_Scroll(object sender, EventArgs e)
         {
             CannyThreshold2Number.Value = CannyThreshold2Slider.Value;
             RenderOutput();

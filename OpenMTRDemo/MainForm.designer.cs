@@ -112,14 +112,14 @@
             this.SaveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.SaveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.SaveToolStripMenuItem.Text = "Save";
-            this.SaveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
+            this.SaveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
             this.loadToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.loadToolStripMenuItem.Text = "Open";
-            this.loadToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
+            this.loadToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // closeToolStripMenuItem
             // 
@@ -127,7 +127,7 @@
             this.CloseToolStripMenuItem.Name = "closeToolStripMenuItem";
             this.CloseToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.CloseToolStripMenuItem.Text = "Close";
-            this.CloseToolStripMenuItem.Click += new System.EventHandler(this.CloseToolStripMenuItem_Click);
+            this.CloseToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
             // metaDataLabel
             // 
@@ -191,7 +191,7 @@
             this.FilterListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
             this.FilterListBox.Size = new System.Drawing.Size(238, 56);
             this.FilterListBox.TabIndex = 0;
-            this.FilterListBox.SelectedIndexChanged += new System.EventHandler(this.FilterListBox_SelectedIndexChanged);
+            this.FilterListBox.SelectedIndexChanged += new System.EventHandler(this.filterListBox_SelectedIndexChanged);
             // 
             // CannyThresholdBox
             // 
@@ -223,7 +223,7 @@
             0,
             0,
             0});
-            this.CannyThreshold1Number.ValueChanged += new System.EventHandler(this.CannyThreshold1Number_ValueChanged);
+            this.CannyThreshold1Number.ValueChanged += new System.EventHandler(this.cannyThreshold1Number_ValueChanged);
             // 
             // CannyThreshold2Number
             // 
@@ -241,7 +241,7 @@
             0,
             0,
             0});
-            this.CannyThreshold2Number.ValueChanged += new System.EventHandler(this.CannyThreshold2Number_ValueChanged);
+            this.CannyThreshold2Number.ValueChanged += new System.EventHandler(this.cannyThreshold2Number_ValueChanged);
             // 
             // CannyThreshold1Slider
             // 
@@ -254,7 +254,7 @@
             this.CannyThreshold1Slider.TabIndex = 4;
             this.CannyThreshold1Slider.TickStyle = System.Windows.Forms.TickStyle.None;
             this.CannyThreshold1Slider.Value = 100;
-            this.CannyThreshold1Slider.Scroll += new System.EventHandler(this.CannyThreshold1Slider_Scroll);
+            this.CannyThreshold1Slider.Scroll += new System.EventHandler(this.cannyThreshold1Slider_Scroll);
             // 
             // CannyThreshold2Slider
             // 
@@ -267,7 +267,7 @@
             this.CannyThreshold2Slider.TabIndex = 5;
             this.CannyThreshold2Slider.TickFrequency = 17;
             this.CannyThreshold2Slider.Value = 150;
-            this.CannyThreshold2Slider.Scroll += new System.EventHandler(this.CannyThreshold2Slider_Scroll);
+            this.CannyThreshold2Slider.Scroll += new System.EventHandler(this.cannyThreshold2Slider_Scroll);
             // 
             // tabControl1
             // 
