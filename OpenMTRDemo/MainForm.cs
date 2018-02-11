@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using OpenCvSharp;
 using OpenMTR;
+using System.Text.RegularExpressions;
+using System.IO;
 
 namespace OpenMTRDemo
 {
@@ -31,13 +33,28 @@ namespace OpenMTRDemo
         {
             if (OpenBrowser.ShowDialog() == DialogResult.OK)
             {
-                meter = ReadData.GetMeter(OpenBrowser.FileName);
-                Render();
+                SetMeter(OpenBrowser.FileName);
+                MetaDataTextBox.Text = meter.MeterRead + "";
+                SetDisableableControls(true);
+                WidthTextBox.Text = meter.SourceImage.Width + " px";
+                HeightTextBox.Text = meter.SourceImage.Height + " px";
             }
-            MetaDataTextBox.Text = meter.MeterRead + "";
-            SetDisableableControls(true);
-            WidthTextBox.Text = meter.SourceImage.Width + " px";
-            HeightTextBox.Text = meter.SourceImage.Height + " px";
+        }
+
+        private void SetMeter(string path)
+        {
+            string metaPath = Regex.Replace(Path.GetFullPath(path), @"\.(bmp|gif|jpe?g|png)$", ".txt", RegexOptions.IgnoreCase);
+            int metaData;
+            try
+            {
+                metaData = Int32.Parse(File.ReadAllText(metaPath));
+            }
+            catch
+            {
+                metaData = -1;
+            }
+            meter = new Meter(path, new Mat(path), new Mat(path), metaData);
+            Render();
         }
 
         private void Render()
