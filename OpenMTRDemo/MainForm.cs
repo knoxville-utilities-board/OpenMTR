@@ -31,7 +31,7 @@ namespace OpenMTRDemo
         {
             if (OpenBrowser.ShowDialog() == DialogResult.OK)
             {
-                meter = OMTR.GetMeter(OpenBrowser.FileName);
+                meter = ReadData.GetMeter(OpenBrowser.FileName);
                 Render();
             }
             MetaDataTextBox.Text = meter.MeterRead + "";
@@ -59,16 +59,21 @@ namespace OpenMTRDemo
                 switch (filter)
                 {
                     case "Black and White":
-                        OMTR.GetBlackAndWhite(imageToFilter, imageToFilter);
-                        break;
-                    case "Canny":
-                        OMTR.GetCannyFilter(imageToFilter.Clone(), imageToFilter, (double)CannyThreshold1Number.Value, (double)CannyThreshold2Number.Value);
+                        Cv2.CvtColor(imageToFilter, imageToFilter, ColorConversionCodes.BGR2GRAY);
                         break;
                     case "Gaussian Blur":
-                        OMTR.GetGaussianBlur(imageToFilter, imageToFilter);
+                        Cv2.GaussianBlur(imageToFilter, imageToFilter, new OpenCvSharp.Size(3, 3), 0, 0, BorderTypes.Default);
                         break;
-                    case "Sobel":
-                        OMTR.GetSobelFilter(imageToFilter, imageToFilter);
+                    case "Edge Finding":
+                        if (cannyRadio.Checked)
+                        {
+                            Cv2.Canny(imageToFilter.Clone(), imageToFilter, CannyThreshold1Slider.Value, CannyThreshold2Slider.Value);
+                        }
+                        else
+                        {
+                            
+                            Cv2.Sobel(imageToFilter, imageToFilter, MatType.CV_8U, xorder: 1, yorder: 0, ksize: -1);
+                        }
                         break;
                 }
             }
@@ -84,7 +89,7 @@ namespace OpenMTRDemo
 
         private void filterListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            CannyThresholdBox.Enabled = FilterListBox.SelectedItems.Contains("Canny");
+            edgeFindingBox.Enabled = FilterListBox.SelectedItems.Contains("Edge Finding");
             RenderOutput();
         }
 
@@ -103,7 +108,8 @@ namespace OpenMTRDemo
             SaveToolStripMenuItem.Enabled = state;
             CloseToolStripMenuItem.Enabled = state;
             FilterListBox.Enabled = state;
-            CannyThresholdBox.Enabled = state && FilterListBox.SelectedItems.Contains("Canny");
+            edgeFindingBox.Enabled = state && FilterListBox.SelectedItems.Contains("Edge Finding");
+            cannySettingsPanel.Enabled = cannyRadio.Checked;
         }
 
         private void cannyThreshold1Number_ValueChanged(object sender, EventArgs e)
@@ -127,6 +133,12 @@ namespace OpenMTRDemo
         private void cannyThreshold2Slider_Scroll(object sender, EventArgs e)
         {
             CannyThreshold2Number.Value = CannyThreshold2Slider.Value;
+            RenderOutput();
+        }
+
+        private void cannyRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            SetDisableableControls(true);
             RenderOutput();
         }
     }
