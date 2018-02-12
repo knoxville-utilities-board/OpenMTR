@@ -1,12 +1,11 @@
-﻿using System;
+﻿using OpenCvSharp;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing;
 
 namespace OpenMTR
 {
-    class DebugUtils
+    public static class DebugUtils
     {
         public static void Log(string message, bool newLine = true)
         {
