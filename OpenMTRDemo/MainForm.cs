@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using OpenCvSharp;
 using OpenMTR;
@@ -79,7 +72,7 @@ namespace OpenMTRDemo
                         Cv2.CvtColor(imageToFilter, imageToFilter, ColorConversionCodes.BGR2GRAY);
                         break;
                     case "Gaussian Blur":
-                        Cv2.GaussianBlur(imageToFilter, imageToFilter, new OpenCvSharp.Size(3, 3), 0, 0, BorderTypes.Default);
+                        Cv2.GaussianBlur(imageToFilter, imageToFilter, new Size(3, 3), 0, 0, BorderTypes.Default);
                         break;
                     case "Edge Finding":
                         if (cannyRadio.Checked)
