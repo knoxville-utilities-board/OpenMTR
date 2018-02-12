@@ -6,8 +6,11 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using OpenMTR;
+using OpenCvSharp;
 
 namespace OpenMTRDemo
 {
@@ -26,9 +29,25 @@ namespace OpenMTRDemo
         {
             if (FileBrowser.ShowDialog() == DialogResult.OK)
             {
-                meter = ReadData.GetMeter(FileBrowser.FileName);
+                SetMeter(FileBrowser.FileName);
                 Render();
             }
+        }
+
+        private void SetMeter(string path)
+        {
+            string metaPath = Regex.Replace(Path.GetFullPath(path), @"\.(bmp|gif|jpe?g|png)$", ".txt", RegexOptions.IgnoreCase);
+            int metaData;
+            try
+            {
+                metaData = Int32.Parse(File.ReadAllText(metaPath));
+            }
+            catch
+            {
+                metaData = -1;
+            }
+            meter = new Meter(path, new Mat(path), new Mat(path), metaData);
+            Render();
         }
 
         private void Render()
