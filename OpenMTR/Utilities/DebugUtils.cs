@@ -19,5 +19,15 @@ namespace OpenMTR
                 Console.Write(message);
             }
         }
+
+        public static void ExportMatToFile(Mat image, string fileName)
+        {
+            ConvertMatToBitmap(image).Save(fileName);
+        }
+
+        public static Bitmap ConvertMatToBitmap(Mat image)
+        {
+            return OpenCvSharp.Extensions.BitmapConverter.ToBitmap(image);
+        }
     }
 }
