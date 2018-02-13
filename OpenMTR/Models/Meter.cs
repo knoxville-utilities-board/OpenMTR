@@ -17,5 +17,14 @@ namespace OpenMTR
             this.ModifiedImage = modifiedImage;
             this.MeterRead = meterRead;
         }
+
+        public Meter(string fileName)
+        {
+            Meter meter = ReadData.GetMeter(fileName);
+            FileName = meter.FileName;
+            SourceImage = meter.SourceImage;
+            ModifiedImage = meter.ModifiedImage;
+            MeterRead = meter.MeterRead;
+        }
     }
 }

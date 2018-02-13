@@ -26,7 +26,7 @@ namespace OpenMTRDemo
         {
             if (FileBrowser.ShowDialog() == DialogResult.OK)
             {
-                meter = ReadData.GetMeter(FileBrowser.FileName);
+                meter = new Meter(FileBrowser.FileName);
                 Render();
             }
         }
