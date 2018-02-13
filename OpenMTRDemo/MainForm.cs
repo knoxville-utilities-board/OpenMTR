@@ -23,7 +23,7 @@ namespace OpenMTRDemo
         {
             if (OpenBrowser.ShowDialog() == DialogResult.OK)
             {
-                meter = OpenMTR.ReadData.GetMeter(OpenBrowser.FileName);
+                meter = new OpenMTR.Meter(OpenBrowser.FileName, new Mat(OpenBrowser.FileName), new Mat(OpenBrowser.FileName), -1);
                 Render();
                 MetaDataTextBox.Text = meter.MeterRead + "";
                 SetDisableableControls(true);
