@@ -24,7 +24,7 @@ namespace OpenMTR
 
         public static void ApplyGaussianBlur(Mat sourceImage, Mat destinationImage)
         {
-            Cv2.GaussianBlur(sourceImage, destinationImage, new Size(3, 3), 0, 0, BorderTypes.Default);
+            Cv2.GaussianBlur(sourceImage, destinationImage, new Size(5, 5), 0, 0, BorderTypes.Default);
         }
 
         public static void ApplyGaussianBlur(List<Meter> meterList)
@@ -54,7 +54,7 @@ namespace OpenMTR
                   theta_avr = 0f,
                   theta_deg = 0f;
 
-            LineSegmentPolar[] lines = Cv2.HoughLines(destinationImage, 1, Cv2.PI / 180, 200);
+            LineSegmentPolar[] lines = Cv2.HoughLines(destinationImage, 1, Cv2.PI / 180f, 330);
 
             foreach (LineSegmentPolar line in lines)
             {
@@ -77,9 +77,25 @@ namespace OpenMTR
                 DebugUtils.Log("Failed to detect skew");
             }
 
-            //DebugUtils.DrawLines(sourceImage, filteredLines);
+            DebugUtils.DrawLines(sourceImage, filteredLines);
 
             return theta_deg;
+        }
+
+        public static void DetectOdometer(Mat sourceImage, Mat destinationImage)
+        {
+            Cv2.FindContours(destinationImage, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.External, ContourApproximationModes.ApproxSimple);
+            Rect rectangle = new Rect();
+            foreach (Point[] point in contours)
+            {
+                double area = Cv2.ContourArea(point);
+
+                if (area == 11445)
+                {
+                    rectangle = Cv2.BoundingRect(point);
+                }
+            }
+            destinationImage = new Mat(sourceImage, rectangle);
         }
     }
 }
