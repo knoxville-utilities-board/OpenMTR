@@ -15,12 +15,24 @@ namespace OpenMTR
 
         static void Main(string[] args)
         {
-            Welcome.WelcomeUser();
-
-            List<Meter> meters = ReadData.GetMeterList(DirectoryPath);
-
-            ImageUtils.ColorToGray(meters);
+            if (DEBUG)
+            {
+                DirectoryPath = @"C:\Users\Bryan\Desktop\OpenMTR\OdometerTest";
+            }
+            else
+            {
+                Welcome.WelcomeUser();
+            }
             
+            List<Meter> meters = ReadData.GetMeterList(DirectoryPath);
+            Meter firstMeter = meters[0];
+            ImageUtils.ColorToGray(firstMeter.SourceImage, firstMeter.ModifiedImage);
+            CannyFilter.ApplyCannyFilter(firstMeter.ModifiedImage, firstMeter.ModifiedImage);
+            ImageUtils.DetectOdometer(firstMeter.SourceImage, firstMeter.ModifiedImage);
+            Odometer.Read(firstMeter.ModifiedImage);
+
+            //DebugUtils.Log(string.Format("Read value: {0} | Metadata Value: {1}", odometerValue, firstMeter.MeterRead));
+            DebugUtils.Log("Finished");
             Console.Read();
         }
     }
