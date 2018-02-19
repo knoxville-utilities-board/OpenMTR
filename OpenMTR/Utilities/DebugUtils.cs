@@ -1,6 +1,7 @@
 ﻿using OpenCvSharp;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 
 namespace OpenMTR
@@ -23,6 +24,7 @@ namespace OpenMTR
         public static void ExportMatToFile(Mat image, string fileName)
         {
             ConvertMatToBitmap(image).Save(fileName);
+            Process.Start(fileName);
         }
 
         public static Bitmap ConvertMatToBitmap(Mat image)
