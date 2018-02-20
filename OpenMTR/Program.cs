@@ -28,7 +28,7 @@ namespace OpenMTR
             Meter firstMeter = meters[0];
             ImageUtils.ColorToGray(firstMeter.SourceImage, firstMeter.ModifiedImage);
             CannyFilter.ApplyCannyFilter(firstMeter.ModifiedImage, firstMeter.ModifiedImage);
-            ImageUtils.DetectOdometer(firstMeter.SourceImage, firstMeter.ModifiedImage);
+            ImageUtils.DetectOdometer(firstMeter);
             Odometer.Read(firstMeter.ModifiedImage);
 
             //DebugUtils.Log(string.Format("Read value: {0} | Metadata Value: {1}", odometerValue, firstMeter.MeterRead));

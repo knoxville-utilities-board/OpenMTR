@@ -82,9 +82,9 @@ namespace OpenMTR
             return theta_deg;
         }
 
-        public static void DetectOdometer(Mat sourceImage, Mat destinationImage)
+        public static void DetectOdometer(Meter meter)
         {
-            Cv2.FindContours(destinationImage, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.External, ContourApproximationModes.ApproxSimple);
+            Cv2.FindContours(meter.ModifiedImage, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.External, ContourApproximationModes.ApproxSimple);
             Rect rectangle = new Rect();
             foreach (Point[] point in contours)
             {
@@ -95,7 +95,7 @@ namespace OpenMTR
                     rectangle = Cv2.BoundingRect(point);
                 }
             }
-            destinationImage = new Mat(sourceImage, rectangle);
+            meter.ModifiedImage = new Mat(meter.SourceImage.Clone(), rectangle);
         }
     }
 }

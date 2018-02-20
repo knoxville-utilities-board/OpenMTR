@@ -14,13 +14,13 @@ namespace OpenMTR
             ReadDigits(sourceImage, ExtractDigits(sourceImage));
         }
 
-        private static List<Rect> ExtractDigits(Mat sourceImage)
+        private static List<Rect> ExtractDigits(Mat image)
         {
-            ImageUtils.ColorToGray(sourceImage, sourceImage);
-            ImageUtils.ApplyGaussianBlur(sourceImage, sourceImage);
-            Cv2.AdaptiveThreshold(sourceImage, sourceImage, 250, AdaptiveThresholdTypes.MeanC, ThresholdTypes.Binary, 5, 0);
+            ImageUtils.ColorToGray(image, image);
+            ImageUtils.ApplyGaussianBlur(image, image);
+            Cv2.AdaptiveThreshold(image, image, 250, AdaptiveThresholdTypes.MeanC, ThresholdTypes.Binary, 5, 0);
             //CannyFilter.ApplyCannyFilter(sourceImage, sourceImage, 200, 300);
-            Cv2.FindContours(sourceImage, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.List, ContourApproximationModes.ApproxSimple);
+            Cv2.FindContours(image, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.List, ContourApproximationModes.ApproxSimple);
             List<Rect> digits = new List<Rect>();
 
             foreach (Point[] point in contours)
@@ -31,18 +31,18 @@ namespace OpenMTR
                 {
                     digits.Add(Cv2.BoundingRect(point));
                     //DebugUtils.Log($"{area}");
-                    //Cv2.Rectangle(sourceImage, Cv2.BoundingRect(point), new Scalar(255, 0, 0), 2);
+                    //Cv2.Rectangle(image, Cv2.BoundingRect(point), new Scalar(255, 0, 0), 2);
                 }
             }
 
             return digits;
         }
 
-        private static void ReadDigits(Mat sourceImage, List<Rect> digits)
+        private static void ReadDigits(Mat image, List<Rect> digits)
         {
             foreach (Rect digit in digits)
             {
-                Mat regionOfInterest = new Mat(sourceImage, digit);
+                Mat regionOfInterest = new Mat(image, digit);
                 int[] segmentStates = new int[7];
                 int w = digit.Width,
                     h = digit.Height,
