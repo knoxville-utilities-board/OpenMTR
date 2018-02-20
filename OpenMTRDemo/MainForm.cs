@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Windows.Forms;
 using OpenCvSharp;
+using OpenMTRDemo.Forms;
 
 namespace OpenMTRDemo
 {
-    public partial class MainForm : Form
+    public partial class MainForm : BaseForm
     {
         OpenFileDialog OpenBrowser;
         SaveFileDialog SaveBrowser;
@@ -19,7 +20,7 @@ namespace OpenMTRDemo
             InitializeComponent();
         }
 
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        public override void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (OpenBrowser.ShowDialog() == DialogResult.OK)
             {
@@ -71,7 +72,7 @@ namespace OpenMTRDemo
             }
         }
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        public override void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (SaveBrowser.ShowDialog() == DialogResult.OK)
             {
@@ -85,7 +86,7 @@ namespace OpenMTRDemo
             RenderOutput();
         }
 
-        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        public override void CloseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SetDisableableControls(false);
             WidthTextBox.Text = "";
