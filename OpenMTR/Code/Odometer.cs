@@ -1,27 +1,39 @@
 ﻿using OpenCvSharp;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenMTR
 {
     public class Odometer
     {
-        public static void Read(Mat sourceImage)
+        private static Dictionary<int, int[]> _numberLookup = new Dictionary<int, int[]>
         {
-            ReadDigits(sourceImage, ExtractDigits(sourceImage));
+            { 0, new int[] {1,1,1,0,1,1,1 } },
+            { 1, new int[] {0,1,0,0,1,0,0 } },
+            { 2, new int[] {1,0,1,1,1,0,1 } },
+            { 3, new int[] {1,1,1,0,0,1,1 } }, //{ 3, new int[] {1,0,1,1,0,1,1 } },
+            { 4, new int[] {0,1,1,1,0,1,0 } },
+            { 5, new int[] {1,1,0,1,0,1,1 } },
+            { 6, new int[] {1,1,0,1,1,1,1 } },
+            { 7, new int[] {1,1,1,0,0,1,0 } },
+            { 8, new int[] {1,1,1,1,1,1,1 } },
+            { 9, new int[] {1,1,1,1,0,1,1 } }
+        };
+
+        public static int Read(Mat sourceImage)
+        {
+            return ReadDigits(sourceImage, ExtractDigits(sourceImage));
         }
 
         private static List<Rect> ExtractDigits(Mat image)
         {
+            List<Rect> digits = new List<Rect>();
+
             ImageUtils.ColorToGray(image, image);
             ImageUtils.ApplyGaussianBlur(image, image);
-            Cv2.AdaptiveThreshold(image, image, 250, AdaptiveThresholdTypes.MeanC, ThresholdTypes.Binary, 5, 0);
-            //CannyFilter.ApplyCannyFilter(sourceImage, sourceImage, 200, 300);
+            Cv2.AdaptiveThreshold(image, image, 250, AdaptiveThresholdTypes.GaussianC, ThresholdTypes.Binary, 5, -1.2);
+            Cv2.MorphologyEx(image, image, MorphTypes.Open, ImageUtils.GetKernel(new Size(3,3)));
             Cv2.FindContours(image, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.List, ContourApproximationModes.ApproxSimple);
-            List<Rect> digits = new List<Rect>();
 
             foreach (Point[] point in contours)
             {
@@ -29,38 +41,58 @@ namespace OpenMTR
 
                 if (area >= 300 && area <= 550)
                 {
-                    digits.Add(Cv2.BoundingRect(point));
-                    //DebugUtils.Log($"{area}");
-                    //Cv2.Rectangle(image, Cv2.BoundingRect(point), new Scalar(255, 0, 0), 2);
+                    digits.Add(Cv2.BoundingRect(point));                  
                 }
             }
 
+            return SortDigits(digits);
+        }
+
+        private static List<Rect> SortDigits(List<Rect> digits)
+        {
+            int n = digits.Count();
+            for (int i = 0; i < n - 1; i++)
+            {
+                int index = i;
+                for (int j = i + 1; j < n; j++)
+                {
+                    if (digits[index].X > digits[j].X)
+                    {
+                        Rect temp = digits[index];
+                        Rect temp1 = digits[j];
+                        digits[index] = temp1;
+                        digits[j] = temp;
+                    }
+                }
+            }
             return digits;
         }
 
-        private static void ReadDigits(Mat image, List<Rect> digits)
+        private static int ReadDigits(Mat image, List<Rect> digits)
         {
+            int digitRead = 0;
             foreach (Rect digit in digits)
             {
-                Mat regionOfInterest = new Mat(image, digit);
+                Mat regionOfInterest = new Mat(image.Clone(), digit);
                 int[] segmentStates = new int[7];
-                int w = digit.Width,
-                    h = digit.Height,
+                int digitW = digit.Width,
+                    digitH = digit.Height,
                     roiH = regionOfInterest.Height,
                     roiW = regionOfInterest.Width,
-                    digitW = (int)(roiW * 0.25),
-                    digitH = (int)(roiH * 0.15),
-                    digitHC = (int)(roiH * 0.05);
+                    segW = (int)(roiW * 0.25),
+                    segH = (int)(roiH * 0.25);
+
+                Cv2.MorphologyEx(regionOfInterest, regionOfInterest, MorphTypes.Close, ImageUtils.GetKernel(new Size(3, 3)));
 
                 List<List<int>> segments = new List<List<int>>
                 {
-                    new List<int> {0, 0, w, digitH },                                      // Top
-                    new List<int> {0, 0, digitW, (h / 2) },                                // Top left
-                    new List<int> {(w - digitW), 0, w, (h / 2) },                          // Top right
-                    new List<int> {0, (h / 2) - digitHC, w, (h / 2) + digitHC },           // Center
-                    new List<int> {0, (h / 2), digitW, h },                                // bottom left
-                    new List<int> {w - digitW, h / 2, w, h },                              // Bottom right
-                    new List<int> {0, h - digitH, w, h },                                  // bottom
+                    new List<int> {segW, 0, digitW - (2 * segW), segH },                                    // Top
+                    new List<int> {0, 0, segW, digitH / 2 },                                                // Top left
+                    new List<int> {digitW - segW, 0, segW, digitH / 2 },                                    // Top right
+                    new List<int> {segW, digitH / 2 - (segH / 2), digitW - (2 * segW), segH },              // Center
+                    new List<int> {0, digitH / 2, segW, digitH / 2 },                                       // bottom left
+                    new List<int> {digitW - segW, digitH / 2, segW, digitH / 2 },                           // Bottom right
+                    new List<int> {segW, digitH - segH, digitW - (2 * segW), segH },                        // bottom
                 };
 
                 for (int i = 0; i < segments.Count; i++)
@@ -71,24 +103,28 @@ namespace OpenMTR
                         segmentWidth = segment[2],
                         segmentHeight = segment[3];
 
-                    Mat segROI = new Mat(regionOfInterest, new Rect(segmentX, segmentY, segmentWidth, segmentHeight));
-                    double total = Cv2.CountNonZero(segROI),
-                        area = (segmentWidth - segmentX) * (segmentHeight - segmentY);
+                    Cv2.Rectangle(regionOfInterest, new Rect(segmentX, segmentY, segmentWidth, segmentHeight), new Scalar(255, 0, 0));
 
-                    if (total / (double)area > 0.5)
+                    Mat segROI = new Mat(regionOfInterest, new Rect(segmentX, segmentY, segmentWidth, segmentHeight));
+                    double total = Cv2.CountNonZero(segROI), 
+                           area = segmentWidth * segmentHeight;
+
+                    if ((total / (double)area) > 0.65)
                     {
                         segmentStates[i] = 1;
                     }
                 }
 
-                DebugUtils.Log("Segment Start");
-                foreach (int state in segmentStates)
+                foreach (KeyValuePair<int, int[]> number in _numberLookup)
                 {
-                    DebugUtils.Log($"{state}");
+                    if (segmentStates.SequenceEqual(number.Value))
+                    {
+                        digitRead += number.Key;
+                    }
                 }
-
-                DebugUtils.Log("Segment End");
             }
+
+            return digitRead;
         }
     }
 }
