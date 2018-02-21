@@ -6,20 +6,6 @@ namespace OpenMTR
 {
     public class Odometer
     {
-        private static Dictionary<int, int[]> _numberLookup = new Dictionary<int, int[]>
-        {
-            { 0, new int[] {1,1,1,0,1,1,1 } },
-            { 1, new int[] {0,1,0,0,1,0,0 } },
-            { 2, new int[] {1,0,1,1,1,0,1 } },
-            { 3, new int[] {1,1,1,0,0,1,1 } }, //{ 3, new int[] {1,0,1,1,0,1,1 } },
-            { 4, new int[] {0,1,1,1,0,1,0 } },
-            { 5, new int[] {1,1,0,1,0,1,1 } },
-            { 6, new int[] {1,1,0,1,1,1,1 } },
-            { 7, new int[] {1,1,1,0,0,1,0 } },
-            { 8, new int[] {1,1,1,1,1,1,1 } },
-            { 9, new int[] {1,1,1,1,0,1,1 } }
-        };
-
         public static int Read(Mat sourceImage)
         {
             return ReadDigits(sourceImage, ExtractDigits(sourceImage));
@@ -95,6 +81,33 @@ namespace OpenMTR
             return segmentStates;
         }
 
+        private static int ReadDigitFromStates(int[] segmentStates)
+        {
+            Dictionary<int, int[]> numberLookup = new Dictionary<int, int[]>
+            {
+                { 0, new int[] {1,1,1,0,1,1,1 } },
+                { 1, new int[] {0,1,0,0,1,0,0 } },
+                { 2, new int[] {1,0,1,1,1,0,1 } },
+                { 3, new int[] {1,1,1,0,0,1,1 } }, //{ 3, new int[] {1,0,1,1,0,1,1 } },
+                { 4, new int[] {0,1,1,1,0,1,0 } },
+                { 5, new int[] {1,1,0,1,0,1,1 } },
+                { 6, new int[] {1,1,0,1,1,1,1 } },
+                { 7, new int[] {1,1,1,0,0,1,0 } },
+                { 8, new int[] {1,1,1,1,1,1,1 } },
+                { 9, new int[] {1,1,1,1,0,1,1 } }
+            };
+
+            foreach (KeyValuePair<int, int[]> number in numberLookup)
+            {
+                if (segmentStates.SequenceEqual(number.Value))
+                {
+                    return number.Key;
+                }
+            }
+
+            return 0;
+        }
+
         private static int ReadDigits(Mat image, List<Rect> digits)
         {
             int digitRead = 0;
@@ -104,10 +117,8 @@ namespace OpenMTR
                 
                 int digitW = digit.Width,
                     digitH = digit.Height,
-                    roiH = regionOfInterest.Height,
-                    roiW = regionOfInterest.Width,
-                    segW = (int)(roiW * 0.25),
-                    segH = (int)(roiH * 0.25);
+                    segW = (int)(regionOfInterest.Width * 0.25),
+                    segH = (int)(regionOfInterest.Height * 0.25);
 
                 Cv2.MorphologyEx(regionOfInterest, regionOfInterest, MorphTypes.Close, ImageUtils.GetKernel(new Size(3, 3)));
 
@@ -122,15 +133,7 @@ namespace OpenMTR
                     new List<int> {segW, digitH - segH, digitW - (2 * segW), segH },                        // bottom
                 };
 
-                int[] segmentStates = DetectSegmentStates(regionOfInterest, segments);
-
-                foreach (KeyValuePair<int, int[]> number in _numberLookup)
-                {
-                    if (segmentStates.SequenceEqual(number.Value))
-                    {
-                        digitRead += number.Key;
-                    }
-                }
+                digitRead += ReadDigitFromStates(DetectSegmentStates(regionOfInterest, segments));
             }
 
             return digitRead;
