@@ -68,13 +68,40 @@ namespace OpenMTR
             return digits;
         }
 
+        private static int[] DetectSegmentStates(Mat regionOfInterest, List<List<int>> segments)
+        {
+            int[] segmentStates = new int[7];
+
+            for (int i = 0; i < segments.Count; i++)
+            {
+                List<int> segment = segments[i];
+                int segmentX = segment[0],
+                    segmentY = segment[1],
+                    segmentWidth = segment[2],
+                    segmentHeight = segment[3];
+
+                Cv2.Rectangle(regionOfInterest, new Rect(segmentX, segmentY, segmentWidth, segmentHeight), new Scalar(255, 0, 0));
+
+                Mat segROI = new Mat(regionOfInterest, new Rect(segmentX, segmentY, segmentWidth, segmentHeight));
+                double total = Cv2.CountNonZero(segROI),
+                       area = segmentWidth * segmentHeight;
+
+                if ((total / (double)area) > 0.65)
+                {
+                    segmentStates[i] = 1;
+                }
+            }
+
+            return segmentStates;
+        }
+
         private static int ReadDigits(Mat image, List<Rect> digits)
         {
             int digitRead = 0;
             foreach (Rect digit in digits)
             {
                 Mat regionOfInterest = new Mat(image.Clone(), digit);
-                int[] segmentStates = new int[7];
+                
                 int digitW = digit.Width,
                     digitH = digit.Height,
                     roiH = regionOfInterest.Height,
@@ -95,25 +122,7 @@ namespace OpenMTR
                     new List<int> {segW, digitH - segH, digitW - (2 * segW), segH },                        // bottom
                 };
 
-                for (int i = 0; i < segments.Count; i++)
-                {
-                    List<int> segment = segments[i];
-                    int segmentX = segment[0],
-                        segmentY = segment[1],
-                        segmentWidth = segment[2],
-                        segmentHeight = segment[3];
-
-                    Cv2.Rectangle(regionOfInterest, new Rect(segmentX, segmentY, segmentWidth, segmentHeight), new Scalar(255, 0, 0));
-
-                    Mat segROI = new Mat(regionOfInterest, new Rect(segmentX, segmentY, segmentWidth, segmentHeight));
-                    double total = Cv2.CountNonZero(segROI), 
-                           area = segmentWidth * segmentHeight;
-
-                    if ((total / (double)area) > 0.65)
-                    {
-                        segmentStates[i] = 1;
-                    }
-                }
+                int[] segmentStates = DetectSegmentStates(regionOfInterest, segments);
 
                 foreach (KeyValuePair<int, int[]> number in _numberLookup)
                 {
