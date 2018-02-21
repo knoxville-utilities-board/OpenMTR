@@ -44,12 +44,7 @@ namespace OpenMTR
                        x0 = a * rho,
                        y0 = b * rho;
 
-                int x1 = (int)(x0 + 1000 * (-b)),
-                    y1 = (int)(y0 + 1000 * a),
-                    x2 = (int)(x0 - 1000 * (-b)),
-                    y2 = (int)(y0 - 1000 * (a));
-
-                Cv2.Line(sourceImage, new OpenCvSharp.Point(x1, y1), new OpenCvSharp.Point(x2, y2), new Scalar(255, 0, 0));
+                Cv2.Line(sourceImage, new OpenCvSharp.Point((int)(x0 + 1000 * (-b)), (int)(y0 + 1000 * a)), new OpenCvSharp.Point((int)(x0 - 1000 * (-b)), (int)(y0 - 1000 * (a))), new Scalar(255, 0, 0));
             }
 
             ExportMatToFile(sourceImage, "image_with_lines.jpg");
