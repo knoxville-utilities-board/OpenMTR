@@ -92,7 +92,7 @@
             this.pictureBoxSource.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxSource.TabIndex = 5;
             this.pictureBoxSource.TabStop = false;
-            this.pictureBoxSource.DoubleClick += new System.EventHandler(this.pictureBoxSource_DoubleClick);
+            this.pictureBoxSource.DoubleClick += new System.EventHandler(this.Pane_DblClickHandler);
             // 
             // pictureBoxGray
             // 
@@ -102,7 +102,7 @@
             this.pictureBoxGray.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxGray.TabIndex = 6;
             this.pictureBoxGray.TabStop = false;
-            this.pictureBoxGray.DoubleClick += new System.EventHandler(this.pictureBoxGray_DoubleClick);
+            this.pictureBoxGray.DoubleClick += new System.EventHandler(this.Pane_DblClickHandler);
             // 
             // pictureBoxCanny
             // 
@@ -112,7 +112,7 @@
             this.pictureBoxCanny.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxCanny.TabIndex = 7;
             this.pictureBoxCanny.TabStop = false;
-            this.pictureBoxCanny.DoubleClick += new System.EventHandler(this.pictureBoxCanny_DoubleClick);
+            this.pictureBoxCanny.DoubleClick += new System.EventHandler(this.Pane_DblClickHandler);
             // 
             // pictureBoxSobel
             // 
@@ -122,7 +122,7 @@
             this.pictureBoxSobel.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxSobel.TabIndex = 8;
             this.pictureBoxSobel.TabStop = false;
-            this.pictureBoxSobel.DoubleClick += new System.EventHandler(this.pictureBoxSobel_DoubleClick);
+            this.pictureBoxSobel.DoubleClick += new System.EventHandler(this.Pane_DblClickHandler);
             // 
             // pictureBoxLaplace
             // 
@@ -132,7 +132,7 @@
             this.pictureBoxLaplace.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxLaplace.TabIndex = 9;
             this.pictureBoxLaplace.TabStop = false;
-            this.pictureBoxLaplace.DoubleClick += new System.EventHandler(this.pictureBoxLaplace_DoubleClick);
+            this.pictureBoxLaplace.DoubleClick += new System.EventHandler(this.Pane_DblClickHandler);
             // 
             // pictureBoxScharr
             // 
@@ -142,7 +142,7 @@
             this.pictureBoxScharr.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxScharr.TabIndex = 10;
             this.pictureBoxScharr.TabStop = false;
-            this.pictureBoxScharr.DoubleClick += new System.EventHandler(this.pictureBoxScharr_DoubleClick);
+            this.pictureBoxScharr.DoubleClick += new System.EventHandler(this.Pane_DblClickHandler);
             // 
             // flowLayoutPanel1
             // 
@@ -329,7 +329,7 @@
             this.pictureBoxPane1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxPane1.TabIndex = 5;
             this.pictureBoxPane1.TabStop = false;
-            this.pictureBoxPane1.DoubleClick += new System.EventHandler(this.pictureBoxPane1_DoubleClick);
+            this.pictureBoxPane1.DoubleClick += new System.EventHandler(this.Pane_DblClickHandler);
             // 
             // pictureBoxPane2
             // 
@@ -339,7 +339,7 @@
             this.pictureBoxPane2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxPane2.TabIndex = 6;
             this.pictureBoxPane2.TabStop = false;
-            this.pictureBoxPane2.DoubleClick += new System.EventHandler(this.pictureBoxPane2_DoubleClick);
+            this.pictureBoxPane2.DoubleClick += new System.EventHandler(this.Pane_DblClickHandler);
             // 
             // pictureBoxPane3
             // 
@@ -349,7 +349,7 @@
             this.pictureBoxPane3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxPane3.TabIndex = 7;
             this.pictureBoxPane3.TabStop = false;
-            this.pictureBoxPane3.DoubleClick += new System.EventHandler(this.pictureBoxPane3_DoubleClick);
+            this.pictureBoxPane3.DoubleClick += new System.EventHandler(this.Pane_DblClickHandler);
             // 
             // pictureBoxPane4
             // 
@@ -359,7 +359,7 @@
             this.pictureBoxPane4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxPane4.TabIndex = 9;
             this.pictureBoxPane4.TabStop = false;
-            this.pictureBoxPane4.DoubleClick += new System.EventHandler(this.pictureBoxPane4_DoubleClick);
+            this.pictureBoxPane4.DoubleClick += new System.EventHandler(this.Pane_DblClickHandler);
             // 
             // pictureBoxPane5
             // 
@@ -369,7 +369,7 @@
             this.pictureBoxPane5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxPane5.TabIndex = 8;
             this.pictureBoxPane5.TabStop = false;
-            this.pictureBoxPane5.DoubleClick += new System.EventHandler(this.pictureBoxPane5_DoubleClick);
+            this.pictureBoxPane5.DoubleClick += new System.EventHandler(this.Pane_DblClickHandler);
             // 
             // pictureBoxPane6
             // 
@@ -379,7 +379,7 @@
             this.pictureBoxPane6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxPane6.TabIndex = 10;
             this.pictureBoxPane6.TabStop = false;
-            this.pictureBoxPane6.DoubleClick += new System.EventHandler(this.pictureBoxPane6_DoubleClick);
+            this.pictureBoxPane6.DoubleClick += new System.EventHandler(this.Pane_DblClickHandler);
             // 
             // labelSource
             // 
