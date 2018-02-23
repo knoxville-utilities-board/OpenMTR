@@ -11,7 +11,7 @@ namespace OpenMTR
     {
         public static void ApplyCannyFilter(Mat sourceImage, Mat destinationImage)
         {
-            Cv2.Canny(sourceImage, destinationImage, 100, 150);
+            Cv2.Canny(sourceImage, destinationImage, 100, 200);
         }
 
         public static void ApplyCannyFilter(Mat sourceImage, Mat destinationImage, double minThreshold, double maxThreshold)
@@ -23,7 +23,7 @@ namespace OpenMTR
         {
             foreach (Meter meter in meterList)
             {
-                Cv2.Canny(meter.ModifiedImage, meter.ModifiedImage, 100, 150);
+                Cv2.Canny(meter.ModifiedImage, meter.ModifiedImage, 100, 200);
             }
         }
     }
