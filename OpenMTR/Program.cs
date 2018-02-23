@@ -16,6 +16,15 @@ namespace OpenMTR
         static void Main(string[] args)
         {
             Welcome.WelcomeUser();
+
+            List<Meter> meters = ReadData.GetMeterList(DirectoryPath);
+            Meter firstMeter = meters[0];
+            ImageUtils.ColorToGray(firstMeter.SourceImage, firstMeter.ModifiedImage);
+            CannyFilter.ApplyCannyFilter(firstMeter.ModifiedImage, firstMeter.ModifiedImage);
+            ImageUtils.DetectOdometer(firstMeter);
+            int odometerValue = Odometer.Read(firstMeter.ModifiedImage);
+
+            DebugUtils.Log(string.Format("Read value: {0} | Metadata Value: {1}", odometerValue, firstMeter.MeterRead));
             Console.Read();
         }
     }
