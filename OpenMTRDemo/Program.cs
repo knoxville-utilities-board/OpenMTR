@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenMTRDemo.Forms;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,7 +21,7 @@ namespace OpenMTRDemo
             }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            Application.Run(new TiledFiltersForm());
         }
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern bool SetProcessDPIAware();
