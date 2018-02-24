@@ -1,11 +1,19 @@
 ﻿using System.Drawing;
 using System.IO;
+using System.Windows.Forms;
 using OpenCvSharp;
+using OpenMTR;
 
 namespace OpenMTRDemo
 {
     public static class DemoUtilities
     {
+
+        public static void loadImage(PictureBox pictureBox, Mat mat)
+        {
+            pictureBox.Image = MatToBitmap(mat);
+        }
+
         public static Bitmap FileToBitmap(string fileName)
         {
             Bitmap bitmap;
