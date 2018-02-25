@@ -4,7 +4,7 @@ using OpenCvSharp;
 using OpenMTRDemo.Forms;
 using OpenMTRDemo.Models;
 
-namespace OpenMTRDemo
+namespace OpenMTRDemo.Forms
 {
     public partial class MainForm : BaseForm
     {
