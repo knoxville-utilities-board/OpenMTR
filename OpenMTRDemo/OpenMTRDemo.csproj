@@ -81,10 +81,10 @@
     <Compile Include="Models\KeyValPair.cs" />
     <Compile Include="Models\LoadSaveDialog.cs" />
     <Compile Include="Utilites\DemoUtilities.cs" />
-    <Compile Include="MainForm.cs">
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.designer.cs">
+    <Compile Include="Forms\MainForm.designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -98,7 +98,7 @@
     <EmbeddedResource Include="Forms\TiledFiltersForm.resx">
       <DependentUpon>TiledFiltersForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
