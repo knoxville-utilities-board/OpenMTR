@@ -8,6 +8,7 @@ namespace OpenMTRDemo.Forms
     public partial class ExpandedImageDialog : BaseForm
     {
         public Mat Source, Image;
+        private Models.LoadSaveDialog _loadSaveDialog;
 
         public ExpandedImageDialog(Mat source, Mat image)
         {
@@ -17,6 +18,7 @@ namespace OpenMTRDemo.Forms
             this.DialogResult = DialogResult.Cancel;
             InputImageBox.Image = DemoUtilities.MatToBitmap(Source);
             OutputImageBox.Image = DemoUtilities.MatToBitmap(Image);
+            _loadSaveDialog = new Models.LoadSaveDialog();
         }
 
         public ExpandedImageDialog(Mat source, Mat image, string[] filterList)
@@ -38,21 +40,17 @@ namespace OpenMTRDemo.Forms
 
         public override void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaveFileDialog save = new SaveFileDialog();
-            save.Filter = "Jpeg | *.jpg";
-            if (save.ShowDialog() == DialogResult.OK)
+            if (_loadSaveDialog.saveBrowser.ShowDialog() == DialogResult.OK)
             {
-                OutputImageBox.Image.Save(save.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+                OutputImageBox.Image.Save(_loadSaveDialog.saveBrowser.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
             }
         }
 
         public override void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog load = new OpenFileDialog();
-            load.Filter = "Image Files | *.bmp; *.gif; *.jpg; *.jpeg; *.png";
-            if (load.ShowDialog() == DialogResult.OK)
+            if (_loadSaveDialog.openBrowser.ShowDialog() == DialogResult.OK)
             {
-                Source = new Mat(load.FileName);
+                Source = new Mat(_loadSaveDialog.openBrowser.FileName);
                 InputImageBox.Image = DemoUtilities.MatToBitmap(Source);
                 Render();
                 SetDisableableControls(true);
