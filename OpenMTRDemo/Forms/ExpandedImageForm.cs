@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
 using OpenCvSharp;
-using OpenMTRDemo.Forms;
 
 namespace OpenMTRDemo.Forms
 {
