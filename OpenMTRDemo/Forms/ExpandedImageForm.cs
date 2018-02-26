@@ -36,7 +36,7 @@ namespace OpenMTRDemo.Forms
             Render();
         }
 
-        public override void SaveToolStripMenuItem_Click(object sender, EventArgs e)
+        public override void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileDialog save = new SaveFileDialog();
             save.Filter = "Jpeg | *.jpg";
@@ -55,6 +55,7 @@ namespace OpenMTRDemo.Forms
                 Source = new Mat(load.FileName);
                 InputImageBox.Image = DemoUtilities.MatToBitmap(Source);
                 Render();
+                SetDisableableControls(true);
             }
         }
 
