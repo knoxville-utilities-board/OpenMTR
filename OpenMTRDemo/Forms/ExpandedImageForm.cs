@@ -5,12 +5,12 @@ using OpenMTRDemo.Forms;
 
 namespace OpenMTRDemo.Forms
 {
-    public partial class ExpandedImageDialog : BaseForm
+    public partial class ExpandedImageForm : BaseForm
     {
         public Mat Source, Image;
         private Models.LoadSaveDialog _loadSaveDialog;
 
-        public ExpandedImageDialog(Mat source, Mat image)
+        public ExpandedImageForm(Mat source, Mat image)
         {
             this.Source = source;
             this.Image = image;
@@ -21,7 +21,7 @@ namespace OpenMTRDemo.Forms
             _loadSaveDialog = new Models.LoadSaveDialog();
         }
 
-        public ExpandedImageDialog(Mat source, Mat image, string[] filterList)
+        public ExpandedImageForm(Mat source, Mat image, string[] filterList)
         {
             this.Source = source;
             this.Image = image;

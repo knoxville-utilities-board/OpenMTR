@@ -1,6 +1,6 @@
 ﻿namespace OpenMTRDemo.Forms
 {
-    partial class ExpandedImageDialog
+    partial class ExpandedImageForm
     {
         /// <summary>
         /// Required designer variable.

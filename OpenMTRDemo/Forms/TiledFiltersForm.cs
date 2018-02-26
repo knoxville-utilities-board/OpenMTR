@@ -193,13 +193,13 @@ namespace OpenMTRDemo.Forms
         {
             try
             {
-                ExpandedImageDialog expandedImageForm;
+                ExpandedImageForm expandedImageForm;
                 PictureBox pictureBox = sender as PictureBox;
                 Bitmap image = (Bitmap)pictureBox.Image;
 
                 Mat mat = OpenCvSharp.Extensions.BitmapConverter.ToMat(image);
 
-                expandedImageForm = new ExpandedImageDialog(_meterPane1.SourceImage, mat);
+                expandedImageForm = new ExpandedImageForm(_meterPane1.SourceImage, mat);
                 expandedImageForm.ShowDialog();
                 expandedImageForm.Close();
             }
