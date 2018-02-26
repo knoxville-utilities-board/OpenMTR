@@ -300,7 +300,6 @@
             // 
             // FilterListBox
             // 
-            this.FilterListBox.Enabled = false;
             this.FilterListBox.FormattingEnabled = true;
             this.FilterListBox.ItemHeight = 16;
             this.FilterListBox.Items.AddRange(new object[] {
