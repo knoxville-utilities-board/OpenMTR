@@ -76,11 +76,11 @@
     <Compile Include="Models\LoadSaveDialog.cs" />
     <Compile Include="Models\MeterImage.cs" />
     <Compile Include="Utilites\DemoUtilities.cs" />
-    <Compile Include="Forms\ExpandedImageForm.cs">
+    <Compile Include="Forms\ExpandedImageDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ExpandedImageForm.designer.cs">
-      <DependentUpon>ExpandedImageForm.cs</DependentUpon>
+    <Compile Include="Forms\ExpandedImageDialog.designer.cs">
+      <DependentUpon>ExpandedImageDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -90,8 +90,8 @@
     <EmbeddedResource Include="Forms\TiledFiltersForm.resx">
       <DependentUpon>TiledFiltersForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ExpandedImageForm.resx">
-      <DependentUpon>ExpandedImageForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\ExpandedImageDialog.resx">
+      <DependentUpon>ExpandedImageDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

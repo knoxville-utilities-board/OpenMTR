@@ -5,11 +5,11 @@ using OpenMTRDemo.Forms;
 
 namespace OpenMTRDemo.Forms
 {
-    public partial class ExpandedImageForm : BaseForm
+    public partial class ExpandedImageDialog : BaseForm
     {
         public Mat Source, Image;
 
-        public ExpandedImageForm(Mat source, Mat image)
+        public ExpandedImageDialog(Mat source, Mat image)
         {
             this.Source = source;
             this.Image = image;
@@ -19,7 +19,7 @@ namespace OpenMTRDemo.Forms
             OutputImageBox.Image = DemoUtilities.MatToBitmap(Image);
         }
 
-        public ExpandedImageForm(Mat source, Mat image, string[] filterList)
+        public ExpandedImageDialog(Mat source, Mat image, string[] filterList)
         {
             this.Source = source;
             this.Image = image;
