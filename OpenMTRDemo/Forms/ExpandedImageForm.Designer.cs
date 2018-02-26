@@ -62,6 +62,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.CannyThreshold2Number)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.SuspendLayout();
+            //
+            // Inherited Controls
+            //
+            SaveToolStripMenuItem.Enabled = true;
+            CloseToolStripMenuItem.Enabled = true;
             // 
             // InputImageBox
             // 
