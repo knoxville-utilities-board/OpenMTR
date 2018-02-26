@@ -199,7 +199,7 @@ namespace OpenMTRDemo.Forms
 
                 Mat mat = OpenCvSharp.Extensions.BitmapConverter.ToMat(image);
 
-                expandedImageForm = new ExpandedImageForm(mat);
+                expandedImageForm = new ExpandedImageForm(_meterPane1.SourceImage, mat);
                 expandedImageForm.ShowDialog();
                 expandedImageForm.Close();
             }

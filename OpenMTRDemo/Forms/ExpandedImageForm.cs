@@ -7,13 +7,15 @@ namespace OpenMTRDemo.Forms
 {
     public partial class ExpandedImageForm : BaseForm
     {
-        private Mat _source, _target;
+        private Mat _source;
+        public Mat Image;
 
-        public ExpandedImageForm(Mat image)
+        public ExpandedImageForm(Mat source, Mat image)
         {
-            _source = image;
-            _target = image.Clone();
+            this._source = source;
+            this.Image = image;
             InitializeComponent();
+            this.DialogResult = DialogResult.Cancel;
         }
 
         private void Render()
@@ -23,9 +25,9 @@ namespace OpenMTRDemo.Forms
         }
         private void RenderOutput()
         {
-            _target = _source.Clone();
-            ApplyFilters(_target);
-            OutputImageBox.Image = DemoUtilities.MatToBitmap(_target);
+            Image = _source.Clone();
+            ApplyFilters(Image);
+            OutputImageBox.Image = DemoUtilities.MatToBitmap(Image);
         }
 
         private void ApplyFilters(Mat imageToFilter)
@@ -102,6 +104,17 @@ namespace OpenMTRDemo.Forms
         {
             CannyThreshold2Number.Value = CannyThreshold2Slider.Value;
             RenderOutput();
+        }
+
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void okButton_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.OK;
+            Close();
         }
 
         private void cannyRadio_CheckedChanged(object sender, EventArgs e)
