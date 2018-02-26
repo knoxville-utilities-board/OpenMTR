@@ -219,7 +219,7 @@
             this.CannyThreshold2Slider.TabIndex = 5;
             this.CannyThreshold2Slider.TickFrequency = 17;
             this.CannyThreshold2Slider.Value = 150;
-            this.CannyThreshold2Slider.Scroll += new System.EventHandler(this.cannyThreshold2Slider_Scroll);
+            this.CannyThreshold2Slider.Scroll += new System.EventHandler(this.cannyThreshold_ValueChanged);
             // 
             // CannyThreshold1Slider
             // 
@@ -233,7 +233,7 @@
             this.CannyThreshold1Slider.TabIndex = 4;
             this.CannyThreshold1Slider.TickStyle = System.Windows.Forms.TickStyle.None;
             this.CannyThreshold1Slider.Value = 100;
-            this.CannyThreshold1Slider.Scroll += new System.EventHandler(this.cannyThreshold1Slider_Scroll);
+            this.CannyThreshold1Slider.Scroll += new System.EventHandler(this.cannyThreshold_ValueChanged);
             // 
             // CannyThreshold1Number
             // 
@@ -252,7 +252,7 @@
             0,
             0,
             0});
-            this.CannyThreshold1Number.ValueChanged += new System.EventHandler(this.cannyThreshold1Number_ValueChanged);
+            this.CannyThreshold1Number.ValueChanged += new System.EventHandler(this.cannyThreshold_ValueChanged);
             // 
             // CannyThreshold2Number
             // 
@@ -271,7 +271,7 @@
             0,
             0,
             0});
-            this.CannyThreshold2Number.ValueChanged += new System.EventHandler(this.cannyThreshold2Number_ValueChanged);
+            this.CannyThreshold2Number.ValueChanged += new System.EventHandler(this.cannyThreshold_ValueChanged);
             // 
             // sobelRadio
             // 

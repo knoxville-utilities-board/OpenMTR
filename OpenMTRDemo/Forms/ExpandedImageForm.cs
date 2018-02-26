@@ -116,27 +116,21 @@ namespace OpenMTRDemo.Forms
             cannySettingsPanel.Enabled = cannyRadio.Checked;
         }
 
-        private void cannyThreshold1Number_ValueChanged(object sender, EventArgs e)
+        private void cannyThreshold_ValueChanged(object sender, EventArgs e)
         {
-            CannyThreshold1Slider.Value = (int)CannyThreshold1Number.Value;
-            Render();
-        }
-
-        private void cannyThreshold2Number_ValueChanged(object sender, EventArgs e)
-        {
-            CannyThreshold2Slider.Value = (int)CannyThreshold2Number.Value;
-            Render();
-        }
-
-        private void cannyThreshold1Slider_Scroll(object sender, EventArgs e)
-        {
-            CannyThreshold1Number.Value = CannyThreshold1Slider.Value;
-            Render();
-        }
-
-        private void cannyThreshold2Slider_Scroll(object sender, EventArgs e)
-        {
-            CannyThreshold2Number.Value = CannyThreshold2Slider.Value;
+            int value;
+            try
+            {
+                value = (int)((NumericUpDown)sender).Value;
+                TrackBar reciever = (sender == CannyThreshold1Number) ? CannyThreshold1Slider : CannyThreshold2Slider;
+                reciever.Value = value;
+            }
+            catch (InvalidCastException)
+            {
+                value = ((TrackBar)sender).Value;
+                NumericUpDown reciever = (sender == CannyThreshold1Slider) ? CannyThreshold1Number : CannyThreshold2Number;
+                reciever.Value = value;
+            }
             Render();
         }
 
