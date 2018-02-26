@@ -7,25 +7,60 @@ namespace OpenMTRDemo.Forms
 {
     public partial class ExpandedImageForm : BaseForm
     {
-        private Mat _source;
-        public Mat Image;
+        public Mat Source, Image;
 
         public ExpandedImageForm(Mat source, Mat image)
         {
-            this._source = source;
+            this.Source = source;
             this.Image = image;
             InitializeComponent();
             this.DialogResult = DialogResult.Cancel;
+            InputImageBox.Image = DemoUtilities.MatToBitmap(Source);
+            OutputImageBox.Image = DemoUtilities.MatToBitmap(Image);
+        }
+
+        public ExpandedImageForm(Mat source, Mat image, string[] filterList)
+        {
+            this.Source = source;
+            this.Image = image;
+            InitializeComponent();
+            this.DialogResult = DialogResult.Cancel;
+            foreach (string filter in filterList)
+            {
+                if (FilterListBox.Items.Contains(filter))
+                {
+                    FilterListBox.SelectedItems.Add(filter);
+                }
+            }
+            InputImageBox.Image = DemoUtilities.MatToBitmap(Source);
+            Render();
+        }
+
+        public override void SaveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog save = new SaveFileDialog();
+            save.Filter = "Jpeg | *.jpg";
+            if (save.ShowDialog() == DialogResult.OK)
+            {
+                OutputImageBox.Image.Save(save.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+            }
+        }
+
+        public override void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog load = new OpenFileDialog();
+            load.Filter = "Image Files | *.bmp; *.gif; *.jpg; *.jpeg; *.png";
+            if (load.ShowDialog() == DialogResult.OK)
+            {
+                Source = new Mat(load.FileName);
+                InputImageBox.Image = DemoUtilities.MatToBitmap(Source);
+                Render();
+            }
         }
 
         private void Render()
         {
-            InputImageBox.Image = DemoUtilities.MatToBitmap(_source);
-            RenderOutput();
-        }
-        private void RenderOutput()
-        {
-            Image = _source.Clone();
+            Image = Source.Clone();
             ApplyFilters(Image);
             OutputImageBox.Image = DemoUtilities.MatToBitmap(Image);
         }
@@ -60,7 +95,7 @@ namespace OpenMTRDemo.Forms
         private void filterListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             edgeFindingBox.Enabled = FilterListBox.SelectedItems.Contains("Edge Finding");
-            RenderOutput();
+            Render();
         }
 
         public override void CloseToolStripMenuItem_Click(object sender, EventArgs e)
@@ -85,25 +120,25 @@ namespace OpenMTRDemo.Forms
         private void cannyThreshold1Number_ValueChanged(object sender, EventArgs e)
         {
             CannyThreshold1Slider.Value = (int)CannyThreshold1Number.Value;
-            RenderOutput();
+            Render();
         }
 
         private void cannyThreshold2Number_ValueChanged(object sender, EventArgs e)
         {
             CannyThreshold2Slider.Value = (int)CannyThreshold2Number.Value;
-            RenderOutput();
+            Render();
         }
 
         private void cannyThreshold1Slider_Scroll(object sender, EventArgs e)
         {
             CannyThreshold1Number.Value = CannyThreshold1Slider.Value;
-            RenderOutput();
+            Render();
         }
 
         private void cannyThreshold2Slider_Scroll(object sender, EventArgs e)
         {
             CannyThreshold2Number.Value = CannyThreshold2Slider.Value;
-            RenderOutput();
+            Render();
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -120,7 +155,7 @@ namespace OpenMTRDemo.Forms
         private void cannyRadio_CheckedChanged(object sender, EventArgs e)
         {
             SetDisableableControls(true);
-            RenderOutput();
+            Render();
         }
     }
 }
