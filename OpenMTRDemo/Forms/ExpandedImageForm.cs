@@ -9,13 +9,12 @@ namespace OpenMTRDemo.Forms
         public Mat Source, Image;
         private Models.LoadSaveDialog _loadSaveDialog;
 
-        public ExpandedImageForm(Mat source, Mat image)
+        public ExpandedImageForm(Mat image)
         {
-            this.Source = source;
-            this.Image = image;
+            this.Source = image;
+            this.Image = image.Clone();
             InitializeComponent();
             this.DialogResult = DialogResult.Cancel;
-            InputImageBox.Image = DemoUtilities.MatToBitmap(Source);
             OutputImageBox.Image = DemoUtilities.MatToBitmap(Image);
             _loadSaveDialog = new Models.LoadSaveDialog();
         }
@@ -33,7 +32,6 @@ namespace OpenMTRDemo.Forms
                     FilterListBox.SelectedItems.Add(filter);
                 }
             }
-            InputImageBox.Image = DemoUtilities.MatToBitmap(Source);
             Render();
         }
 
@@ -50,7 +48,6 @@ namespace OpenMTRDemo.Forms
             if (_loadSaveDialog.openBrowser.ShowDialog() == DialogResult.OK)
             {
                 Source = new Mat(_loadSaveDialog.openBrowser.FileName);
-                InputImageBox.Image = DemoUtilities.MatToBitmap(Source);
                 Render();
                 SetDisableableControls(true);
             }
@@ -101,8 +98,6 @@ namespace OpenMTRDemo.Forms
             SetDisableableControls(false);
             WidthTextBox.Text = "";
             HeightTextBox.Text = "";
-            MetaDataTextBox.Text = "";
-            InputImageBox.Image = null;
             OutputImageBox.Image = null;
         }
 
