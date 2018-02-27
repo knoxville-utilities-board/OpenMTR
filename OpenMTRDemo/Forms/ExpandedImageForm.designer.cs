@@ -60,10 +60,10 @@
             // 
             // OutputImageBox
             // 
-            this.OutputImageBox.Location = new System.Drawing.Point(9, 259);
-            this.OutputImageBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.OutputImageBox.Location = new System.Drawing.Point(0, 24);
+            this.OutputImageBox.Margin = new System.Windows.Forms.Padding(2);
             this.OutputImageBox.Name = "OutputImageBox";
-            this.OutputImageBox.Size = new System.Drawing.Size(501, 407);
+            this.OutputImageBox.Size = new System.Drawing.Size(588, 441);
             this.OutputImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.OutputImageBox.TabIndex = 1;
             this.OutputImageBox.TabStop = false;
@@ -75,9 +75,9 @@
             this.tabPage3.Controls.Add(this.label1);
             this.tabPage3.Controls.Add(this.WidthTextBox);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage3.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(2);
             this.tabPage3.Size = new System.Drawing.Size(248, 195);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Properties";
@@ -126,10 +126,10 @@
             this.tabPage1.Controls.Add(this.edgeFindingBox);
             this.tabPage1.Controls.Add(this.FilterListBox);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.tabPage1.Size = new System.Drawing.Size(248, 195);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(2);
+            this.tabPage1.Size = new System.Drawing.Size(248, 370);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Filters";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -155,7 +155,7 @@
             this.cannySettingsPanel.Controls.Add(this.CannyThreshold1Number);
             this.cannySettingsPanel.Controls.Add(this.CannyThreshold2Number);
             this.cannySettingsPanel.Location = new System.Drawing.Point(1, 40);
-            this.cannySettingsPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cannySettingsPanel.Margin = new System.Windows.Forms.Padding(2);
             this.cannySettingsPanel.Name = "cannySettingsPanel";
             this.cannySettingsPanel.Size = new System.Drawing.Size(237, 76);
             this.cannySettingsPanel.TabIndex = 3;
@@ -226,7 +226,7 @@
             // 
             this.sobelRadio.AutoSize = true;
             this.sobelRadio.Location = new System.Drawing.Point(62, 18);
-            this.sobelRadio.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.sobelRadio.Margin = new System.Windows.Forms.Padding(2);
             this.sobelRadio.Name = "sobelRadio";
             this.sobelRadio.Size = new System.Drawing.Size(52, 17);
             this.sobelRadio.TabIndex = 7;
@@ -238,7 +238,7 @@
             this.cannyRadio.AutoSize = true;
             this.cannyRadio.Checked = true;
             this.cannyRadio.Location = new System.Drawing.Point(6, 18);
-            this.cannyRadio.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cannyRadio.Margin = new System.Windows.Forms.Padding(2);
             this.cannyRadio.Name = "cannyRadio";
             this.cannyRadio.Size = new System.Drawing.Size(55, 17);
             this.cannyRadio.TabIndex = 6;
@@ -265,17 +265,17 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Location = new System.Drawing.Point(254, 25);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabControl1.Location = new System.Drawing.Point(592, 26);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(256, 221);
+            this.tabControl1.Size = new System.Drawing.Size(256, 396);
             this.tabControl1.TabIndex = 3;
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(354, 670);
-            this.cancelButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cancelButton.Location = new System.Drawing.Point(768, 429);
+            this.cancelButton.Margin = new System.Windows.Forms.Padding(2);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(76, 28);
             this.cancelButton.TabIndex = 5;
@@ -287,12 +287,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(519, 703);
+            this.ClientSize = new System.Drawing.Size(851, 465);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.OutputImageBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ExpandedImageForm";
             this.Text = "OpenMTR Demo";
             this.Controls.SetChildIndex(this.OutputImageBox, 0);
