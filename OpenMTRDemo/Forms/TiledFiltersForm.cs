@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using OpenCvSharp;
-using OpenMTR;
 using OpenMTRDemo.Models;
 
 namespace OpenMTRDemo.Forms
@@ -17,18 +16,18 @@ namespace OpenMTRDemo.Forms
     {
         List<KeyValPair> kvpList;
         BindingSource bindingSource;
-        private Meter _meter;
+        private MeterImage _meter;
         private Mat _cannyMat;
         private Mat _grayMat;
         private Mat _sobelMat;
         private Mat _laplacianMat;
         private Mat _scharrMat;
-        private Meter _meterPane1;
-        private Meter _meterPane2;
-        private Meter _meterPane3;
-        private Meter _meterPane4;
-        private Meter _meterPane5;
-        private Meter _meterPane6;
+        private MeterImage _meterPane1;
+        private MeterImage _meterPane2;
+        private MeterImage _meterPane3;
+        private MeterImage _meterPane4;
+        private MeterImage _meterPane5;
+        private MeterImage _meterPane6;
 
         public TiledFiltersForm()
         {
@@ -42,7 +41,7 @@ namespace OpenMTRDemo.Forms
             LoadSaveDialog loadSaveDialog = new LoadSaveDialog();
             if (loadSaveDialog.openBrowser.ShowDialog() == DialogResult.OK)
             {
-                _meter = new Meter(loadSaveDialog.openBrowser.FileName, new Mat(loadSaveDialog.openBrowser.FileName), new Mat(loadSaveDialog.openBrowser.FileName), -1);
+                _meter = new MeterImage(loadSaveDialog.openBrowser.FileName, new Mat(loadSaveDialog.openBrowser.FileName), new Mat(loadSaveDialog.openBrowser.FileName));
                 LoadAllImagePanes();
                 CreateListOfKeyValuePairs();
                 LoadComboBox();
@@ -52,12 +51,12 @@ namespace OpenMTRDemo.Forms
         public void CreateListOfKeyValuePairs()
         {
             kvpList = new List<KeyValPair>();
-            kvpList.Add(new KeyValPair("Pane 1", _meterPane1));
-            kvpList.Add(new KeyValPair("Pane 2", _meterPane1));
-            kvpList.Add(new KeyValPair("Pane 3", _meterPane1));
-            kvpList.Add(new KeyValPair("Pane 4", _meterPane1));
-            kvpList.Add(new KeyValPair("Pane 5", _meterPane1));
-            kvpList.Add(new KeyValPair("Pane 6", _meterPane1));
+            kvpList.Add(new KeyValPair(_meterPane1, "Pane 1"));
+            kvpList.Add(new KeyValPair(_meterPane1, "Pane 2"));
+            kvpList.Add(new KeyValPair(_meterPane1, "Pane 3"));
+            kvpList.Add(new KeyValPair(_meterPane1, "Pane 4"));
+            kvpList.Add(new KeyValPair(_meterPane1, "Pane 5"));
+            kvpList.Add(new KeyValPair(_meterPane1, "Pane 6"));
         }
 
         private void LoadComboBox()
@@ -78,12 +77,12 @@ namespace OpenMTRDemo.Forms
             _laplacianMat = _meter.SourceImage.Clone();
             _scharrMat = _meter.SourceImage.Clone();
 
-            _meterPane1 = new Meter();
-            _meterPane2 = new Meter();
-            _meterPane3 = new Meter();
-            _meterPane4 = new Meter();
-            _meterPane5 = new Meter();
-            _meterPane6 = new Meter();
+            _meterPane1 = new MeterImage();
+            _meterPane2 = new MeterImage();
+            _meterPane3 = new MeterImage();
+            _meterPane4 = new MeterImage();
+            _meterPane5 = new MeterImage();
+            _meterPane6 = new MeterImage();
 
             _meterPane1.SourceImage = _meter.SourceImage.Clone();
             _meterPane2.SourceImage = _meter.SourceImage.Clone();

@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using OpenCvSharp;
 using OpenMTRDemo.Forms;
+using OpenMTRDemo.Models;
 
 namespace OpenMTRDemo
 {
@@ -9,7 +10,7 @@ namespace OpenMTRDemo
     {
         OpenFileDialog OpenBrowser;
         SaveFileDialog SaveBrowser;
-        OpenMTR.Meter meter;
+        MeterImage meter;
 
         public MainForm()
         {
@@ -24,9 +25,8 @@ namespace OpenMTRDemo
         {
             if (OpenBrowser.ShowDialog() == DialogResult.OK)
             {
-                meter = new OpenMTR.Meter(OpenBrowser.FileName, new Mat(OpenBrowser.FileName), new Mat(OpenBrowser.FileName), -1);
+                meter = new MeterImage(OpenBrowser.FileName, new Mat(OpenBrowser.FileName), new Mat(OpenBrowser.FileName));
                 Render();
-                MetaDataTextBox.Text = meter.MeterRead + "";
                 SetDisableableControls(true);
                 WidthTextBox.Text = meter.SourceImage.Width + " px";
                 HeightTextBox.Text = meter.SourceImage.Height + " px";
@@ -64,7 +64,7 @@ namespace OpenMTRDemo
                         }
                         else
                         {
-                            
+
                             Cv2.Sobel(imageToFilter, imageToFilter, MatType.CV_8U, xorder: 1, yorder: 0, ksize: -1);
                         }
                         break;
