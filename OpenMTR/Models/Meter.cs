@@ -7,15 +7,15 @@ namespace OpenMTR
         public string FileName { get; set; }
         public Mat SourceImage { get; set; }
         public Mat ModifiedImage { get; set; }
-        public int MeterRead { get; set; }
+        public MeterMetaData MetaData { get; set; }
 
         public Meter() { }
-        public Meter(string fileName, Mat sourceImage, Mat modifiedImage, int meterRead)
+        public Meter(string fileName, Mat sourceImage, Mat modifiedImage, MeterMetaData metaData)
         {
             this.FileName = fileName;
             this.SourceImage = sourceImage;
             this.ModifiedImage = modifiedImage;
-            this.MeterRead = meterRead;
+            this.MetaData = metaData;
         }
     }
 }

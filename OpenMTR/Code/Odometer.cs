@@ -6,21 +6,21 @@ namespace OpenMTR
 {
     public class Odometer
     {
-        private static Dictionary<int, int[]> _numberLookup = new Dictionary<int, int[]>
+        private static Dictionary<string, int[]> _numberLookup = new Dictionary<string, int[]>
         {
-            { 0, new int[] {1,1,1,0,1,1,1 } },
-            { 1, new int[] {0,1,0,0,1,0,0 } },
-            { 2, new int[] {1,0,1,1,1,0,1 } },
-            { 3, new int[] {1,1,1,0,0,1,1 } }, //{ 3, new int[] {1,0,1,1,0,1,1 } },
-            { 4, new int[] {0,1,1,1,0,1,0 } },
-            { 5, new int[] {1,1,0,1,0,1,1 } },
-            { 6, new int[] {1,1,0,1,1,1,1 } },
-            { 7, new int[] {1,1,1,0,0,1,0 } },
-            { 8, new int[] {1,1,1,1,1,1,1 } },
-            { 9, new int[] {1,1,1,1,0,1,1 } }
+            { "0", new int[] {1,1,1,0,1,1,1 } },
+            { "1", new int[] {0,1,0,0,1,0,0 } },
+            { "2", new int[] {1,0,1,1,1,0,1 } },
+            { "3", new int[] {1,1,1,0,0,1,1 } }, //{ 3, new int[] {1,0,1,1,0,1,1 } },
+            { "4", new int[] {0,1,1,1,0,1,0 } },
+            { "5", new int[] {1,1,0,1,0,1,1 } },
+            { "6", new int[] {1,1,0,1,1,1,1 } },
+            { "7", new int[] {1,1,1,0,0,1,0 } },
+            { "8", new int[] {1,1,1,1,1,1,1 } },
+            { "9", new int[] {1,1,1,1,0,1,1 } }
         };
 
-        public static int Read(Mat sourceImage)
+        public static string Read(Mat sourceImage)
         {
             return ReadDigits(sourceImage, ExtractDigits(sourceImage));
         }
@@ -88,21 +88,21 @@ namespace OpenMTR
             return segmentStates;
         }
 
-        private static int ReadDigitFromStates(int[] segmentStates)
+        private static string ReadDigitFromStates(int[] segmentStates)
         {
-            foreach (KeyValuePair<int, int[]> number in _numberLookup)
+            foreach (KeyValuePair<string, int[]> number in _numberLookup)
             {
                 if (segmentStates.SequenceEqual(number.Value))
                 {
                     return number.Key;
                 }
             }
-            return 0;
+            return "";
         }
 
-        private static int ReadDigits(Mat image, List<Rect> digits)
+        private static string ReadDigits(Mat image, List<Rect> digits)
         {
-            int digitRead = 0;
+            string digitRead = "";
             foreach (Rect digit in digits)
             {
                 Mat regionOfInterest = new Mat(image.Clone(), digit);

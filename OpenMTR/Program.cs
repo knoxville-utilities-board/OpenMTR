@@ -22,9 +22,9 @@ namespace OpenMTR
             ImageUtils.ColorToGray(firstMeter.SourceImage, firstMeter.ModifiedImage);
             Cv2.Canny(firstMeter.ModifiedImage, firstMeter.ModifiedImage, 100, 200);
             ImageUtils.DetectOdometer(firstMeter);
-            int odometerValue = Odometer.Read(firstMeter.ModifiedImage);
+            string odometerValue = Odometer.Read(firstMeter.ModifiedImage);
 
-            DebugUtils.Log(string.Format("Read value: {0} | Metadata Value: {1}", odometerValue, firstMeter.MeterRead));
+            DebugUtils.Log(string.Format("Read value: {0} | Metadata Value: {1}", odometerValue, firstMeter.MetaData.MeterRead));
             Console.Read();
         }
     }
