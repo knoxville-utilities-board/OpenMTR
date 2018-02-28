@@ -24,7 +24,7 @@ namespace OpenMTR
             ImageUtils.DetectOdometer(firstMeter);
             string odometerValue = Odometer.Read(firstMeter.ModifiedImage);
 
-            DebugUtils.Log(string.Format("Read value: {0} | Metadata Value: {1}", odometerValue, firstMeter.MeterRead));
+            DebugUtils.Log(string.Format("Read value: {0} | Metadata Value: {1}", odometerValue, firstMeter.MetaData.MeterRead));
             Console.Read();
         }
     }
