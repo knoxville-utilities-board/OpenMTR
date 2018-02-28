@@ -78,21 +78,5 @@ namespace OpenMTR
 
             return theta_deg;
         }
-
-        public static void DetectOdometer(Meter meter)
-        {
-            Cv2.FindContours(meter.ModifiedImage, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.External, ContourApproximationModes.ApproxSimple);
-            Rect rectangle = new Rect();
-            foreach (Point[] point in contours)
-            {
-                double area = Cv2.ContourArea(point);
-
-                if (area == 11445)
-                {
-                    rectangle = Cv2.BoundingRect(point);
-                }
-            }
-            meter.ModifiedImage = new Mat(meter.SourceImage.Clone(), rectangle);
-        }
     }
 }
