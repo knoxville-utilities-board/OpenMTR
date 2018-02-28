@@ -58,10 +58,6 @@
             this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // Inherited From Base Class
-            // 
-            this.menuStrip1.Items.Remove(this.viewsToolStripMenuItem);
-            // 
             // OutputImageBox
             // 
             this.OutputImageBox.Location = new System.Drawing.Point(0, 24);

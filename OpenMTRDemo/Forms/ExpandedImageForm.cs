@@ -11,28 +11,14 @@ namespace OpenMTRDemo.Forms
 
         public ExpandedImageForm(Mat image)
         {
-            this.Source = image;
-            this.Image = image.Clone();
+            this.Source = image.Clone();
+            this.Image = image;
             InitializeComponent();
             this.DialogResult = DialogResult.Cancel;
             OutputImageBox.Image = DemoUtilities.MatToBitmap(Image);
             _loadSaveDialog = new Models.LoadSaveDialog();
-        }
-
-        public ExpandedImageForm(Mat source, Mat image, string[] filterList)
-        {
-            this.Source = source;
-            this.Image = image;
-            InitializeComponent();
-            this.DialogResult = DialogResult.Cancel;
-            foreach (string filter in filterList)
-            {
-                if (FilterListBox.Items.Contains(filter))
-                {
-                    FilterListBox.SelectedItems.Add(filter);
-                }
-            }
-            Render();
+            this.CloseToolStripMenuItem.Enabled = true;
+            this.SaveToolStripMenuItem.Enabled = true;
         }
 
         public override void saveToolStripMenuItem_Click(object sender, EventArgs e)
