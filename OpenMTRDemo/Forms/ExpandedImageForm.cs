@@ -65,7 +65,6 @@ namespace OpenMTRDemo.Forms
                         }
                         else
                         {
-                            
                             Cv2.Sobel(imageToFilter, imageToFilter, MatType.CV_8U, xorder: 1, yorder: 0, ksize: -1);
                         }
                         break;
@@ -102,14 +101,14 @@ namespace OpenMTRDemo.Forms
             try
             {
                 value = (int)((NumericUpDown)sender).Value;
-                TrackBar reciever = (sender == CannyThreshold1Number) ? CannyThreshold1Slider : CannyThreshold2Slider;
-                reciever.Value = value;
+                TrackBar receiver = (sender == CannyThreshold1Number) ? CannyThreshold1Slider : CannyThreshold2Slider;
+                receiver.Value = value;
             }
             catch (InvalidCastException)
             {
                 value = ((TrackBar)sender).Value;
-                NumericUpDown reciever = (sender == CannyThreshold1Slider) ? CannyThreshold1Number : CannyThreshold2Number;
-                reciever.Value = value;
+                NumericUpDown receiver = (sender == CannyThreshold1Slider) ? CannyThreshold1Number : CannyThreshold2Number;
+                receiver.Value = value;
             }
             Render();
         }
