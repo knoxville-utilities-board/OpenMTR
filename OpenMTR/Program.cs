@@ -20,7 +20,7 @@ namespace OpenMTR
             List<Meter> meters = ReadData.GetMeterList(DirectoryPath);
             Meter firstMeter = meters[0];
             ImageUtils.ColorToGray(firstMeter.SourceImage, firstMeter.ModifiedImage);
-            CannyFilter.ApplyCannyFilter(firstMeter.ModifiedImage, firstMeter.ModifiedImage);
+            Cv2.Canny(firstMeter.ModifiedImage, firstMeter.ModifiedImage, 100, 200);
             ImageUtils.DetectOdometer(firstMeter);
             int odometerValue = Odometer.Read(firstMeter.ModifiedImage);
 
