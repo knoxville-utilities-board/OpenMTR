@@ -44,7 +44,6 @@ namespace OpenMTRDemo.Forms
                 _meter = new MeterImage(loadSaveDialog.openBrowser.FileName, new Mat(loadSaveDialog.openBrowser.FileName), new Mat(loadSaveDialog.openBrowser.FileName));
                 LoadAllImagePanes();
                 CreateListOfKeyValuePairs();
-                LoadComboBox();
             }
         }
 
@@ -57,16 +56,6 @@ namespace OpenMTRDemo.Forms
             kvpList.Add(new KeyValPair(_meterPane1, "Pane 4"));
             kvpList.Add(new KeyValPair(_meterPane1, "Pane 5"));
             kvpList.Add(new KeyValPair(_meterPane1, "Pane 6"));
-        }
-
-        private void LoadComboBox()
-        {
-            bindingSource = new BindingSource();
-            bindingSource.DataSource = kvpList;
-            comboBox1.DisplayMember = "Id";
-            comboBox1.ValueMember = "meter";
-            comboBox1.DataSource = bindingSource.DataSource;
-            
         }
 
         private void LoadAllImagePanes()
@@ -117,76 +106,6 @@ namespace OpenMTRDemo.Forms
             DemoUtilities.loadImage(pictureBoxCanny, _cannyMat);
             DemoUtilities.loadImage(pictureBoxLaplace, _laplacianMat);
             DemoUtilities.loadImage(pictureBoxScharr, _scharrMat);
-        }
-
-        private void checkBoxGuassianBlur_CheckedChanged(object sender, EventArgs e)
-        {
-            KeyValPair keyValuePair = new KeyValPair();
-            int kernelXValue = (int)numericUpDown1.Value;
-            int kernelYValue = (int)numericUpDown2.Value;
-
-            keyValuePair = getMeterKeyValuePair();
-            Mat image = keyValuePair.meter.SourceImage;
-
-            try
-            {
-                if (checkBoxGuassianBlur.Checked)
-                {
-                    Cv2.GaussianBlur(keyValuePair.meter.SourceImage, keyValuePair.meter.ModifiedImage, new OpenCvSharp.Size(kernelXValue, kernelYValue), 0, 1, BorderTypes.Default);
-                    UpdateModifiedImage(keyValuePair);
-                    image = keyValuePair.meter.ModifiedImage;
-                    DemoUtilities.loadImage(GetSelectedPictureBox(), image);
-                }
-                DemoUtilities.loadImage(GetSelectedPictureBox(), image);
-            }
-            catch (Exception)
-            {
-                checkBoxGuassianBlur.Checked = false;
-            }
-        }
-
-        private KeyValPair getMeterKeyValuePair()
-        {
-           foreach(KeyValPair kvp in kvpList)
-            {
-                if (kvp.Equals(comboBox1.SelectedValue))
-                {
-                    return kvp;
-                }
-            }
-            return null;
-        }
-
-        private void UpdateModifiedImage(KeyValPair modified)
-        {
-            foreach(KeyValPair toModify in kvpList)
-            {
-                if (toModify.Id.Equals(modified.Id))
-                {
-                    toModify.meter.ModifiedImage = modified.meter.ModifiedImage;
-                }
-            }
-        }
-
-        private PictureBox GetSelectedPictureBox()
-        {
-            KeyValPair keyValPair = (KeyValPair)comboBox1.SelectedItem;
-
-            switch (keyValPair.Id)
-            {
-                case "Pane 1":
-                    return pictureBoxPane1;
-                case "Pane 2":
-                    return pictureBoxPane2;
-                case "Pane 3":
-                    return pictureBoxPane3;
-                case "Pane 4":
-                    return pictureBoxPane4;
-                case "Pane 5":
-                    return pictureBoxPane5;
-                default:
-                    return pictureBoxPane6;
-            }
         }
 
         private void Pane_DblClickHandler(object sender, EventArgs e)
