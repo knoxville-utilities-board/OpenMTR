@@ -14,8 +14,6 @@ namespace OpenMTRDemo.Forms
 {
     public partial class TiledFiltersForm : BaseForm
     {
-        List<KeyValPair> kvpList;
-        BindingSource bindingSource;
         private MeterImage _meter;
         private Mat _cannyMat;
         private Mat _grayMat;
@@ -32,7 +30,7 @@ namespace OpenMTRDemo.Forms
         public TiledFiltersForm()
         {
             InitializeComponent();
-            menuStrip1.Items.Remove(tiledFiltersToolStripMenuItem);
+            menuStrip1.Items.Remove(viewsToolStripMenuItem);
             this.WindowState = FormWindowState.Maximized;
         }
 
@@ -43,19 +41,7 @@ namespace OpenMTRDemo.Forms
             {
                 _meter = new MeterImage(loadSaveDialog.openBrowser.FileName, new Mat(loadSaveDialog.openBrowser.FileName), new Mat(loadSaveDialog.openBrowser.FileName));
                 LoadAllImagePanes();
-                CreateListOfKeyValuePairs();
             }
-        }
-
-        public void CreateListOfKeyValuePairs()
-        {
-            kvpList = new List<KeyValPair>();
-            kvpList.Add(new KeyValPair(_meterPane1, "Pane 1"));
-            kvpList.Add(new KeyValPair(_meterPane1, "Pane 2"));
-            kvpList.Add(new KeyValPair(_meterPane1, "Pane 3"));
-            kvpList.Add(new KeyValPair(_meterPane1, "Pane 4"));
-            kvpList.Add(new KeyValPair(_meterPane1, "Pane 5"));
-            kvpList.Add(new KeyValPair(_meterPane1, "Pane 6"));
         }
 
         private void LoadAllImagePanes()
