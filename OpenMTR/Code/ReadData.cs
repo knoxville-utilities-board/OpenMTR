@@ -31,7 +31,7 @@ namespace OpenMTR
         public static Meter GetMeter(string imagePath)
         {
             string filename = Path.GetFileNameWithoutExtension(imagePath);
-            Dictionary<string, string> metaData = ReadMetaData(filename);
+            Dictionary<string, string> metaData = ReadMetaData(imagePath);
             return new Meter(filename, new Mat(imagePath), new Mat(imagePath), metaData["read"], metaData["readType"], metaData["meterType"], metaData["manufacturer"]);
         }
 
@@ -39,7 +39,7 @@ namespace OpenMTR
         private static Dictionary<string, string> ReadMetaData(string imagePath)
         {
             string metaPath = Regex.Replace(Path.GetFullPath(imagePath), @"\.(jpe?g|png)$", ".json", RegexOptions.IgnoreCase);
-            return JsonConvert.DeserializeObject<Dictionary<string, string>>(metaPath);
+            return JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(metaPath));
         }
     }
 }
