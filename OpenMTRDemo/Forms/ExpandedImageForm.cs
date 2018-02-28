@@ -13,12 +13,15 @@ namespace OpenMTRDemo.Forms
         {
             this.Source = image.Clone();
             this.Image = image;
-            InitializeComponent();
             this.DialogResult = DialogResult.Cancel;
+            InitializeComponent();
+        }
+
+        private void ExpandedImageForm_Load(object sender, EventArgs e)
+        {
             OutputImageBox.Image = DemoUtilities.MatToBitmap(Image);
             _loadSaveDialog = new Models.LoadSaveDialog();
-            this.CloseToolStripMenuItem.Enabled = true;
-            this.SaveToolStripMenuItem.Enabled = true;
+            SetDisableableControls(true);
         }
 
         public override void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -39,7 +42,7 @@ namespace OpenMTRDemo.Forms
             }
         }
 
-        private void Render()
+        private void Render(object sender = null, EventArgs e = null)
         {
             Image = Source.Clone();
             ApplyFilters(Image);
@@ -56,7 +59,7 @@ namespace OpenMTRDemo.Forms
                         Cv2.CvtColor(imageToFilter, imageToFilter, ColorConversionCodes.BGR2GRAY);
                         break;
                     case "Gaussian Blur":
-                        Cv2.GaussianBlur(imageToFilter, imageToFilter, new Size(3, 3), 0, 0, BorderTypes.Default);
+                        Cv2.GaussianBlur(imageToFilter, imageToFilter, new Size(gaussianHorizontalSlider.Value * 2 + 1, gaussianVerticalSlider.Value * 2 + 1), 0, 0, BorderTypes.Default);
                         break;
                     case "Edge Finding":
                         if (cannyRadio.Checked)
@@ -74,7 +77,7 @@ namespace OpenMTRDemo.Forms
 
         private void filterListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            edgeFindingBox.Enabled = FilterListBox.SelectedItems.Contains("Edge Finding");
+            SetDisableableControls(true);
             Render();
         }
 
@@ -91,8 +94,9 @@ namespace OpenMTRDemo.Forms
             SaveToolStripMenuItem.Enabled = state;
             CloseToolStripMenuItem.Enabled = state;
             FilterListBox.Enabled = state;
-            edgeFindingBox.Enabled = state && FilterListBox.SelectedItems.Contains("Edge Finding");
             cannySettingsPanel.Enabled = cannyRadio.Checked;
+            edgeFindingBox.Enabled = state && FilterListBox.SelectedItems.Contains("Edge Finding");
+            blurBox.Enabled = state && FilterListBox.SelectedItems.Contains("Gaussian Blur");
         }
 
         private void cannyThreshold_ValueChanged(object sender, EventArgs e)
@@ -115,6 +119,7 @@ namespace OpenMTRDemo.Forms
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
+            Image = Source;
             Close();
         }
 
