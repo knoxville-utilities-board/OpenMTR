@@ -1,5 +1,4 @@
-﻿using OpenMTR;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,11 +10,11 @@ namespace OpenMTRDemo.Models
     public class KeyValPair
     {
         public string Id { get; set; }
-        public Meter meter;
+        public MeterImage meter;
 
         public KeyValPair() { }
 
-        public KeyValPair(string key, Meter value)
+        public KeyValPair(MeterImage value, string key)
         {
             this.Id = key;
             this.meter = value;

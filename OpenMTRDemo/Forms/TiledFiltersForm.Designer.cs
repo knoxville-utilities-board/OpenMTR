@@ -86,9 +86,10 @@
             // 
             // pictureBoxSource
             // 
-            this.pictureBoxSource.Location = new System.Drawing.Point(3, 3);
+            this.pictureBoxSource.Location = new System.Drawing.Point(6, 6);
+            this.pictureBoxSource.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.pictureBoxSource.Name = "pictureBoxSource";
-            this.pictureBoxSource.Size = new System.Drawing.Size(310, 240);
+            this.pictureBoxSource.Size = new System.Drawing.Size(620, 462);
             this.pictureBoxSource.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxSource.TabIndex = 5;
             this.pictureBoxSource.TabStop = false;
@@ -96,9 +97,10 @@
             // 
             // pictureBoxGray
             // 
-            this.pictureBoxGray.Location = new System.Drawing.Point(319, 3);
+            this.pictureBoxGray.Location = new System.Drawing.Point(638, 6);
+            this.pictureBoxGray.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.pictureBoxGray.Name = "pictureBoxGray";
-            this.pictureBoxGray.Size = new System.Drawing.Size(310, 240);
+            this.pictureBoxGray.Size = new System.Drawing.Size(620, 462);
             this.pictureBoxGray.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxGray.TabIndex = 6;
             this.pictureBoxGray.TabStop = false;
@@ -106,9 +108,10 @@
             // 
             // pictureBoxCanny
             // 
-            this.pictureBoxCanny.Location = new System.Drawing.Point(635, 3);
+            this.pictureBoxCanny.Location = new System.Drawing.Point(1270, 6);
+            this.pictureBoxCanny.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.pictureBoxCanny.Name = "pictureBoxCanny";
-            this.pictureBoxCanny.Size = new System.Drawing.Size(310, 240);
+            this.pictureBoxCanny.Size = new System.Drawing.Size(620, 462);
             this.pictureBoxCanny.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxCanny.TabIndex = 7;
             this.pictureBoxCanny.TabStop = false;
@@ -116,9 +119,10 @@
             // 
             // pictureBoxSobel
             // 
-            this.pictureBoxSobel.Location = new System.Drawing.Point(1267, 3);
+            this.pictureBoxSobel.Location = new System.Drawing.Point(2534, 6);
+            this.pictureBoxSobel.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.pictureBoxSobel.Name = "pictureBoxSobel";
-            this.pictureBoxSobel.Size = new System.Drawing.Size(310, 240);
+            this.pictureBoxSobel.Size = new System.Drawing.Size(620, 462);
             this.pictureBoxSobel.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxSobel.TabIndex = 8;
             this.pictureBoxSobel.TabStop = false;
@@ -126,9 +130,10 @@
             // 
             // pictureBoxLaplace
             // 
-            this.pictureBoxLaplace.Location = new System.Drawing.Point(951, 3);
+            this.pictureBoxLaplace.Location = new System.Drawing.Point(1902, 6);
+            this.pictureBoxLaplace.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.pictureBoxLaplace.Name = "pictureBoxLaplace";
-            this.pictureBoxLaplace.Size = new System.Drawing.Size(310, 240);
+            this.pictureBoxLaplace.Size = new System.Drawing.Size(620, 462);
             this.pictureBoxLaplace.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxLaplace.TabIndex = 9;
             this.pictureBoxLaplace.TabStop = false;
@@ -136,9 +141,10 @@
             // 
             // pictureBoxScharr
             // 
-            this.pictureBoxScharr.Location = new System.Drawing.Point(1583, 3);
+            this.pictureBoxScharr.Location = new System.Drawing.Point(3166, 6);
+            this.pictureBoxScharr.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.pictureBoxScharr.Name = "pictureBoxScharr";
-            this.pictureBoxScharr.Size = new System.Drawing.Size(310, 240);
+            this.pictureBoxScharr.Size = new System.Drawing.Size(620, 462);
             this.pictureBoxScharr.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxScharr.TabIndex = 10;
             this.pictureBoxScharr.TabStop = false;
@@ -154,9 +160,10 @@
             this.flowLayoutPanel1.Controls.Add(this.pictureBoxLaplace);
             this.flowLayoutPanel1.Controls.Add(this.pictureBoxSobel);
             this.flowLayoutPanel1.Controls.Add(this.pictureBoxScharr);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 46);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(24, 88);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1896, 246);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(3792, 474);
             this.flowLayoutPanel1.TabIndex = 11;
             // 
             // panel1
@@ -166,18 +173,21 @@
             this.panel1.Controls.Add(this.groupBoxFiltering);
             this.panel1.Controls.Add(this.groupBoxBlur);
             this.panel1.Controls.Add(this.comboBox1);
-            this.panel1.Location = new System.Drawing.Point(12, 531);
+            this.panel1.Location = new System.Drawing.Point(24, 987);
+            this.panel1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1896, 160);
+            this.panel1.Size = new System.Drawing.Size(3792, 308);
             this.panel1.TabIndex = 12;
             // 
             // groupBoxFiltering
             // 
             this.groupBoxFiltering.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.groupBoxFiltering.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxFiltering.Location = new System.Drawing.Point(311, 4);
+            this.groupBoxFiltering.Location = new System.Drawing.Point(622, 8);
+            this.groupBoxFiltering.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.groupBoxFiltering.Name = "groupBoxFiltering";
-            this.groupBoxFiltering.Size = new System.Drawing.Size(1573, 153);
+            this.groupBoxFiltering.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBoxFiltering.Size = new System.Drawing.Size(3146, 294);
             this.groupBoxFiltering.TabIndex = 2;
             this.groupBoxFiltering.TabStop = false;
             this.groupBoxFiltering.Text = "Filtering";
@@ -192,9 +202,11 @@
             this.groupBoxBlur.Controls.Add(this.numericUpDown1);
             this.groupBoxBlur.Controls.Add(this.checkBoxGuassianBlur);
             this.groupBoxBlur.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxBlur.Location = new System.Drawing.Point(115, 4);
+            this.groupBoxBlur.Location = new System.Drawing.Point(230, 8);
+            this.groupBoxBlur.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.groupBoxBlur.Name = "groupBoxBlur";
-            this.groupBoxBlur.Size = new System.Drawing.Size(200, 153);
+            this.groupBoxBlur.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBoxBlur.Size = new System.Drawing.Size(400, 294);
             this.groupBoxBlur.TabIndex = 1;
             this.groupBoxBlur.TabStop = false;
             this.groupBoxBlur.Text = "Blur";
@@ -203,9 +215,10 @@
             // 
             this.checkBoxEqualize.AutoSize = true;
             this.checkBoxEqualize.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEqualize.Location = new System.Drawing.Point(7, 38);
+            this.checkBoxEqualize.Location = new System.Drawing.Point(14, 73);
+            this.checkBoxEqualize.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.checkBoxEqualize.Name = "checkBoxEqualize";
-            this.checkBoxEqualize.Size = new System.Drawing.Size(82, 19);
+            this.checkBoxEqualize.Size = new System.Drawing.Size(158, 35);
             this.checkBoxEqualize.TabIndex = 5;
             this.checkBoxEqualize.Text = "Equalize";
             this.checkBoxEqualize.UseVisualStyleBackColor = true;
@@ -214,9 +227,10 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(53, 123);
+            this.label6.Location = new System.Drawing.Point(106, 237);
+            this.label6.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(77, 15);
+            this.label6.Size = new System.Drawing.Size(154, 31);
             this.label6.TabIndex = 4;
             this.label6.Text = "Size width";
             // 
@@ -227,7 +241,8 @@
             0,
             0,
             0});
-            this.numericUpDown2.Location = new System.Drawing.Point(6, 123);
+            this.numericUpDown2.Location = new System.Drawing.Point(12, 237);
+            this.numericUpDown2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.numericUpDown2.Maximum = new decimal(new int[] {
             7,
             0,
@@ -239,7 +254,7 @@
             0,
             0});
             this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(41, 20);
+            this.numericUpDown2.Size = new System.Drawing.Size(82, 33);
             this.numericUpDown2.TabIndex = 3;
             this.numericUpDown2.Value = new decimal(new int[] {
             3,
@@ -251,9 +266,10 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(54, 97);
+            this.label1.Location = new System.Drawing.Point(108, 187);
+            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(84, 15);
+            this.label1.Size = new System.Drawing.Size(168, 31);
             this.label1.TabIndex = 2;
             this.label1.Text = "Size height";
             // 
@@ -264,7 +280,8 @@
             0,
             0,
             0});
-            this.numericUpDown1.Location = new System.Drawing.Point(6, 97);
+            this.numericUpDown1.Location = new System.Drawing.Point(12, 187);
+            this.numericUpDown1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             7,
             0,
@@ -276,7 +293,7 @@
             0,
             0});
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(41, 20);
+            this.numericUpDown1.Size = new System.Drawing.Size(82, 33);
             this.numericUpDown1.TabIndex = 1;
             this.numericUpDown1.Value = new decimal(new int[] {
             3,
@@ -288,9 +305,10 @@
             // 
             this.checkBoxGuassianBlur.AutoSize = true;
             this.checkBoxGuassianBlur.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxGuassianBlur.Location = new System.Drawing.Point(7, 13);
+            this.checkBoxGuassianBlur.Location = new System.Drawing.Point(14, 25);
+            this.checkBoxGuassianBlur.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.checkBoxGuassianBlur.Name = "checkBoxGuassianBlur";
-            this.checkBoxGuassianBlur.Size = new System.Drawing.Size(117, 19);
+            this.checkBoxGuassianBlur.Size = new System.Drawing.Size(228, 35);
             this.checkBoxGuassianBlur.TabIndex = 0;
             this.checkBoxGuassianBlur.Text = "Guassian Blur";
             this.checkBoxGuassianBlur.UseVisualStyleBackColor = true;
@@ -300,9 +318,10 @@
             // 
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(12, 14);
+            this.comboBox1.Location = new System.Drawing.Point(24, 27);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(93, 21);
+            this.comboBox1.Size = new System.Drawing.Size(182, 33);
             this.comboBox1.TabIndex = 0;
             // 
             // flowLayoutPanel2
@@ -316,16 +335,18 @@
             this.flowLayoutPanel2.Controls.Add(this.pictureBoxPane4);
             this.flowLayoutPanel2.Controls.Add(this.pictureBoxPane5);
             this.flowLayoutPanel2.Controls.Add(this.pictureBoxPane6);
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(12, 303);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(24, 566);
+            this.flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(1896, 246);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(3792, 474);
             this.flowLayoutPanel2.TabIndex = 13;
             // 
             // pictureBoxPane1
             // 
-            this.pictureBoxPane1.Location = new System.Drawing.Point(3, 3);
+            this.pictureBoxPane1.Location = new System.Drawing.Point(6, 6);
+            this.pictureBoxPane1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.pictureBoxPane1.Name = "pictureBoxPane1";
-            this.pictureBoxPane1.Size = new System.Drawing.Size(310, 240);
+            this.pictureBoxPane1.Size = new System.Drawing.Size(620, 462);
             this.pictureBoxPane1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxPane1.TabIndex = 5;
             this.pictureBoxPane1.TabStop = false;
@@ -333,9 +354,10 @@
             // 
             // pictureBoxPane2
             // 
-            this.pictureBoxPane2.Location = new System.Drawing.Point(319, 3);
+            this.pictureBoxPane2.Location = new System.Drawing.Point(638, 6);
+            this.pictureBoxPane2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.pictureBoxPane2.Name = "pictureBoxPane2";
-            this.pictureBoxPane2.Size = new System.Drawing.Size(310, 240);
+            this.pictureBoxPane2.Size = new System.Drawing.Size(620, 462);
             this.pictureBoxPane2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxPane2.TabIndex = 6;
             this.pictureBoxPane2.TabStop = false;
@@ -343,9 +365,10 @@
             // 
             // pictureBoxPane3
             // 
-            this.pictureBoxPane3.Location = new System.Drawing.Point(635, 3);
+            this.pictureBoxPane3.Location = new System.Drawing.Point(1270, 6);
+            this.pictureBoxPane3.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.pictureBoxPane3.Name = "pictureBoxPane3";
-            this.pictureBoxPane3.Size = new System.Drawing.Size(310, 240);
+            this.pictureBoxPane3.Size = new System.Drawing.Size(620, 462);
             this.pictureBoxPane3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxPane3.TabIndex = 7;
             this.pictureBoxPane3.TabStop = false;
@@ -353,9 +376,10 @@
             // 
             // pictureBoxPane4
             // 
-            this.pictureBoxPane4.Location = new System.Drawing.Point(951, 3);
+            this.pictureBoxPane4.Location = new System.Drawing.Point(1902, 6);
+            this.pictureBoxPane4.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.pictureBoxPane4.Name = "pictureBoxPane4";
-            this.pictureBoxPane4.Size = new System.Drawing.Size(310, 240);
+            this.pictureBoxPane4.Size = new System.Drawing.Size(620, 462);
             this.pictureBoxPane4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxPane4.TabIndex = 9;
             this.pictureBoxPane4.TabStop = false;
@@ -363,9 +387,10 @@
             // 
             // pictureBoxPane5
             // 
-            this.pictureBoxPane5.Location = new System.Drawing.Point(1267, 3);
+            this.pictureBoxPane5.Location = new System.Drawing.Point(2534, 6);
+            this.pictureBoxPane5.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.pictureBoxPane5.Name = "pictureBoxPane5";
-            this.pictureBoxPane5.Size = new System.Drawing.Size(310, 240);
+            this.pictureBoxPane5.Size = new System.Drawing.Size(620, 462);
             this.pictureBoxPane5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxPane5.TabIndex = 8;
             this.pictureBoxPane5.TabStop = false;
@@ -373,9 +398,10 @@
             // 
             // pictureBoxPane6
             // 
-            this.pictureBoxPane6.Location = new System.Drawing.Point(1583, 3);
+            this.pictureBoxPane6.Location = new System.Drawing.Point(3166, 6);
+            this.pictureBoxPane6.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.pictureBoxPane6.Name = "pictureBoxPane6";
-            this.pictureBoxPane6.Size = new System.Drawing.Size(310, 240);
+            this.pictureBoxPane6.Size = new System.Drawing.Size(620, 462);
             this.pictureBoxPane6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxPane6.TabIndex = 10;
             this.pictureBoxPane6.TabStop = false;
@@ -385,9 +411,10 @@
             // 
             this.labelSource.AutoSize = true;
             this.labelSource.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSource.Location = new System.Drawing.Point(97, 24);
+            this.labelSource.Location = new System.Drawing.Point(194, 46);
+            this.labelSource.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelSource.Name = "labelSource";
-            this.labelSource.Size = new System.Drawing.Size(117, 19);
+            this.labelSource.Size = new System.Drawing.Size(233, 37);
             this.labelSource.TabIndex = 14;
             this.labelSource.Text = "Source Image";
             // 
@@ -395,9 +422,10 @@
             // 
             this.labelGray.AutoSize = true;
             this.labelGray.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelGray.Location = new System.Drawing.Point(426, 24);
+            this.labelGray.Location = new System.Drawing.Point(852, 46);
+            this.labelGray.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelGray.Name = "labelGray";
-            this.labelGray.Size = new System.Drawing.Size(99, 19);
+            this.labelGray.Size = new System.Drawing.Size(197, 37);
             this.labelGray.TabIndex = 15;
             this.labelGray.Text = "Gray Image";
             // 
@@ -405,9 +433,10 @@
             // 
             this.labelCanny.AutoSize = true;
             this.labelCanny.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelCanny.Location = new System.Drawing.Point(730, 24);
+            this.labelCanny.Location = new System.Drawing.Point(1460, 46);
+            this.labelCanny.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelCanny.Name = "labelCanny";
-            this.labelCanny.Size = new System.Drawing.Size(108, 19);
+            this.labelCanny.Size = new System.Drawing.Size(215, 37);
             this.labelCanny.TabIndex = 16;
             this.labelCanny.Text = "Canny Image";
             // 
@@ -415,9 +444,10 @@
             // 
             this.labelLaplace.AutoSize = true;
             this.labelLaplace.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelLaplace.Location = new System.Drawing.Point(1035, 24);
+            this.labelLaplace.Location = new System.Drawing.Point(2070, 46);
+            this.labelLaplace.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelLaplace.Name = "labelLaplace";
-            this.labelLaplace.Size = new System.Drawing.Size(144, 19);
+            this.labelLaplace.Size = new System.Drawing.Size(287, 37);
             this.labelLaplace.TabIndex = 17;
             this.labelLaplace.Text = "Laplacian Image";
             // 
@@ -425,9 +455,10 @@
             // 
             this.labelSobel.AutoSize = true;
             this.labelSobel.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSobel.Location = new System.Drawing.Point(1353, 24);
+            this.labelSobel.Location = new System.Drawing.Point(2706, 46);
+            this.labelSobel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelSobel.Name = "labelSobel";
-            this.labelSobel.Size = new System.Drawing.Size(108, 19);
+            this.labelSobel.Size = new System.Drawing.Size(215, 37);
             this.labelSobel.TabIndex = 18;
             this.labelSobel.Text = "Sobel Image";
             // 
@@ -436,9 +467,10 @@
             this.labelPane1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelPane1.AutoSize = true;
             this.labelPane1.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPane1.Location = new System.Drawing.Point(196, 284);
+            this.labelPane1.Location = new System.Drawing.Point(930, 529);
+            this.labelPane1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelPane1.Name = "labelPane1";
-            this.labelPane1.Size = new System.Drawing.Size(63, 19);
+            this.labelPane1.Size = new System.Drawing.Size(125, 37);
             this.labelPane1.TabIndex = 19;
             this.labelPane1.Text = "Pane 1";
             // 
@@ -447,9 +479,10 @@
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(525, 284);
+            this.label2.Location = new System.Drawing.Point(1588, 529);
+            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(63, 19);
+            this.label2.Size = new System.Drawing.Size(125, 37);
             this.label2.TabIndex = 20;
             this.label2.Text = "Pane 2";
             // 
@@ -458,9 +491,10 @@
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(829, 281);
+            this.label3.Location = new System.Drawing.Point(2196, 523);
+            this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(63, 19);
+            this.label3.Size = new System.Drawing.Size(125, 37);
             this.label3.TabIndex = 21;
             this.label3.Text = "Pane 3";
             // 
@@ -469,9 +503,10 @@
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(1151, 284);
+            this.label4.Location = new System.Drawing.Point(2840, 529);
+            this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(63, 19);
+            this.label4.Size = new System.Drawing.Size(125, 37);
             this.label4.TabIndex = 22;
             this.label4.Text = "Pane 4";
             // 
@@ -480,9 +515,10 @@
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(1414, 284);
+            this.label5.Location = new System.Drawing.Point(3366, 529);
+            this.label5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(63, 19);
+            this.label5.Size = new System.Drawing.Size(125, 37);
             this.label5.TabIndex = 23;
             this.label5.Text = "Pane 5";
             // 
@@ -491,9 +527,10 @@
             this.labelPane6.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelPane6.AutoSize = true;
             this.labelPane6.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPane6.Location = new System.Drawing.Point(1732, 284);
+            this.labelPane6.Location = new System.Drawing.Point(4002, 529);
+            this.labelPane6.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelPane6.Name = "labelPane6";
-            this.labelPane6.Size = new System.Drawing.Size(63, 19);
+            this.labelPane6.Size = new System.Drawing.Size(125, 37);
             this.labelPane6.TabIndex = 24;
             this.labelPane6.Text = "Pane 6";
             // 
@@ -501,19 +538,20 @@
             // 
             this.labelScharr.AutoSize = true;
             this.labelScharr.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelScharr.Location = new System.Drawing.Point(1678, 24);
+            this.labelScharr.Location = new System.Drawing.Point(3356, 46);
+            this.labelScharr.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelScharr.Name = "labelScharr";
-            this.labelScharr.Size = new System.Drawing.Size(117, 19);
+            this.labelScharr.Size = new System.Drawing.Size(233, 37);
             this.labelScharr.TabIndex = 25;
             this.labelScharr.Text = "Scharr Image";
             // 
             // TiledFiltersForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.ClientSize = new System.Drawing.Size(2028, 799);
+            this.ClientSize = new System.Drawing.Size(2740, 1537);
             this.Controls.Add(this.labelScharr);
             this.Controls.Add(this.labelPane6);
             this.Controls.Add(this.label4);
@@ -529,6 +567,7 @@
             this.Controls.Add(this.flowLayoutPanel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.flowLayoutPanel1);
+            this.Margin = new System.Windows.Forms.Padding(12, 12, 12, 12);
             this.Name = "TiledFiltersForm";
             this.Text = "Tiled Images";
             this.Controls.SetChildIndex(this.flowLayoutPanel1, 0);

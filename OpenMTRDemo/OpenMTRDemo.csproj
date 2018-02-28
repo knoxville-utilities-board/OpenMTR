@@ -80,6 +80,7 @@
     </Compile>
     <Compile Include="Models\KeyValPair.cs" />
     <Compile Include="Models\LoadSaveDialog.cs" />
+    <Compile Include="Models\MeterImage.cs" />
     <Compile Include="Utilites\DemoUtilities.cs" />
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
