@@ -22,7 +22,7 @@ namespace OpenMTRDemo.Forms
 
         }
 
-        public virtual void SaveToolStripMenuItem_Click(object sender, EventArgs e)
+        public virtual void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }

@@ -1,23 +1,138 @@
-﻿using OpenCvSharp;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Forms;
+using OpenCvSharp;
 
 namespace OpenMTRDemo.Forms
 {
-    public partial class ExpandedImageForm : Form
+    public partial class ExpandedImageForm : BaseForm
     {
-        public ExpandedImageForm(Mat mat)
+        public Mat Source, Image;
+        private Models.LoadSaveDialog _loadSaveDialog;
+
+        public ExpandedImageForm(Mat image)
         {
+            this.Source = image.Clone();
+            this.Image = image;
+            this.DialogResult = DialogResult.Cancel;
             InitializeComponent();
-            pictureBoxExpanded.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBoxExpanded.Image = DemoUtilities.MatToBitmap(mat);   
+        }
+
+        private void ExpandedImageForm_Load(object sender, EventArgs e)
+        {
+            OutputImageBox.Image = DemoUtilities.MatToBitmap(Image);
+            _loadSaveDialog = new Models.LoadSaveDialog();
+            SetDisableableControls(true);
+        }
+
+        public override void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (_loadSaveDialog.saveBrowser.ShowDialog() == DialogResult.OK)
+            {
+                OutputImageBox.Image.Save(_loadSaveDialog.saveBrowser.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+            }
+        }
+
+        public override void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (_loadSaveDialog.openBrowser.ShowDialog() == DialogResult.OK)
+            {
+                Source = new Mat(_loadSaveDialog.openBrowser.FileName);
+                Render();
+                SetDisableableControls(true);
+            }
+        }
+
+        private void Render(object sender = null, EventArgs e = null)
+        {
+            Image = Source.Clone();
+            ApplyFilters(Image);
+            OutputImageBox.Image = DemoUtilities.MatToBitmap(Image);
+        }
+
+        private void ApplyFilters(Mat imageToFilter)
+        {
+            foreach (string filter in FilterListBox.SelectedItems)
+            {
+                switch (filter)
+                {
+                    case "Black and White":
+                        Cv2.CvtColor(imageToFilter, imageToFilter, ColorConversionCodes.BGR2GRAY);
+                        break;
+                    case "Gaussian Blur":
+                        Cv2.GaussianBlur(imageToFilter, imageToFilter, new Size(gaussianHorizontalSlider.Value * 2 + 1, gaussianVerticalSlider.Value * 2 + 1), 0, 0, BorderTypes.Default);
+                        break;
+                    case "Edge Finding":
+                        if (cannyRadio.Checked)
+                        {
+                            Cv2.Canny(imageToFilter.Clone(), imageToFilter, CannyThreshold1Slider.Value, CannyThreshold2Slider.Value);
+                        }
+                        else
+                        {
+                            Cv2.Sobel(imageToFilter, imageToFilter, MatType.CV_8U, xorder: 1, yorder: 0, ksize: -1);
+                        }
+                        break;
+                }
+            }
+        }
+
+        private void filterListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SetDisableableControls(true);
+            Render();
+        }
+
+        public override void CloseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetDisableableControls(false);
+            WidthTextBox.Text = "";
+            HeightTextBox.Text = "";
+            OutputImageBox.Image = null;
+        }
+
+        private void SetDisableableControls(bool state)
+        {
+            SaveToolStripMenuItem.Enabled = state;
+            CloseToolStripMenuItem.Enabled = state;
+            FilterListBox.Enabled = state;
+            cannySettingsPanel.Enabled = cannyRadio.Checked;
+            edgeFindingBox.Enabled = state && FilterListBox.SelectedItems.Contains("Edge Finding");
+            blurBox.Enabled = state && FilterListBox.SelectedItems.Contains("Gaussian Blur");
+        }
+
+        private void cannyThreshold_ValueChanged(object sender, EventArgs e)
+        {
+            int value;
+            try
+            {
+                value = (int)((NumericUpDown)sender).Value;
+                TrackBar receiver = (sender == CannyThreshold1Number) ? CannyThreshold1Slider : CannyThreshold2Slider;
+                receiver.Value = value;
+            }
+            catch (InvalidCastException)
+            {
+                value = ((TrackBar)sender).Value;
+                NumericUpDown receiver = (sender == CannyThreshold1Slider) ? CannyThreshold1Number : CannyThreshold2Number;
+                receiver.Value = value;
+            }
+            Render();
+        }
+
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+            Image = Source;
+            Close();
+        }
+
+        private void okButton_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.OK;
+            Close();
+        }
+
+        private void cannyRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            SetDisableableControls(true);
+            Render();
         }
     }
 }
