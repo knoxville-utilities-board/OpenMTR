@@ -30,8 +30,6 @@ namespace OpenMTRDemo.Forms
         public TiledFiltersForm()
         {
             InitializeComponent();
-            menuStrip1.Items.Remove(viewsToolStripMenuItem);
-            this.WindowState = FormWindowState.Maximized;
         }
 
         public override void loadToolStripMenuItem_Click(object sender, EventArgs e)
@@ -106,6 +104,11 @@ namespace OpenMTRDemo.Forms
 
                 expandedImageForm = new ExpandedImageForm(mat);
                 expandedImageForm.ShowDialog();
+                if(expandedImageForm.DialogResult == DialogResult.OK)
+                {
+                    mat = expandedImageForm.returnImage();
+                    pictureBox.Image = DemoUtilities.MatToBitmap(mat);
+                }
                 expandedImageForm.Close();
             }
             catch (Exception)
@@ -113,6 +116,6 @@ namespace OpenMTRDemo.Forms
                 MessageBox.Show("Error Opening Image", "Error", MessageBoxButtons.OK);
             }
         }
+
     }
 }
-

@@ -70,10 +70,10 @@
             // 
             // OutputImageBox
             // 
-            this.OutputImageBox.Location = new System.Drawing.Point(0, 30);
-            this.OutputImageBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.OutputImageBox.Location = new System.Drawing.Point(0, 24);
+            this.OutputImageBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.OutputImageBox.Name = "OutputImageBox";
-            this.OutputImageBox.Size = new System.Drawing.Size(784, 543);
+            this.OutputImageBox.Size = new System.Drawing.Size(588, 441);
             this.OutputImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.OutputImageBox.TabIndex = 1;
             this.OutputImageBox.TabStop = false;
@@ -84,11 +84,11 @@
             this.tabPage3.Controls.Add(this.HeightTextBox);
             this.tabPage3.Controls.Add(this.label1);
             this.tabPage3.Controls.Add(this.WidthTextBox);
-            this.tabPage3.Location = new System.Drawing.Point(4, 25);
-            this.tabPage3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage3.Size = new System.Drawing.Size(333, 458);
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage3.Size = new System.Drawing.Size(248, 370);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Properties";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -96,10 +96,9 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 33);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(5, 27);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 17);
+            this.label2.Size = new System.Drawing.Size(41, 13);
             this.label2.TabIndex = 3;
             this.label2.Text = "Height:";
             // 
@@ -107,20 +106,18 @@
             // 
             this.HeightTextBox.BackColor = System.Drawing.Color.White;
             this.HeightTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.HeightTextBox.Location = new System.Drawing.Point(69, 33);
-            this.HeightTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.HeightTextBox.Location = new System.Drawing.Point(52, 27);
             this.HeightTextBox.Name = "HeightTextBox";
             this.HeightTextBox.ReadOnly = true;
-            this.HeightTextBox.Size = new System.Drawing.Size(167, 15);
+            this.HeightTextBox.Size = new System.Drawing.Size(125, 13);
             this.HeightTextBox.TabIndex = 2;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(11, 17);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(8, 14);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(48, 17);
+            this.label1.Size = new System.Drawing.Size(38, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Width:";
             // 
@@ -128,11 +125,10 @@
             // 
             this.WidthTextBox.BackColor = System.Drawing.Color.White;
             this.WidthTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.WidthTextBox.Location = new System.Drawing.Point(69, 17);
-            this.WidthTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.WidthTextBox.Location = new System.Drawing.Point(52, 14);
             this.WidthTextBox.Name = "WidthTextBox";
             this.WidthTextBox.ReadOnly = true;
-            this.WidthTextBox.Size = new System.Drawing.Size(167, 15);
+            this.WidthTextBox.Size = new System.Drawing.Size(125, 13);
             this.WidthTextBox.TabIndex = 0;
             // 
             // tabPage1
@@ -140,11 +136,11 @@
             this.tabPage1.Controls.Add(this.blurBox);
             this.tabPage1.Controls.Add(this.edgeFindingBox);
             this.tabPage1.Controls.Add(this.FilterListBox);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage1.Size = new System.Drawing.Size(333, 458);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage1.Size = new System.Drawing.Size(248, 370);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Filters";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -157,11 +153,9 @@
             this.blurBox.Controls.Add(this.gaussianVerticalSlider);
             this.blurBox.Controls.Add(this.gaussianHorizontalSlider);
             this.blurBox.Enabled = false;
-            this.blurBox.Location = new System.Drawing.Point(7, 239);
-            this.blurBox.Margin = new System.Windows.Forms.Padding(4);
+            this.blurBox.Location = new System.Drawing.Point(5, 194);
             this.blurBox.Name = "blurBox";
-            this.blurBox.Padding = new System.Windows.Forms.Padding(4);
-            this.blurBox.Size = new System.Drawing.Size(317, 116);
+            this.blurBox.Size = new System.Drawing.Size(238, 94);
             this.blurBox.TabIndex = 8;
             this.blurBox.TabStop = false;
             this.blurBox.Text = "Gaussian Blur";
@@ -169,27 +163,30 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(80, 53);
+            this.label5.Location = new System.Drawing.Point(60, 43);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(16, 17);
+            this.label5.Size = new System.Drawing.Size(13, 13);
             this.label5.TabIndex = 5;
             this.label5.Text = "5";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(80, 25);
+            this.label4.Location = new System.Drawing.Point(60, 20);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(16, 17);
+            this.label4.Size = new System.Drawing.Size(13, 13);
             this.label4.TabIndex = 5;
             this.label4.Text = "7";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(80, 81);
+            this.label3.Location = new System.Drawing.Point(60, 66);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(16, 17);
+            this.label3.Size = new System.Drawing.Size(13, 13);
             this.label3.TabIndex = 4;
             this.label3.Text = "3";
             // 
@@ -197,13 +194,12 @@
             // 
             this.gaussianVerticalSlider.BackColor = System.Drawing.Color.White;
             this.gaussianVerticalSlider.LargeChange = 2;
-            this.gaussianVerticalSlider.Location = new System.Drawing.Point(45, 16);
-            this.gaussianVerticalSlider.Margin = new System.Windows.Forms.Padding(4);
+            this.gaussianVerticalSlider.Location = new System.Drawing.Point(34, 13);
             this.gaussianVerticalSlider.Maximum = 3;
             this.gaussianVerticalSlider.Minimum = 1;
             this.gaussianVerticalSlider.Name = "gaussianVerticalSlider";
             this.gaussianVerticalSlider.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.gaussianVerticalSlider.Size = new System.Drawing.Size(56, 92);
+            this.gaussianVerticalSlider.Size = new System.Drawing.Size(45, 75);
             this.gaussianVerticalSlider.TabIndex = 3;
             this.gaussianVerticalSlider.TickFrequency = 2;
             this.gaussianVerticalSlider.Value = 1;
@@ -213,13 +209,12 @@
             // 
             this.gaussianHorizontalSlider.BackColor = System.Drawing.Color.White;
             this.gaussianHorizontalSlider.LargeChange = 2;
-            this.gaussianHorizontalSlider.Location = new System.Drawing.Point(8, 16);
-            this.gaussianHorizontalSlider.Margin = new System.Windows.Forms.Padding(4);
+            this.gaussianHorizontalSlider.Location = new System.Drawing.Point(6, 13);
             this.gaussianHorizontalSlider.Maximum = 3;
             this.gaussianHorizontalSlider.Minimum = 1;
             this.gaussianHorizontalSlider.Name = "gaussianHorizontalSlider";
             this.gaussianHorizontalSlider.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.gaussianHorizontalSlider.Size = new System.Drawing.Size(56, 92);
+            this.gaussianHorizontalSlider.Size = new System.Drawing.Size(45, 75);
             this.gaussianHorizontalSlider.TabIndex = 3;
             this.gaussianHorizontalSlider.TickFrequency = 2;
             this.gaussianHorizontalSlider.TickStyle = System.Windows.Forms.TickStyle.None;
@@ -232,11 +227,9 @@
             this.edgeFindingBox.Controls.Add(this.sobelRadio);
             this.edgeFindingBox.Controls.Add(this.cannyRadio);
             this.edgeFindingBox.Enabled = false;
-            this.edgeFindingBox.Location = new System.Drawing.Point(7, 82);
-            this.edgeFindingBox.Margin = new System.Windows.Forms.Padding(4);
+            this.edgeFindingBox.Location = new System.Drawing.Point(5, 67);
             this.edgeFindingBox.Name = "edgeFindingBox";
-            this.edgeFindingBox.Padding = new System.Windows.Forms.Padding(4);
-            this.edgeFindingBox.Size = new System.Drawing.Size(317, 149);
+            this.edgeFindingBox.Size = new System.Drawing.Size(238, 121);
             this.edgeFindingBox.TabIndex = 2;
             this.edgeFindingBox.TabStop = false;
             this.edgeFindingBox.Text = "Edge Finding";
@@ -248,21 +241,20 @@
             this.cannySettingsPanel.Controls.Add(this.CannyThreshold1Slider);
             this.cannySettingsPanel.Controls.Add(this.CannyThreshold1Number);
             this.cannySettingsPanel.Controls.Add(this.CannyThreshold2Number);
-            this.cannySettingsPanel.Location = new System.Drawing.Point(1, 49);
-            this.cannySettingsPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.cannySettingsPanel.Location = new System.Drawing.Point(1, 40);
+            this.cannySettingsPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cannySettingsPanel.Name = "cannySettingsPanel";
-            this.cannySettingsPanel.Size = new System.Drawing.Size(316, 94);
+            this.cannySettingsPanel.Size = new System.Drawing.Size(237, 76);
             this.cannySettingsPanel.TabIndex = 3;
             // 
             // CannyThreshold2Slider
             // 
             this.CannyThreshold2Slider.BackColor = System.Drawing.Color.White;
             this.CannyThreshold2Slider.LargeChange = 50;
-            this.CannyThreshold2Slider.Location = new System.Drawing.Point(4, 36);
-            this.CannyThreshold2Slider.Margin = new System.Windows.Forms.Padding(4);
+            this.CannyThreshold2Slider.Location = new System.Drawing.Point(3, 29);
             this.CannyThreshold2Slider.Maximum = 255;
             this.CannyThreshold2Slider.Name = "CannyThreshold2Slider";
-            this.CannyThreshold2Slider.Size = new System.Drawing.Size(244, 56);
+            this.CannyThreshold2Slider.Size = new System.Drawing.Size(183, 45);
             this.CannyThreshold2Slider.TabIndex = 5;
             this.CannyThreshold2Slider.TickFrequency = 17;
             this.CannyThreshold2Slider.Value = 150;
@@ -272,11 +264,10 @@
             // 
             this.CannyThreshold1Slider.BackColor = System.Drawing.Color.White;
             this.CannyThreshold1Slider.LargeChange = 50;
-            this.CannyThreshold1Slider.Location = new System.Drawing.Point(4, 4);
-            this.CannyThreshold1Slider.Margin = new System.Windows.Forms.Padding(4);
+            this.CannyThreshold1Slider.Location = new System.Drawing.Point(3, 3);
             this.CannyThreshold1Slider.Maximum = 255;
             this.CannyThreshold1Slider.Name = "CannyThreshold1Slider";
-            this.CannyThreshold1Slider.Size = new System.Drawing.Size(244, 56);
+            this.CannyThreshold1Slider.Size = new System.Drawing.Size(183, 45);
             this.CannyThreshold1Slider.TabIndex = 4;
             this.CannyThreshold1Slider.TickStyle = System.Windows.Forms.TickStyle.None;
             this.CannyThreshold1Slider.Value = 100;
@@ -284,15 +275,14 @@
             // 
             // CannyThreshold1Number
             // 
-            this.CannyThreshold1Number.Location = new System.Drawing.Point(256, 4);
-            this.CannyThreshold1Number.Margin = new System.Windows.Forms.Padding(4);
+            this.CannyThreshold1Number.Location = new System.Drawing.Point(192, 3);
             this.CannyThreshold1Number.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.CannyThreshold1Number.Name = "CannyThreshold1Number";
-            this.CannyThreshold1Number.Size = new System.Drawing.Size(56, 22);
+            this.CannyThreshold1Number.Size = new System.Drawing.Size(42, 20);
             this.CannyThreshold1Number.TabIndex = 1;
             this.CannyThreshold1Number.Value = new decimal(new int[] {
             100,
@@ -303,15 +293,14 @@
             // 
             // CannyThreshold2Number
             // 
-            this.CannyThreshold2Number.Location = new System.Drawing.Point(256, 36);
-            this.CannyThreshold2Number.Margin = new System.Windows.Forms.Padding(4);
+            this.CannyThreshold2Number.Location = new System.Drawing.Point(192, 29);
             this.CannyThreshold2Number.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.CannyThreshold2Number.Name = "CannyThreshold2Number";
-            this.CannyThreshold2Number.Size = new System.Drawing.Size(56, 22);
+            this.CannyThreshold2Number.Size = new System.Drawing.Size(42, 20);
             this.CannyThreshold2Number.TabIndex = 3;
             this.CannyThreshold2Number.Value = new decimal(new int[] {
             150,
@@ -323,10 +312,10 @@
             // sobelRadio
             // 
             this.sobelRadio.AutoSize = true;
-            this.sobelRadio.Location = new System.Drawing.Point(83, 22);
-            this.sobelRadio.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.sobelRadio.Location = new System.Drawing.Point(62, 18);
+            this.sobelRadio.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.sobelRadio.Name = "sobelRadio";
-            this.sobelRadio.Size = new System.Drawing.Size(65, 21);
+            this.sobelRadio.Size = new System.Drawing.Size(52, 17);
             this.sobelRadio.TabIndex = 7;
             this.sobelRadio.Text = "Sobel";
             this.sobelRadio.UseVisualStyleBackColor = true;
@@ -335,10 +324,10 @@
             // 
             this.cannyRadio.AutoSize = true;
             this.cannyRadio.Checked = true;
-            this.cannyRadio.Location = new System.Drawing.Point(8, 22);
-            this.cannyRadio.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.cannyRadio.Location = new System.Drawing.Point(6, 18);
+            this.cannyRadio.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cannyRadio.Name = "cannyRadio";
-            this.cannyRadio.Size = new System.Drawing.Size(69, 21);
+            this.cannyRadio.Size = new System.Drawing.Size(55, 17);
             this.cannyRadio.TabIndex = 6;
             this.cannyRadio.TabStop = true;
             this.cannyRadio.Text = "Canny";
@@ -348,16 +337,14 @@
             // FilterListBox
             // 
             this.FilterListBox.FormattingEnabled = true;
-            this.FilterListBox.ItemHeight = 16;
             this.FilterListBox.Items.AddRange(new object[] {
             "Gaussian Blur",
             "Black and White",
             "Edge Finding"});
-            this.FilterListBox.Location = new System.Drawing.Point(7, 6);
-            this.FilterListBox.Margin = new System.Windows.Forms.Padding(4);
+            this.FilterListBox.Location = new System.Drawing.Point(5, 5);
             this.FilterListBox.Name = "FilterListBox";
             this.FilterListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.FilterListBox.Size = new System.Drawing.Size(316, 68);
+            this.FilterListBox.Size = new System.Drawing.Size(238, 56);
             this.FilterListBox.TabIndex = 0;
             this.FilterListBox.SelectedIndexChanged += new System.EventHandler(this.filterListBox_SelectedIndexChanged);
             // 
@@ -365,19 +352,19 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Location = new System.Drawing.Point(789, 32);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabControl1.Location = new System.Drawing.Point(592, 26);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(341, 487);
+            this.tabControl1.Size = new System.Drawing.Size(256, 396);
             this.tabControl1.TabIndex = 3;
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(918, 528);
-            this.cancelButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.cancelButton.Location = new System.Drawing.Point(688, 429);
+            this.cancelButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(101, 34);
+            this.cancelButton.Size = new System.Drawing.Size(76, 28);
             this.cancelButton.TabIndex = 5;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
@@ -385,10 +372,10 @@
             // 
             // okButton
             // 
-            this.okButton.Location = new System.Drawing.Point(1025, 528);
-            this.okButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.okButton.Location = new System.Drawing.Point(769, 429);
+            this.okButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.okButton.Name = "okButton";
-            this.okButton.Size = new System.Drawing.Size(101, 34);
+            this.okButton.Size = new System.Drawing.Size(76, 28);
             this.okButton.TabIndex = 6;
             this.okButton.Text = "OK";
             this.okButton.UseVisualStyleBackColor = true;
@@ -396,15 +383,15 @@
             // 
             // ExpandedImageForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1135, 572);
+            this.ClientSize = new System.Drawing.Size(851, 465);
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.OutputImageBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "ExpandedImageForm";
             this.Text = "OpenMTR Demo";
             this.Load += new System.EventHandler(this.ExpandedImageForm_Load);

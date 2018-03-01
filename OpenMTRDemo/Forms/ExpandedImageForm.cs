@@ -134,5 +134,10 @@ namespace OpenMTRDemo.Forms
             SetDisableableControls(true);
             Render();
         }
+
+        public Mat returnImage()
+        {
+            return Image;
+        }
     }
 }
