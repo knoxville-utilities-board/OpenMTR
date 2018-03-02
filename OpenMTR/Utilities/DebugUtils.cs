@@ -8,7 +8,7 @@ namespace OpenMTR
 {
     public static class DebugUtils
     {
-        public static void Log(string message, bool newLine = true)
+        public static void Log(object message, bool newLine = true)
         {
             if (Program.DEBUG)
             {
