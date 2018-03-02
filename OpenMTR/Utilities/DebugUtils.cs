@@ -23,8 +23,8 @@ namespace OpenMTR
 
         public static void ExportMatToFile(Mat image, string fileName)
         {
-            ConvertMatToBitmap(image).Save(fileName);
-            Process.Start(fileName);
+            ConvertMatToBitmap(image).Save(fileName + ".jpg");
+            Process.Start(fileName + ".jpg");
         }
 
         public static Bitmap ConvertMatToBitmap(Mat image)
