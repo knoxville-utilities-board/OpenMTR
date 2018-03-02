@@ -1,5 +1,6 @@
 ﻿using OpenCvSharp;
 using System;
+using System.Collections.Generic;
 
 namespace OpenMTR
 {
@@ -46,7 +47,33 @@ namespace OpenMTR
 
         private static void ExtractDials(Meter meter)
         {
-
+            List<CircleSegment> filteredCircles = new List<CircleSegment>();
+            ImageUtils.ColorToGray(meter.SourceImage, meter.ModifiedImage);
+            Cv2.MorphologyEx(meter.ModifiedImage, meter.ModifiedImage, MorphTypes.Close, ImageUtils.GetKernel(new Size(3, 3)));
+            ImageUtils.ApplyGaussianBlur(meter.ModifiedImage, meter.ModifiedImage);
+            CircleSegment[] circles = Cv2.HoughCircles(meter.ModifiedImage, HoughMethods.Gradient, 1, meter.ModifiedImage.Rows / 8, 200, 100, 0, 0);
+            for (int i = 0; i < circles.Length; i++)
+            {
+                CircleSegment circle = circles[i];
+                Point center = circle.Center;
+                int count = 0;
+                foreach (CircleSegment otherCircle in circles)
+                {
+                    if (!circle.Equals(otherCircle))
+                    {
+                        if (Math.Abs(center.Y - otherCircle.Center.Y) < 10)
+                        {
+                            count++;
+                        }
+                    }
+                }
+                if (count == 3)
+                {
+                    filteredCircles.Add(circle);
+                }
+            }
+            string dialValue = Dial.Read(meter, filteredCircles);
+            DebugUtils.Log("Finished");
         }
     }
 }
