@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 using OpenCvSharp;
+using OpenMTRDemo.Filters;
+using System.Collections.Generic;
 
 namespace OpenMTRDemo.Forms
 {
@@ -22,6 +24,18 @@ namespace OpenMTRDemo.Forms
             OutputImageBox.Image = DemoUtilities.MatToBitmap(Image);
             _loadSaveDialog = new Models.LoadSaveDialog();
             SetDisableableControls(true);
+            LoadFilters();
+        }
+
+        private void LoadFilters()
+        {
+            BaseFilter.BaseFilterListable[] filters = {
+                new BnWFilter.Listable(this, filtersFlowPanel),
+                new GaussianFilter.Listable(this, filtersFlowPanel),
+                new CannyFilter.Listable(this, filtersFlowPanel),
+                new SobelFilter.Listable(this, filtersFlowPanel)
+            };
+            filtersComboBox.Items.AddRange(filters);
         }
 
         public override void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -42,43 +56,19 @@ namespace OpenMTRDemo.Forms
             }
         }
 
-        private void Render(object sender = null, EventArgs e = null)
+        public void Render(object sender = null, EventArgs e = null)
         {
             Image = Source.Clone();
             ApplyFilters(Image);
             OutputImageBox.Image = DemoUtilities.MatToBitmap(Image);
         }
 
-        private void ApplyFilters(Mat imageToFilter)
+        private void ApplyFilters(Mat image)
         {
-            foreach (string filter in FilterListBox.SelectedItems)
+            foreach (BaseFilter filter in filtersFlowPanel.Controls)
             {
-                switch (filter)
-                {
-                    case "Black and White":
-                        Cv2.CvtColor(imageToFilter, imageToFilter, ColorConversionCodes.BGR2GRAY);
-                        break;
-                    case "Gaussian Blur":
-                        Cv2.GaussianBlur(imageToFilter, imageToFilter, new Size(gaussianHorizontalSlider.Value * 2 + 1, gaussianVerticalSlider.Value * 2 + 1), 0, 0, BorderTypes.Default);
-                        break;
-                    case "Edge Finding":
-                        if (cannyRadio.Checked)
-                        {
-                            Cv2.Canny(imageToFilter.Clone(), imageToFilter, CannyThreshold1Slider.Value, CannyThreshold2Slider.Value);
-                        }
-                        else
-                        {
-                            Cv2.Sobel(imageToFilter, imageToFilter, MatType.CV_8U, xorder: 1, yorder: 0, ksize: -1);
-                        }
-                        break;
-                }
+                filter.ApplyFilter(image);
             }
-        }
-
-        private void filterListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            SetDisableableControls(true);
-            Render();
         }
 
         public override void CloseToolStripMenuItem_Click(object sender, EventArgs e)
@@ -93,28 +83,6 @@ namespace OpenMTRDemo.Forms
         {
             SaveToolStripMenuItem.Enabled = state;
             CloseToolStripMenuItem.Enabled = state;
-            FilterListBox.Enabled = state;
-            cannySettingsPanel.Enabled = cannyRadio.Checked;
-            edgeFindingBox.Enabled = state && FilterListBox.SelectedItems.Contains("Edge Finding");
-            blurBox.Enabled = state && FilterListBox.SelectedItems.Contains("Gaussian Blur");
-        }
-
-        private void cannyThreshold_ValueChanged(object sender, EventArgs e)
-        {
-            int value;
-            try
-            {
-                value = (int)((NumericUpDown)sender).Value;
-                TrackBar receiver = (sender == CannyThreshold1Number) ? CannyThreshold1Slider : CannyThreshold2Slider;
-                receiver.Value = value;
-            }
-            catch (InvalidCastException)
-            {
-                value = ((TrackBar)sender).Value;
-                NumericUpDown receiver = (sender == CannyThreshold1Slider) ? CannyThreshold1Number : CannyThreshold2Number;
-                receiver.Value = value;
-            }
-            Render();
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -129,10 +97,9 @@ namespace OpenMTRDemo.Forms
             Close();
         }
 
-        private void cannyRadio_CheckedChanged(object sender, EventArgs e)
+        private void addFilterButton_Click(object sender, EventArgs e)
         {
-            SetDisableableControls(true);
-            Render();
+            filtersFlowPanel.Controls.Add(((BaseFilter.BaseFilterListable)filtersComboBox.SelectedItem).Instance());
         }
 
         public Mat returnImage()
