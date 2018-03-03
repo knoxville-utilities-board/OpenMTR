@@ -202,7 +202,7 @@
             // pictureBoxPane6
             // 
             this.pictureBoxPane6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBoxPane6.Location = new System.Drawing.Point(960, 580);
+            this.pictureBoxPane6.Location = new System.Drawing.Point(963, 580);
             this.pictureBoxPane6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBoxPane6.Name = "pictureBoxPane6";
             this.pictureBoxPane6.Size = new System.Drawing.Size(310, 240);
