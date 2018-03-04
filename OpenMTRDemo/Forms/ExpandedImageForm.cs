@@ -29,11 +29,11 @@ namespace OpenMTRDemo.Forms
 
         private void LoadFilters()
         {
-            BaseFilter.BaseFilterListable[] filters = {
-                new BnWFilter.Listable(this, filtersFlowPanel),
-                new GaussianFilter.Listable(this, filtersFlowPanel),
-                new CannyFilter.Listable(this, filtersFlowPanel),
-                new SobelFilter.Listable(this, filtersFlowPanel)
+            BaseFilter[] filters = {
+                new BnWFilter(this, filtersFlowPanel),
+                new GaussianFilter(this, filtersFlowPanel),
+                new CannyFilter(this, filtersFlowPanel),
+                new SobelFilter(this, filtersFlowPanel)
             };
             filtersComboBox.Items.AddRange(filters);
         }
@@ -99,7 +99,7 @@ namespace OpenMTRDemo.Forms
 
         private void addFilterButton_Click(object sender, EventArgs e)
         {
-            filtersFlowPanel.Controls.Add(((BaseFilter.BaseFilterListable)filtersComboBox.SelectedItem).Instance());
+            filtersFlowPanel.Controls.Add(((BaseFilter)filtersComboBox.SelectedItem).Clone());
         }
 
         public Mat returnImage()

@@ -20,19 +20,9 @@ namespace OpenMTRDemo.Filters
             Cv2.Sobel(image, image, MatType.CV_8U, xorder: 1, yorder: 0, ksize: -1);
         }
 
-        public class Listable : BaseFilterListable
+        public override BaseFilter Clone()
         {
-            public Listable(ExpandedImageForm form, FlowLayoutPanel panel)
-            {
-                Form = form;
-                Panel = panel;
-                Name = "Sobel Filter";
-            }
-
-            public override BaseFilter Instance()
-            {
-                return new SobelFilter(Form, Panel);
-            }
+            return new SobelFilter(Editor, FiltersPanel);
         }
     }
 }

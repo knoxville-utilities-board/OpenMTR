@@ -23,19 +23,9 @@ namespace OpenMTRDemo.Filters
             }
         }
 
-        public class Listable : BaseFilterListable
+        public override BaseFilter Clone()
         {
-            public Listable(ExpandedImageForm form, FlowLayoutPanel panel)
-            {
-                Form = form;
-                Panel = panel;
-                Name = "Black and White";
-            }
-
-            public override BaseFilter Instance()
-            {
-                return new BnWFilter(Form, Panel);
-            }
+            return new BnWFilter(Editor, FiltersPanel);
         }
     }
 }

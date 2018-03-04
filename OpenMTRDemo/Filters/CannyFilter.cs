@@ -44,19 +44,9 @@ namespace OpenMTRDemo.Filters
             Render();
         }
 
-        public class Listable : BaseFilterListable
+        public override BaseFilter Clone()
         {
-            public Listable(ExpandedImageForm form, FlowLayoutPanel panel)
-            {
-                Form = form;
-                Panel = panel;
-                Name = "Canny Filter";
-            }
-
-            public override BaseFilter Instance()
-            {
-                return new CannyFilter(Form, Panel);
-            }
+            return new CannyFilter(Editor, FiltersPanel);
         }
     }
 }

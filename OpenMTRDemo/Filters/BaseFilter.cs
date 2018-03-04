@@ -12,6 +12,7 @@ namespace OpenMTRDemo.Filters
         public string FilterName;
         public ExpandedImageForm Editor;
         public FlowLayoutPanel FiltersPanel;
+        public string ListableName { get { return FilterName;  } }
 
         public BaseFilter()
         {
@@ -20,9 +21,9 @@ namespace OpenMTRDemo.Filters
 
         public virtual void ApplyFilter(Mat image) { }
 
-        public override string ToString()
+        public virtual BaseFilter Clone()
         {
-            return FilterName;
+            return null;
         }
 
         public void SetLabel()
@@ -81,18 +82,6 @@ namespace OpenMTRDemo.Filters
             }
             catch (NullReferenceException) { }
             catch (IndexOutOfRangeException) { }
-        }
-
-        public abstract class BaseFilterListable
-        {
-            public string Name;
-            public ExpandedImageForm Form;
-            public FlowLayoutPanel Panel;
-            public abstract BaseFilter Instance();
-            public override string ToString()
-            {
-                return Name;
-            }
         }
     }
 }
