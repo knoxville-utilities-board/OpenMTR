@@ -23,7 +23,7 @@ namespace OpenMTRDemo.Filters
 
         public virtual BaseFilter Clone()
         {
-            return null;
+            throw new NotImplementedException();
         }
 
         public void SetLabel()
@@ -80,7 +80,10 @@ namespace OpenMTRDemo.Filters
                 }
                 source.AddRange(reorder.ToArray());
             }
-            catch (NullReferenceException) { }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("The filter was not declared properly for this button to work.");
+            }
             catch (IndexOutOfRangeException) { }
         }
     }
