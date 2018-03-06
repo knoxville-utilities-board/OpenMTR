@@ -100,11 +100,38 @@ namespace OpenMTRDemo.Forms
         private void addFilterButton_Click(object sender, EventArgs e)
         {
             filtersFlowPanel.Controls.Add(((BaseFilter)filtersComboBox.SelectedItem).Clone());
+            EnableMoveButtons();
+        }
+
+        private void filtersComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            addFilterButton.Enabled = (filtersComboBox.SelectedIndex != -1);
         }
 
         public Mat returnImage()
         {
             return Image;
+        }
+
+        public void EnableMoveButtons()
+        {
+            var list = filtersFlowPanel.Controls;
+            if (list.Count > 0)
+            {
+                if (list.Count == 1)
+                {
+                    ((BaseFilter)list[0]).EnableMoveButtons(3);
+                }
+                else
+                {
+                    foreach (BaseFilter filter in list)
+                    {
+                        filter.EnableMoveButtons(0);
+                    }
+                    ((BaseFilter)list[0]).EnableMoveButtons(1);
+                    ((BaseFilter)list[list.Count - 1]).EnableMoveButtons(2);
+                }
+            }
         }
     }
 }

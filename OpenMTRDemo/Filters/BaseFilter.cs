@@ -57,11 +57,11 @@ namespace OpenMTRDemo.Filters
         private void removeButton_Click(object sender, EventArgs e)
         {
             this.Dispose(true);
+            Editor.EnableMoveButtons();
         }
 
         private void moveButton_Click(object sender, EventArgs e)
-        {
-            try
+        {try
             {
                 var source = FiltersPanel.Controls;
                 var reorder = new List<Control>();
@@ -79,12 +79,18 @@ namespace OpenMTRDemo.Filters
                     source.RemoveAt(index);
                 }
                 source.AddRange(reorder.ToArray());
+                Editor.EnableMoveButtons();
             }
             catch (NullReferenceException)
             {
                 MessageBox.Show("The filter was not declared properly for this button to work.");
             }
-            catch (IndexOutOfRangeException) { }
+        }
+
+        public void EnableMoveButtons(int position)
+        {
+            moveUpButton.Enabled = (position == 0 || position == 2);
+            moveDownButton.Enabled = (position == 0 || position == 1);
         }
     }
 }
