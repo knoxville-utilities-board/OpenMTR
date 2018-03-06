@@ -25,19 +25,9 @@ namespace OpenMTRDemo.Filters
             Render();
         }
 
-        public class Listable : BaseFilterListable
+        public override BaseFilter Clone()
         {
-            public Listable(ExpandedImageForm form, FlowLayoutPanel panel)
-            {
-                Form = form;
-                Panel = panel;
-                Name = "Gaussian Blur";
-            }
-
-            public override BaseFilter Instance()
-            {
-                return new GaussianFilter(Form, Panel);
-            }
+            return new GaussianFilter(Editor, FiltersPanel);
         }
     }
 }

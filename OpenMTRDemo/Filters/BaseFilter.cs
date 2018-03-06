@@ -12,6 +12,7 @@ namespace OpenMTRDemo.Filters
         public string FilterName;
         public ExpandedImageForm Editor;
         public FlowLayoutPanel FiltersPanel;
+        public string ListableName { get { return FilterName;  } }
 
         public BaseFilter()
         {
@@ -20,9 +21,9 @@ namespace OpenMTRDemo.Filters
 
         public virtual void ApplyFilter(Mat image) { }
 
-        public override string ToString()
+        public virtual BaseFilter Clone()
         {
-            return FilterName;
+            throw new NotImplementedException();
         }
 
         public void SetLabel()
@@ -56,11 +57,11 @@ namespace OpenMTRDemo.Filters
         private void removeButton_Click(object sender, EventArgs e)
         {
             this.Dispose(true);
+            Editor.EnableMoveButtons();
         }
 
         private void moveButton_Click(object sender, EventArgs e)
-        {
-            try
+        {try
             {
                 var source = FiltersPanel.Controls;
                 var reorder = new List<Control>();
@@ -78,21 +79,18 @@ namespace OpenMTRDemo.Filters
                     source.RemoveAt(index);
                 }
                 source.AddRange(reorder.ToArray());
+                Editor.EnableMoveButtons();
             }
-            catch (NullReferenceException) { }
-            catch (IndexOutOfRangeException) { }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("The filter was not declared properly for this button to work.");
+            }
         }
 
-        public abstract class BaseFilterListable
+        public void EnableMoveButtons(int position)
         {
-            public string Name;
-            public ExpandedImageForm Form;
-            public FlowLayoutPanel Panel;
-            public abstract BaseFilter Instance();
-            public override string ToString()
-            {
-                return Name;
-            }
+            moveUpButton.Enabled = (position == 0 || position == 2);
+            moveDownButton.Enabled = (position == 0 || position == 1);
         }
     }
 }

@@ -125,14 +125,17 @@
             // 
             // filtersComboBox
             // 
+            this.filtersComboBox.DisplayMember = "ListableName";
             this.filtersComboBox.FormattingEnabled = true;
             this.filtersComboBox.Location = new System.Drawing.Point(3, 4);
             this.filtersComboBox.Name = "filtersComboBox";
             this.filtersComboBox.Size = new System.Drawing.Size(159, 21);
             this.filtersComboBox.TabIndex = 4;
+            this.filtersComboBox.SelectedIndexChanged += new System.EventHandler(this.filtersComboBox_SelectedIndexChanged);
             // 
             // addFilterButton
             // 
+            this.addFilterButton.Enabled = false;
             this.addFilterButton.Location = new System.Drawing.Point(168, 4);
             this.addFilterButton.Name = "addFilterButton";
             this.addFilterButton.Size = new System.Drawing.Size(75, 21);
