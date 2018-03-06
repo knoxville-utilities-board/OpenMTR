@@ -196,6 +196,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ExpandedImageForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "OpenMTR Demo";
             this.Load += new System.EventHandler(this.ExpandedImageForm_Load);
             this.Controls.SetChildIndex(this.OutputImageBox, 0);

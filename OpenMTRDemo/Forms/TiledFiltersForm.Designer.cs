@@ -202,7 +202,7 @@
             // pictureBoxPane6
             // 
             this.pictureBoxPane6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBoxPane6.Location = new System.Drawing.Point(960, 580);
+            this.pictureBoxPane6.Location = new System.Drawing.Point(963, 580);
             this.pictureBoxPane6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBoxPane6.Name = "pictureBoxPane6";
             this.pictureBoxPane6.Size = new System.Drawing.Size(310, 240);
@@ -214,141 +214,141 @@
             // labelSource
             // 
             this.labelSource.AutoSize = true;
-            this.labelSource.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSource.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelSource.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.labelSource.Location = new System.Drawing.Point(97, 28);
             this.labelSource.Name = "labelSource";
-            this.labelSource.Size = new System.Drawing.Size(233, 37);
+            this.labelSource.Size = new System.Drawing.Size(120, 18);
             this.labelSource.TabIndex = 14;
             this.labelSource.Text = "Source Image";
             // 
             // labelGray
             // 
             this.labelGray.AutoSize = true;
-            this.labelGray.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelGray.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelGray.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.labelGray.Location = new System.Drawing.Point(97, 294);
             this.labelGray.Name = "labelGray";
-            this.labelGray.Size = new System.Drawing.Size(197, 37);
+            this.labelGray.Size = new System.Drawing.Size(103, 18);
             this.labelGray.TabIndex = 15;
             this.labelGray.Text = "Gray Image";
             // 
             // labelCanny
             // 
             this.labelCanny.AutoSize = true;
-            this.labelCanny.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCanny.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelCanny.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.labelCanny.Location = new System.Drawing.Point(435, 28);
             this.labelCanny.Name = "labelCanny";
-            this.labelCanny.Size = new System.Drawing.Size(215, 37);
+            this.labelCanny.Size = new System.Drawing.Size(116, 18);
             this.labelCanny.TabIndex = 16;
             this.labelCanny.Text = "Canny Image";
             // 
             // labelLaplace
             // 
             this.labelLaplace.AutoSize = true;
-            this.labelLaplace.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelLaplace.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelLaplace.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.labelLaplace.Location = new System.Drawing.Point(411, 294);
             this.labelLaplace.Name = "labelLaplace";
-            this.labelLaplace.Size = new System.Drawing.Size(287, 37);
+            this.labelLaplace.Size = new System.Drawing.Size(143, 18);
             this.labelLaplace.TabIndex = 17;
             this.labelLaplace.Text = "Laplacian Image";
             // 
             // labelSobel
             // 
             this.labelSobel.AutoSize = true;
-            this.labelSobel.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSobel.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelSobel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.labelSobel.Location = new System.Drawing.Point(435, 559);
             this.labelSobel.Name = "labelSobel";
-            this.labelSobel.Size = new System.Drawing.Size(215, 37);
+            this.labelSobel.Size = new System.Drawing.Size(111, 18);
             this.labelSobel.TabIndex = 18;
             this.labelSobel.Text = "Sobel Image";
             // 
             // labelScharr
             // 
             this.labelScharr.AutoSize = true;
-            this.labelScharr.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelScharr.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelScharr.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.labelScharr.Location = new System.Drawing.Point(97, 559);
             this.labelScharr.Name = "labelScharr";
-            this.labelScharr.Size = new System.Drawing.Size(233, 37);
+            this.labelScharr.Size = new System.Drawing.Size(116, 18);
             this.labelScharr.TabIndex = 25;
             this.labelScharr.Text = "Scharr Image";
             // 
             // labelPanel1
             // 
             this.labelPanel1.AutoSize = true;
-            this.labelPanel1.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPanel1.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelPanel1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.labelPanel1.Location = new System.Drawing.Point(759, 28);
             this.labelPanel1.Name = "labelPanel1";
-            this.labelPanel1.Size = new System.Drawing.Size(143, 37);
+            this.labelPanel1.Size = new System.Drawing.Size(69, 18);
             this.labelPanel1.TabIndex = 26;
             this.labelPanel1.Text = "Panel 1";
             // 
             // labelPanel2
             // 
             this.labelPanel2.AutoSize = true;
-            this.labelPanel2.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPanel2.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelPanel2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.labelPanel2.Location = new System.Drawing.Point(1086, 28);
             this.labelPanel2.Name = "labelPanel2";
-            this.labelPanel2.Size = new System.Drawing.Size(143, 37);
+            this.labelPanel2.Size = new System.Drawing.Size(69, 18);
             this.labelPanel2.TabIndex = 27;
             this.labelPanel2.Text = "Panel 2";
             // 
             // labelPanel3
             // 
             this.labelPanel3.AutoSize = true;
-            this.labelPanel3.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPanel3.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelPanel3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.labelPanel3.Location = new System.Drawing.Point(759, 294);
             this.labelPanel3.Name = "labelPanel3";
-            this.labelPanel3.Size = new System.Drawing.Size(143, 37);
+            this.labelPanel3.Size = new System.Drawing.Size(69, 18);
             this.labelPanel3.TabIndex = 28;
             this.labelPanel3.Text = "Panel 3";
             // 
             // labelPanel4
             // 
             this.labelPanel4.AutoSize = true;
-            this.labelPanel4.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPanel4.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelPanel4.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.labelPanel4.Location = new System.Drawing.Point(1086, 294);
             this.labelPanel4.Name = "labelPanel4";
-            this.labelPanel4.Size = new System.Drawing.Size(143, 37);
+            this.labelPanel4.Size = new System.Drawing.Size(69, 18);
             this.labelPanel4.TabIndex = 29;
             this.labelPanel4.Text = "Panel 4";
             // 
             // labelPanel5
             // 
             this.labelPanel5.AutoSize = true;
-            this.labelPanel5.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPanel5.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelPanel5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.labelPanel5.Location = new System.Drawing.Point(759, 559);
             this.labelPanel5.Name = "labelPanel5";
-            this.labelPanel5.Size = new System.Drawing.Size(143, 37);
+            this.labelPanel5.Size = new System.Drawing.Size(69, 18);
             this.labelPanel5.TabIndex = 30;
             this.labelPanel5.Text = "Panel 5";
             // 
             // labelPanel6
             // 
             this.labelPanel6.AutoSize = true;
-            this.labelPanel6.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPanel6.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelPanel6.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.labelPanel6.Location = new System.Drawing.Point(1086, 559);
             this.labelPanel6.Name = "labelPanel6";
-            this.labelPanel6.Size = new System.Drawing.Size(143, 37);
+            this.labelPanel6.Size = new System.Drawing.Size(69, 18);
             this.labelPanel6.TabIndex = 31;
             this.labelPanel6.Text = "Panel 6";
             // 
             // TiledFiltersForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 26F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightGray;
-            this.ClientSize = new System.Drawing.Size(1687, 936);
+            this.ClientSize = new System.Drawing.Size(1284, 836);
             this.Controls.Add(this.labelPanel6);
             this.Controls.Add(this.labelPanel5);
             this.Controls.Add(this.labelPanel4);
@@ -377,6 +377,7 @@
             this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TiledFiltersForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "OpenMTR Demo";
             this.Controls.SetChildIndex(this.labelSource, 0);
             this.Controls.SetChildIndex(this.labelGray, 0);
