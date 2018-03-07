@@ -32,7 +32,7 @@ namespace OpenMTR
             return OpenCvSharp.Extensions.BitmapConverter.ToBitmap(image);
         }
 
-        public static void DrawLines(Mat sourceImage, List<LineSegmentPolar> lines)
+        public static void DrawLines(Mat sourceImage, List<LineSegmentPolar> lines, string name = "image_with_lines")
         {
             foreach (LineSegmentPolar line in lines)
             {
@@ -47,7 +47,7 @@ namespace OpenMTR
                 Cv2.Line(sourceImage, new OpenCvSharp.Point((int)(x0 + 1000 * (-b)), (int)(y0 + 1000 * a)), new OpenCvSharp.Point((int)(x0 - 1000 * (-b)), (int)(y0 - 1000 * (a))), new Scalar(255, 0, 0));
             }
 
-            ExportMatToFile(sourceImage, "image_with_lines.jpg");
+            ExportMatToFile(sourceImage, name);
         }
     }
 }
