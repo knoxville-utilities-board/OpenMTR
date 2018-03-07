@@ -1,6 +1,6 @@
-﻿using OpenCvSharp;
+﻿using System.Windows.Forms;
+using OpenCvSharp;
 using OpenMTRDemo.Forms;
-using System.Windows.Forms;
 
 namespace OpenMTRDemo.Filters
 {
@@ -12,7 +12,6 @@ namespace OpenMTRDemo.Filters
             this.Editor = Editor;
             FiltersPanel = filtersPanel;
             FilterName = "Black and White";
-            SetLabel();
         }
 
         public override void ApplyFilter(Mat image)

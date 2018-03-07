@@ -19,16 +19,16 @@ namespace OpenMTRDemo.Filters
             InitializeComponent();
         }
 
+        private void BaseFilter_Load(object sender, EventArgs e)
+        {
+            nameLabel.Text = FilterName;
+        }
+
         public virtual void ApplyFilter(Mat image) { }
 
         public virtual BaseFilter Clone()
         {
             throw new NotImplementedException();
-        }
-
-        public void SetLabel()
-        {
-            nameLabel.Text = FilterName;
         }
 
         public void Render()

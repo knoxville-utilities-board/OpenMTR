@@ -1,6 +1,6 @@
-﻿using OpenCvSharp;
+﻿using System.Windows.Forms;
+using OpenCvSharp;
 using OpenMTRDemo.Forms;
-using System.Windows.Forms;
 
 namespace OpenMTRDemo.Filters
 {
@@ -12,12 +12,11 @@ namespace OpenMTRDemo.Filters
             this.Editor = Editor;
             FiltersPanel = filtersPanel;
             FilterName = "Gaussian Blur";
-            SetLabel();
         }
 
         public override void ApplyFilter(Mat image)
         {
-            Cv2.GaussianBlur(image, image, new OpenCvSharp.Size(horizontalTrackBar.Value * 2 + 3, verticalTrackBar.Value * 2 + 3), 0);
+            Cv2.GaussianBlur(image, image, new OpenCvSharp.Size(horizontalTrackBar.Value * 2 + 1, verticalTrackBar.Value * 2 + 3), 0);
         }
 
         private void kernelChanged(object sender, System.EventArgs e)
