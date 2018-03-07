@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Code\Detect.cs" />
+    <Compile Include="Code\Dial.cs" />
     <Compile Include="Code\Odometer.cs" />
     <Compile Include="Models\Meter.cs" />
     <Compile Include="Models\MeterMetaData.cs" />
