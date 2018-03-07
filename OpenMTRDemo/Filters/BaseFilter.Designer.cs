@@ -107,6 +107,7 @@
             this.MinimumSize = new System.Drawing.Size(220, 21);
             this.Name = "BaseFilter";
             this.Size = new System.Drawing.Size(216, 17);
+            this.Load += new System.EventHandler(this.BaseFilter_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

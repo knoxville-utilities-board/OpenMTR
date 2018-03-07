@@ -84,6 +84,18 @@
     <Compile Include="Filters\GaussianFilter.Designer.cs">
       <DependentUpon>GaussianFilter.cs</DependentUpon>
     </Compile>
+    <Compile Include="Filters\LaplacianFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Filters\LaplacianFilter.Designer.cs">
+      <DependentUpon>LaplacianFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Filters\ScharrFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Filters\ScharrFilter.Designer.cs">
+      <DependentUpon>ScharrFilter.cs</DependentUpon>
+    </Compile>
     <Compile Include="Filters\SobelFilter.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -122,6 +134,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Filters\GaussianFilter.resx">
       <DependentUpon>GaussianFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Filters\LaplacianFilter.resx">
+      <DependentUpon>LaplacianFilter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\BaseForm.resx">
       <DependentUpon>BaseForm.cs</DependentUpon>

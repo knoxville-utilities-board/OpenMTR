@@ -33,7 +33,9 @@ namespace OpenMTRDemo.Forms
                 new BnWFilter(this, filtersFlowPanel),
                 new GaussianFilter(this, filtersFlowPanel),
                 new CannyFilter(this, filtersFlowPanel),
-                new SobelFilter(this, filtersFlowPanel)
+                new SobelFilter(this, filtersFlowPanel),
+                new ScharrFilter(this, filtersFlowPanel),
+                new LaplacianFilter(this, filtersFlowPanel)
             };
             filtersComboBox.Items.AddRange(filters);
         }
