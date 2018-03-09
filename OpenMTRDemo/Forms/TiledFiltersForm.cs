@@ -9,23 +9,25 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using OpenCvSharp;
 using OpenMTRDemo.Models;
+using OpenMTRDemo.Filters;
 
 namespace OpenMTRDemo.Forms
 {
     public partial class TiledFiltersForm : BaseForm
     {
         private MeterImage _meter;
-        private Mat _cannyMat;
-        private Mat _grayMat;
-        private Mat _sobelMat;
-        private Mat _laplacianMat;
-        private Mat _scharrMat;
+        private MeterImage _cannyMat;
+        private MeterImage _grayMat;
+        private MeterImage _sobelMat;
+        private MeterImage _laplacianMat;
+        private MeterImage _scharrMat;
         private MeterImage _meterPane1;
         private MeterImage _meterPane2;
         private MeterImage _meterPane3;
         private MeterImage _meterPane4;
         private MeterImage _meterPane5;
         private MeterImage _meterPane6;
+        private List<KeyValPair<PictureBox>> _meterList;
 
         public TiledFiltersForm()
         {
@@ -37,59 +39,50 @@ namespace OpenMTRDemo.Forms
             LoadSaveDialog loadSaveDialog = new LoadSaveDialog();
             if (loadSaveDialog.openBrowser.ShowDialog() == DialogResult.OK)
             {
-                _meter = new MeterImage(loadSaveDialog.openBrowser.FileName, new Mat(loadSaveDialog.openBrowser.FileName), new Mat(loadSaveDialog.openBrowser.FileName));
+                _meter = new MeterImage(loadSaveDialog.openBrowser.FileName, new Mat(loadSaveDialog.openBrowser.FileName));
                 LoadAllImagePanes();
             }
         }
 
         private void LoadAllImagePanes()
         {
-            _cannyMat = _meter.SourceImage.Clone();
-            _grayMat = _meter.SourceImage.Clone();
-            _sobelMat = _meter.SourceImage.Clone();
-            _laplacianMat = _meter.SourceImage.Clone();
-            _scharrMat = _meter.SourceImage.Clone();
+            _cannyMat = _meter.Clone();
+            _grayMat = _meter.Clone();
+            _sobelMat = _meter.Clone();
+            _laplacianMat = _meter.Clone();
+            _scharrMat = _meter.Clone();
+            _meterPane1 = _meter.Clone();
+            _meterPane2 = _meter.Clone();
+            _meterPane3 = _meter.Clone();
+            _meterPane4 = _meter.Clone();
+            _meterPane5 = _meter.Clone();
+            _meterPane6 = _meter.Clone();
 
-            _meterPane1 = new MeterImage();
-            _meterPane2 = new MeterImage();
-            _meterPane3 = new MeterImage();
-            _meterPane4 = new MeterImage();
-            _meterPane5 = new MeterImage();
-            _meterPane6 = new MeterImage();
+            _cannyMat.Add(new CannyFilter());
+            _grayMat.Add(new GrayFilter());
+            _sobelMat.Add(new SobelFilter());
+            _laplacianMat.Add(new LaplacianFilter());
+            _scharrMat.Add(new ScharrFilter());
 
-            _meterPane1.SourceImage = _meter.SourceImage.Clone();
-            _meterPane2.SourceImage = _meter.SourceImage.Clone();
-            _meterPane3.SourceImage = _meter.SourceImage.Clone();
-            _meterPane4.SourceImage = _meter.SourceImage.Clone();
-            _meterPane5.SourceImage = _meter.SourceImage.Clone();
-            _meterPane6.SourceImage = _meter.SourceImage.Clone();
+            _meterList = new List<KeyValPair<PictureBox>>();
 
-            //OpenCVSharp required Mat data type to not be null when databound.
-            _meterPane1.ModifiedImage = _meter.SourceImage.Clone();
-            _meterPane2.ModifiedImage = _meter.SourceImage.Clone();
-            _meterPane3.ModifiedImage = _meter.SourceImage.Clone();
-            _meterPane4.ModifiedImage = _meter.SourceImage.Clone();
-            _meterPane5.ModifiedImage = _meter.SourceImage.Clone();
-            _meterPane6.ModifiedImage = _meter.SourceImage.Clone();
+            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxSource ,_meter));
+            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxPane1, _meterPane1));
+            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxPane2, _meterPane2));
+            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxPane3, _meterPane3));
+            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxPane4, _meterPane4));
+            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxPane5, _meterPane5));
+            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxPane6, _meterPane6));
+            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxGray, _grayMat));
+            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxSobel, _sobelMat));
+            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxCanny, _cannyMat));
+            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxLaplace, _laplacianMat));
+            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxScharr, _scharrMat));
 
-            Cv2.CvtColor(_grayMat, _grayMat, ColorConversionCodes.BGR2GRAY);
-            Cv2.Canny(_grayMat, _cannyMat, 225, 255);
-            Cv2.Sobel(_sobelMat, _sobelMat, MatType.CV_8U, xorder: 1, yorder: 0, ksize: -1);
-            Cv2.Laplacian(_laplacianMat, _laplacianMat, MatType.CV_8U, 3, 1, 0);
-            Cv2.Scharr(_grayMat, _scharrMat, MatType.CV_8U, xorder: 0, yorder: 1);
-
-            DemoUtilities.loadImage(pictureBoxSource, _meter.SourceImage);
-            DemoUtilities.loadImage(pictureBoxPane1, _meterPane1.SourceImage);
-            DemoUtilities.loadImage(pictureBoxPane2, _meterPane2.SourceImage);
-            DemoUtilities.loadImage(pictureBoxPane3, _meterPane3.SourceImage);
-            DemoUtilities.loadImage(pictureBoxPane4, _meterPane4.SourceImage);
-            DemoUtilities.loadImage(pictureBoxPane5, _meterPane5.SourceImage);
-            DemoUtilities.loadImage(pictureBoxPane6, _meterPane6.SourceImage);
-            DemoUtilities.loadImage(pictureBoxGray, _grayMat);
-            DemoUtilities.loadImage(pictureBoxSobel, _sobelMat);
-            DemoUtilities.loadImage(pictureBoxCanny, _cannyMat);
-            DemoUtilities.loadImage(pictureBoxLaplace, _laplacianMat);
-            DemoUtilities.loadImage(pictureBoxScharr, _scharrMat);
+            foreach (KeyValPair<PictureBox> kvp in _meterList)
+            {
+                DemoUtilities.loadImage(kvp.Id, kvp.Meter.ModifiedImage);
+            }
         }
 
         private void Pane_DblClickHandler(object sender, EventArgs e)
@@ -97,17 +90,21 @@ namespace OpenMTRDemo.Forms
             try
             {
                 ExpandedImageForm expandedImageForm;
-                PictureBox pictureBox = sender as PictureBox;
-                Bitmap image = (Bitmap)pictureBox.Image;
+                KeyValPair<PictureBox> meterPair = null;
+                foreach (KeyValPair<PictureBox> kvp in _meterList)
+                {
+                    if (sender == kvp.Id)
+                    {
+                        meterPair = kvp;
+                        break;
+                    }
+                }
 
-                Mat mat = OpenCvSharp.Extensions.BitmapConverter.ToMat(image);
-
-                expandedImageForm = new ExpandedImageForm(mat);
+                expandedImageForm = new ExpandedImageForm(meterPair.Meter);
                 expandedImageForm.ShowDialog();
                 if(expandedImageForm.DialogResult == DialogResult.OK)
                 {
-                    mat = expandedImageForm.returnImage();
-                    pictureBox.Image = DemoUtilities.MatToBitmap(mat);
+                    DemoUtilities.loadImage(meterPair.Id, meterPair.Meter.ModifiedImage);
                 }
                 expandedImageForm.Close();
             }

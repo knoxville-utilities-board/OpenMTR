@@ -4,15 +4,15 @@ using System.Drawing;
 using System.Windows.Forms;
 using OpenCvSharp;
 using OpenMTRDemo.Forms;
+using OpenMTRDemo.Models;
 
 namespace OpenMTRDemo.Filters
 {
     public partial class BaseFilter : UserControl
     {
-        public string FilterName;
-        public ExpandedImageForm Editor;
-        public FlowLayoutPanel FiltersPanel;
-        public string ListableName { get { return FilterName;  } }
+        public ExpandedImageForm Editor { get; set; }
+        public MeterImage Meter { get; set; }
+        public string FilterName { get; set; }
 
         public BaseFilter()
         {
@@ -56,6 +56,8 @@ namespace OpenMTRDemo.Filters
 
         private void removeButton_Click(object sender, EventArgs e)
         {
+            Meter.FilterList.Remove(this);
+            Meter.FilterList.TrimExcess();
             this.Dispose(true);
             Editor.EnableMoveButtons();
         }
@@ -63,27 +65,23 @@ namespace OpenMTRDemo.Filters
         private void moveButton_Click(object sender, EventArgs e)
         {try
             {
-                var source = FiltersPanel.Controls;
-                var reorder = new List<Control>();
-                int index = source.IndexOf(this) + ((sender == moveUpButton) ? -1 : +1);
-                if (index < 0 || index >= source.Count)
+                int oldIndex = Meter.FilterList.IndexOf(this);
+                int newIndex = oldIndex + ((sender == moveUpButton) ? -1 : 1);
+                if (newIndex < 0 || newIndex >= Meter.FilterList.Count)
                 {
                     throw new IndexOutOfRangeException();
                 }
-                source.Remove(this);
-                reorder.Add(this);
-                int count = source.Count;
-                for(int i = index; i < count; i++)
-                {
-                    reorder.Add(source[index]);
-                    source.RemoveAt(index);
-                }
-                source.AddRange(reorder.ToArray());
-                Editor.EnableMoveButtons();
+                Meter.FilterList[oldIndex] = Meter.FilterList[newIndex];
+                Meter.FilterList[newIndex] = this;
+                Editor.RenderList();
             }
             catch (NullReferenceException)
             {
                 MessageBox.Show("The filter was not declared properly for this button to work.");
+            }
+            catch (IndexOutOfRangeException)
+            {
+                MessageBox.Show("The filter cannot be moved up/down when it is already at the top/bottom.");
             }
         }
 

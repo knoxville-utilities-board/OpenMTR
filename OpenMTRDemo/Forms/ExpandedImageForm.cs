@@ -2,42 +2,50 @@
 using System.Windows.Forms;
 using OpenCvSharp;
 using OpenMTRDemo.Filters;
+using OpenMTRDemo.Models;
 using System.Collections.Generic;
 
 namespace OpenMTRDemo.Forms
 {
     public partial class ExpandedImageForm : BaseForm
     {
-        public Mat Source, Image;
+        public MeterImage Meter;
         private Models.LoadSaveDialog _loadSaveDialog;
 
-        public ExpandedImageForm(Mat image)
+        public ExpandedImageForm(MeterImage meter)
         {
-            this.Source = image.Clone();
-            this.Image = image;
+            this.Meter = meter;
             this.DialogResult = DialogResult.Cancel;
             InitializeComponent();
         }
 
         private void ExpandedImageForm_Load(object sender, EventArgs e)
         {
-            OutputImageBox.Image = DemoUtilities.MatToBitmap(Image);
             _loadSaveDialog = new Models.LoadSaveDialog();
             SetDisableableControls(true);
             LoadFilters();
+            Render();
         }
 
         private void LoadFilters()
         {
             BaseFilter[] filters = {
-                new BnWFilter(this, filtersFlowPanel),
-                new GaussianFilter(this, filtersFlowPanel),
-                new CannyFilter(this, filtersFlowPanel),
-                new SobelFilter(this, filtersFlowPanel),
-                new ScharrFilter(this, filtersFlowPanel),
-                new LaplacianFilter(this, filtersFlowPanel)
+                new GrayFilter(this, Meter),
+                new GaussianFilter(this, Meter),
+                new CannyFilter(this, Meter),
+                new SobelFilter(this, Meter),
+                new ScharrFilter(this, Meter),
+                new LaplacianFilter(this, Meter)
             };
             filtersComboBox.Items.AddRange(filters);
+            for (int i = 0; i < Meter.FilterList.Count; i++)
+            {
+                Meter.FilterList[i].Editor = this;
+                Meter.FilterList[i].Meter = Meter;
+                Meter.FilterList[i] = Meter.FilterList[i].Clone();
+            }
+            filtersFlowPanel.Controls.AddRange(Meter.FilterList.ToArray());
+            EnableMoveButtons();
         }
 
         public override void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -52,7 +60,7 @@ namespace OpenMTRDemo.Forms
         {
             if (_loadSaveDialog.openBrowser.ShowDialog() == DialogResult.OK)
             {
-                Source = new Mat(_loadSaveDialog.openBrowser.FileName);
+                Meter.SourceImage = new Mat(_loadSaveDialog.openBrowser.FileName);
                 Render();
                 SetDisableableControls(true);
             }
@@ -60,17 +68,7 @@ namespace OpenMTRDemo.Forms
 
         public void Render(object sender = null, EventArgs e = null)
         {
-            Image = Source.Clone();
-            ApplyFilters(Image);
-            OutputImageBox.Image = DemoUtilities.MatToBitmap(Image);
-        }
-
-        private void ApplyFilters(Mat image)
-        {
-            foreach (BaseFilter filter in filtersFlowPanel.Controls)
-            {
-                filter.ApplyFilter(image);
-            }
+            OutputImageBox.Image = DemoUtilities.MatToBitmap(Meter.ModifiedImage);
         }
 
         public override void CloseToolStripMenuItem_Click(object sender, EventArgs e)
@@ -89,7 +87,6 @@ namespace OpenMTRDemo.Forms
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
-            Image = Source;
             Close();
         }
 
@@ -101,7 +98,9 @@ namespace OpenMTRDemo.Forms
 
         private void addFilterButton_Click(object sender, EventArgs e)
         {
-            filtersFlowPanel.Controls.Add(((BaseFilter)filtersComboBox.SelectedItem).Clone());
+            BaseFilter filter = ((BaseFilter)filtersComboBox.SelectedItem).Clone();
+            Meter.Add(filter);
+            filtersFlowPanel.Controls.Add(filter);
             EnableMoveButtons();
         }
 
@@ -112,7 +111,11 @@ namespace OpenMTRDemo.Forms
 
         public Mat returnImage()
         {
-            return Image;
+            if (DialogResult == DialogResult.OK)
+            {
+                return Meter.ModifiedImage;
+            }
+            return Meter.SourceImage;
         }
 
         public void EnableMoveButtons()
@@ -134,6 +137,13 @@ namespace OpenMTRDemo.Forms
                     ((BaseFilter)list[list.Count - 1]).EnableMoveButtons(2);
                 }
             }
+        }
+
+        public void RenderList()
+        {
+            filtersFlowPanel.Controls.Clear();
+            filtersFlowPanel.Controls.AddRange(Meter.FilterList.ToArray());
+            EnableMoveButtons();
         }
     }
 }

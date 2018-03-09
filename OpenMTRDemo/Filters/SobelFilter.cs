@@ -1,16 +1,17 @@
 ﻿using System.Windows.Forms;
 using OpenCvSharp;
 using OpenMTRDemo.Forms;
+using OpenMTRDemo.Models;
 
 namespace OpenMTRDemo.Filters
 {
     public partial class SobelFilter : BaseFilter
     {
-        public SobelFilter(ExpandedImageForm Editor = null, FlowLayoutPanel filtersPanel = null)
+        public SobelFilter(ExpandedImageForm Editor = null, MeterImage meter = null)
         {
             InitializeComponent();
             this.Editor = Editor;
-            FiltersPanel = filtersPanel;
+            Meter = meter;
             FilterName = "Sobel Filter";
         }
 
@@ -21,7 +22,7 @@ namespace OpenMTRDemo.Filters
 
         public override BaseFilter Clone()
         {
-            return new SobelFilter(Editor, FiltersPanel);
+            return new SobelFilter(Editor, Meter);
         }
     }
 }

@@ -1,17 +1,20 @@
 ﻿using System.Windows.Forms;
 using OpenCvSharp;
 using OpenMTRDemo.Forms;
+using OpenMTRDemo.Models;
 
 namespace OpenMTRDemo.Filters
 {
     public partial class CannyFilter : BaseFilter
     {
-        public CannyFilter(ExpandedImageForm Editor = null, FlowLayoutPanel filtersPanel = null)
+        public CannyFilter(ExpandedImageForm Editor = null, MeterImage meter = null, int threshold1 = 85, int threshold2 = 170)
         {
             InitializeComponent();
             this.Editor = Editor;
-            FiltersPanel = filtersPanel;
+            Meter = meter;
             FilterName = "Canny Filter";
+            thresholdTrackBar1.Value = threshold1;
+            thresholdTrackBar2.Value = threshold2;
         }
 
         public override void ApplyFilter(Mat image)
@@ -20,8 +23,7 @@ namespace OpenMTRDemo.Filters
         }
 
         private void threshold_ValueChanged(object sender, System.EventArgs e)
-        {
-            int value;
+        {int value;
             if (sender == thresholdNumber1 || sender == thresholdNumber2)
             {
                 value = (int)((NumericUpDown)sender).Value;
@@ -45,7 +47,7 @@ namespace OpenMTRDemo.Filters
 
         public override BaseFilter Clone()
         {
-            return new CannyFilter(Editor, FiltersPanel);
+            return new CannyFilter(Editor, Meter, thresholdTrackBar1.Value, thresholdTrackBar2.Value);
         }
     }
 }

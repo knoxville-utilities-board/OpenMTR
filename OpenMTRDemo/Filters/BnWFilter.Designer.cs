@@ -1,6 +1,6 @@
 ﻿namespace OpenMTRDemo.Filters
 {
-    partial class BnWFilter
+    partial class GrayFilter
     {
         /// <summary> 
         /// Required designer variable.

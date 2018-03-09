@@ -1,17 +1,20 @@
 ﻿using System.Windows.Forms;
 using OpenCvSharp;
 using OpenMTRDemo.Forms;
+using OpenMTRDemo.Models;
 
 namespace OpenMTRDemo.Filters
 {
     public partial class LaplacianFilter : BaseFilter
     {
-        public LaplacianFilter(ExpandedImageForm Editor = null, FlowLayoutPanel FiltersPanel = null)
+        public LaplacianFilter(ExpandedImageForm Editor = null, MeterImage meter = null, int kernelSize = 0, int delta = 1)
         {
             InitializeComponent();
             this.Editor = Editor;
-            this.FiltersPanel = FiltersPanel;
+            this.Meter = meter;
             FilterName = "Laplacian Filter";
+            kSizeTrackBar.Value = kernelSize;
+            deltaTrackBar.Value = delta;
         }
 
         public override void ApplyFilter(Mat image)
@@ -21,7 +24,7 @@ namespace OpenMTRDemo.Filters
 
         public override BaseFilter Clone()
         {
-            return new LaplacianFilter(Editor, FiltersPanel);
+            return new LaplacianFilter(Editor, Meter, kSizeTrackBar.Value, deltaTrackBar.Value);
         }
 
         private void parametersChanged(object sender, System.EventArgs e)

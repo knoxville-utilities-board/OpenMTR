@@ -1,16 +1,17 @@
 ﻿using System.Windows.Forms;
 using OpenCvSharp;
 using OpenMTRDemo.Forms;
+using OpenMTRDemo.Models;
 
 namespace OpenMTRDemo.Filters
 {
     public partial class ScharrFilter : BaseFilter
     {
-        public ScharrFilter(ExpandedImageForm Editor = null, FlowLayoutPanel FiltersPanel = null)
+        public ScharrFilter(ExpandedImageForm Editor = null, MeterImage meter = null)
         {
             InitializeComponent();
             this.Editor = Editor;
-            this.FiltersPanel = FiltersPanel;
+            this.Meter = meter;
             FilterName = "Scharr Filter";
         }
 
@@ -21,7 +22,7 @@ namespace OpenMTRDemo.Filters
 
         public override BaseFilter Clone()
         {
-            return new ScharrFilter(Editor, FiltersPanel);
+            return new ScharrFilter(Editor, Meter);
         }
     }
 }
