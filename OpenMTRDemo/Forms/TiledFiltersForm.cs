@@ -41,6 +41,7 @@ namespace OpenMTRDemo.Forms
             {
                 _meter = new MeterImage(loadSaveDialog.openBrowser.FileName, new Mat(loadSaveDialog.openBrowser.FileName));
                 LoadAllImagePanes();
+                LoadKeyValueList();
             }
         }
 
@@ -63,10 +64,26 @@ namespace OpenMTRDemo.Forms
             _sobelMat.Add(new SobelFilter());
             _laplacianMat.Add(new LaplacianFilter());
             _scharrMat.Add(new ScharrFilter());
+            
+            DemoUtilities.loadImage(pictureBoxSource, _meter.ModifiedImage);
+            DemoUtilities.loadImage(pictureBoxPane1, _meterPane1.ModifiedImage);
+            DemoUtilities.loadImage(pictureBoxPane2, _meterPane2.ModifiedImage);
+            DemoUtilities.loadImage(pictureBoxPane3, _meterPane3.ModifiedImage);
+            DemoUtilities.loadImage(pictureBoxPane4, _meterPane4.ModifiedImage);
+            DemoUtilities.loadImage(pictureBoxPane5, _meterPane5.ModifiedImage);
+            DemoUtilities.loadImage(pictureBoxPane6, _meterPane6.ModifiedImage);
+            DemoUtilities.loadImage(pictureBoxGray, _grayMat.ModifiedImage);
+            DemoUtilities.loadImage(pictureBoxSobel, _sobelMat.ModifiedImage);
+            DemoUtilities.loadImage(pictureBoxCanny, _cannyMat.ModifiedImage);
+            DemoUtilities.loadImage(pictureBoxLaplace, _laplacianMat.ModifiedImage);
+            DemoUtilities.loadImage(pictureBoxScharr, _scharrMat.ModifiedImage);
+        }
 
+        private void LoadKeyValueList()
+        {
             _meterList = new List<KeyValPair<PictureBox>>();
 
-            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxSource ,_meter));
+            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxSource, _meter));
             _meterList.Add(new KeyValPair<PictureBox>(pictureBoxPane1, _meterPane1));
             _meterList.Add(new KeyValPair<PictureBox>(pictureBoxPane2, _meterPane2));
             _meterList.Add(new KeyValPair<PictureBox>(pictureBoxPane3, _meterPane3));
@@ -78,11 +95,6 @@ namespace OpenMTRDemo.Forms
             _meterList.Add(new KeyValPair<PictureBox>(pictureBoxCanny, _cannyMat));
             _meterList.Add(new KeyValPair<PictureBox>(pictureBoxLaplace, _laplacianMat));
             _meterList.Add(new KeyValPair<PictureBox>(pictureBoxScharr, _scharrMat));
-
-            foreach (KeyValPair<PictureBox> kvp in _meterList)
-            {
-                DemoUtilities.loadImage(kvp.Id, kvp.Meter.ModifiedImage);
-            }
         }
 
         private void Pane_DblClickHandler(object sender, EventArgs e)
