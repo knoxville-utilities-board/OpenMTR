@@ -23,7 +23,8 @@ namespace OpenMTRDemo.Filters
         }
 
         private void threshold_ValueChanged(object sender, System.EventArgs e)
-        {int value;
+        {
+            int value;
             if (sender == thresholdNumber1 || sender == thresholdNumber2)
             {
                 value = (int)((NumericUpDown)sender).Value;
