@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 namespace OpenMTRDemo.Models
 {
     //This class is created out of the necessity to make key value pairs mutable
-    public class KeyValPair
+    public class KeyValPair<KeyType>
     {
-        public string Id { get; set; }
-        public MeterImage meter;
+        public KeyType Id { get; set; }
+        public MeterImage Meter { get; set; }
 
         public KeyValPair() { }
 
-        public KeyValPair(MeterImage value, string key)
+        public KeyValPair(KeyType key, MeterImage value)
         {
             this.Id = key;
-            this.meter = value;
+            this.Meter = value;
         }
     }
 }

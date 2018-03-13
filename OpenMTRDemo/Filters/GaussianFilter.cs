@@ -1,17 +1,20 @@
 ﻿using System.Windows.Forms;
 using OpenCvSharp;
 using OpenMTRDemo.Forms;
+using OpenMTRDemo.Models;
 
 namespace OpenMTRDemo.Filters
 {
     public partial class GaussianFilter : BaseFilter
     {
-        public GaussianFilter(ExpandedImageForm Editor = null, FlowLayoutPanel filtersPanel = null)
+        public GaussianFilter(ExpandedImageForm Editor = null, MeterImage meter = null, int hRadius = 1, int vRadius = 1)
         {
             InitializeComponent();
             this.Editor = Editor;
-            FiltersPanel = filtersPanel;
+            Meter = meter;
             FilterName = "Gaussian Blur";
+            horizontalTrackBar.Value = hRadius;
+            verticalTrackBar.Value = vRadius;
         }
 
         public override void ApplyFilter(Mat image)
@@ -26,7 +29,7 @@ namespace OpenMTRDemo.Filters
 
         public override BaseFilter Clone()
         {
-            return new GaussianFilter(Editor, FiltersPanel);
+            return new GaussianFilter(Editor, Meter, horizontalTrackBar.Value, verticalTrackBar.Value);
         }
     }
 }

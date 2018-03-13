@@ -1,16 +1,17 @@
 ﻿using System.Windows.Forms;
 using OpenCvSharp;
 using OpenMTRDemo.Forms;
+using OpenMTRDemo.Models;
 
 namespace OpenMTRDemo.Filters
 {
-    public partial class BnWFilter : BaseFilter
+    public partial class GrayFilter : BaseFilter
     {
-        public BnWFilter(ExpandedImageForm Editor = null, FlowLayoutPanel filtersPanel = null)
+        public GrayFilter(ExpandedImageForm Editor = null, MeterImage meter = null)
         {
             InitializeComponent();
             this.Editor = Editor;
-            FiltersPanel = filtersPanel;
+            Meter = meter;
             FilterName = "Black and White";
         }
 
@@ -24,7 +25,7 @@ namespace OpenMTRDemo.Filters
 
         public override BaseFilter Clone()
         {
-            return new BnWFilter(Editor, FiltersPanel);
+            return new GrayFilter(Editor, Meter);
         }
     }
 }
