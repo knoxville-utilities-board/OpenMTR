@@ -44,16 +44,19 @@ namespace OpenMTR
                 Point center = new Point(dial.Width / 2, dial.Height / 2);
                 ImageUtils.ColorToGray(dial, dial);
                 ImageUtils.RotateImage(dial, dial, ImageUtils.DetectImageSkew(dial));
-                Cv2.GaussianBlur(dial, dial, new Size(5, 5), 0);
+                //Cv2.GaussianBlur(dial, dial, new Size(3, 3), 0);
                 Cv2.Dilate(dial, dial, ImageUtils.GetKernel(new Size(5, 5)));
-                Cv2.Dilate(dial, dial, ImageUtils.GetKernel(new Size(5, 5)));
+                //Cv2.Dilate(dial, dial, ImageUtils.GetKernel(new Size(5, 5)));
                 Cv2.MorphologyEx(dial, dial, MorphTypes.Open, ImageUtils.GetKernel(new Size(3, 3)));
-                Cv2.GaussianBlur(dial, dial, new Size(5, 5), 0);
+                //Cv2.GaussianBlur(dial, dial, new Size(5, 5), 0);
                 //Cv2.AdaptiveThreshold(dial, dial, 255, AdaptiveThresholdTypes.MeanC, ThresholdTypes.BinaryInv, 3, 3);
-                Cv2.Canny(dial, dial, 50, 200);
                 Cv2.MorphologyEx(dial, dial, MorphTypes.Close, ImageUtils.GetKernel(new Size(3, 3)));
+                //DebugUtils.ExportMatToFile(dial, "dtest" + interation);
+                Cv2.Canny(dial, dial, 100, 200);
+                
+                
 
-                Cv2.FindContours(dial, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.List, ContourApproximationModes.ApproxSimple);
+                Cv2.FindContours(dial, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.External, ContourApproximationModes.ApproxNone);
 
                 Point farthestPoint = new Point();
                 double distance = 0f;
@@ -69,10 +72,9 @@ namespace OpenMTR
                     }
                 }
 
-
-
                 // DEBUG START
                 Cv2.Circle(test, farthestPoint, 2, new Scalar(0, 255, 0), 2); // Point
+                Cv2.DrawContours(test, contours, 0, new Scalar(0, 0, 255));
                 Cv2.Line(test, new Point(center.X, 0), new Point(center.X, dial.Width), new Scalar(255, 0, 0));  // Y axis
                 // Counter clockwise
                 Cv2.Line(test, center, new Point(center.X * 0.30, 0), new Scalar(255, 0, 0)); // 1|9
