@@ -49,9 +49,9 @@ namespace OpenMTR
         {
             List<CircleSegment> filteredCircles = new List<CircleSegment>();
             ImageUtils.ColorToGray(meter.SourceImage, meter.ModifiedImage);
-            Cv2.MorphologyEx(meter.ModifiedImage, meter.ModifiedImage, MorphTypes.Close, ImageUtils.GetKernel(new Size(3, 3)));
-            ImageUtils.ApplyGaussianBlur(meter.ModifiedImage, meter.ModifiedImage);
-            CircleSegment[] circles = Cv2.HoughCircles(meter.ModifiedImage, HoughMethods.Gradient, 1, meter.ModifiedImage.Rows / 8, 200, 100, 0, 0);
+            Cv2.MorphologyEx(meter.ModifiedImage, meter.ModifiedImage, MorphTypes.Open, ImageUtils.GetKernel(new Size(3, 3)));
+            Cv2.GaussianBlur(meter.ModifiedImage, meter.ModifiedImage, new Size(3, 3), 1);
+            CircleSegment[] circles = Cv2.HoughCircles(meter.ModifiedImage, HoughMethods.Gradient, 1, meter.ModifiedImage.Rows / 20, 250, 100, 0, 0);
             for (int i = 0; i < circles.Length; i++)
             {
                 CircleSegment circle = circles[i];
@@ -73,7 +73,6 @@ namespace OpenMTR
                 }
             }
             string dialValue = Dial.Read(meter, filteredCircles);
-            //DebugUtils.Log("Finished");
             DebugUtils.Log(string.Format("Read value: {0} | Metadata Value: {1}", dialValue, meter.MetaData.MeterRead));
         }
     }
