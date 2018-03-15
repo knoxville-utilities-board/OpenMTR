@@ -1,27 +1,51 @@
 ﻿using System;
 using System.Windows.Forms;
 using OpenCvSharp;
+using OpenMTRDemo.Filters;
+using OpenMTRDemo.Models;
+using System.Collections.Generic;
 
 namespace OpenMTRDemo.Forms
 {
     public partial class ExpandedImageForm : BaseForm
     {
-        public Mat Source, Image;
+        public MeterImage Meter;
         private Models.LoadSaveDialog _loadSaveDialog;
 
-        public ExpandedImageForm(Mat image)
+        public ExpandedImageForm(MeterImage meter)
         {
-            this.Source = image.Clone();
-            this.Image = image;
+            this.Meter = meter;
             this.DialogResult = DialogResult.Cancel;
             InitializeComponent();
         }
 
         private void ExpandedImageForm_Load(object sender, EventArgs e)
         {
-            OutputImageBox.Image = DemoUtilities.MatToBitmap(Image);
             _loadSaveDialog = new Models.LoadSaveDialog();
             SetDisableableControls(true);
+            LoadFilters();
+            Render();
+        }
+
+        private void LoadFilters()
+        {
+            BaseFilter[] filters = {
+                new GrayFilter(this, Meter),
+                new GaussianFilter(this, Meter),
+                new CannyFilter(this, Meter),
+                new SobelFilter(this, Meter),
+                new ScharrFilter(this, Meter),
+                new LaplacianFilter(this, Meter)
+            };
+            filtersComboBox.Items.AddRange(filters);
+            for (int i = 0; i < Meter.FilterList.Count; i++)
+            {
+                Meter.FilterList[i].Editor = this;
+                Meter.FilterList[i].Meter = Meter;
+                Meter.FilterList[i] = Meter.FilterList[i].Clone();
+            }
+            filtersFlowPanel.Controls.AddRange(Meter.FilterList.ToArray());
+            EnableMoveButtons();
         }
 
         public override void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -36,49 +60,15 @@ namespace OpenMTRDemo.Forms
         {
             if (_loadSaveDialog.openBrowser.ShowDialog() == DialogResult.OK)
             {
-                Source = new Mat(_loadSaveDialog.openBrowser.FileName);
+                Meter.SourceImage = new Mat(_loadSaveDialog.openBrowser.FileName);
                 Render();
                 SetDisableableControls(true);
             }
         }
 
-        private void Render(object sender = null, EventArgs e = null)
+        public void Render(object sender = null, EventArgs e = null)
         {
-            Image = Source.Clone();
-            ApplyFilters(Image);
-            OutputImageBox.Image = DemoUtilities.MatToBitmap(Image);
-        }
-
-        private void ApplyFilters(Mat imageToFilter)
-        {
-            foreach (string filter in FilterListBox.SelectedItems)
-            {
-                switch (filter)
-                {
-                    case "Black and White":
-                        Cv2.CvtColor(imageToFilter, imageToFilter, ColorConversionCodes.BGR2GRAY);
-                        break;
-                    case "Gaussian Blur":
-                        Cv2.GaussianBlur(imageToFilter, imageToFilter, new Size(gaussianHorizontalSlider.Value * 2 + 1, gaussianVerticalSlider.Value * 2 + 1), 0, 0, BorderTypes.Default);
-                        break;
-                    case "Edge Finding":
-                        if (cannyRadio.Checked)
-                        {
-                            Cv2.Canny(imageToFilter.Clone(), imageToFilter, CannyThreshold1Slider.Value, CannyThreshold2Slider.Value);
-                        }
-                        else
-                        {
-                            Cv2.Sobel(imageToFilter, imageToFilter, MatType.CV_8U, xorder: 1, yorder: 0, ksize: -1);
-                        }
-                        break;
-                }
-            }
-        }
-
-        private void filterListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            SetDisableableControls(true);
-            Render();
+            OutputImageBox.Image = DemoUtilities.MatToBitmap(Meter.ModifiedImage);
         }
 
         public override void CloseToolStripMenuItem_Click(object sender, EventArgs e)
@@ -93,33 +83,10 @@ namespace OpenMTRDemo.Forms
         {
             SaveToolStripMenuItem.Enabled = state;
             CloseToolStripMenuItem.Enabled = state;
-            FilterListBox.Enabled = state;
-            cannySettingsPanel.Enabled = cannyRadio.Checked;
-            edgeFindingBox.Enabled = state && FilterListBox.SelectedItems.Contains("Edge Finding");
-            blurBox.Enabled = state && FilterListBox.SelectedItems.Contains("Gaussian Blur");
-        }
-
-        private void cannyThreshold_ValueChanged(object sender, EventArgs e)
-        {
-            int value;
-            try
-            {
-                value = (int)((NumericUpDown)sender).Value;
-                TrackBar receiver = (sender == CannyThreshold1Number) ? CannyThreshold1Slider : CannyThreshold2Slider;
-                receiver.Value = value;
-            }
-            catch (InvalidCastException)
-            {
-                value = ((TrackBar)sender).Value;
-                NumericUpDown receiver = (sender == CannyThreshold1Slider) ? CannyThreshold1Number : CannyThreshold2Number;
-                receiver.Value = value;
-            }
-            Render();
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
-            Image = Source;
             Close();
         }
 
@@ -129,10 +96,54 @@ namespace OpenMTRDemo.Forms
             Close();
         }
 
-        private void cannyRadio_CheckedChanged(object sender, EventArgs e)
+        private void addFilterButton_Click(object sender, EventArgs e)
         {
-            SetDisableableControls(true);
-            Render();
+            BaseFilter filter = ((BaseFilter)filtersComboBox.SelectedItem).Clone();
+            Meter.Add(filter);
+            filtersFlowPanel.Controls.Add(filter);
+            EnableMoveButtons();
+        }
+
+        private void filtersComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            addFilterButton.Enabled = (filtersComboBox.SelectedIndex != -1);
+        }
+
+        public Mat returnImage()
+        {
+            if (DialogResult == DialogResult.OK)
+            {
+                return Meter.ModifiedImage;
+            }
+            return Meter.SourceImage;
+        }
+
+        public void EnableMoveButtons()
+        {
+            var list = filtersFlowPanel.Controls;
+            if (list.Count > 0)
+            {
+                if (list.Count == 1)
+                {
+                    ((BaseFilter)list[0]).EnableMoveButtons(3);
+                }
+                else
+                {
+                    foreach (BaseFilter filter in list)
+                    {
+                        filter.EnableMoveButtons(0);
+                    }
+                    ((BaseFilter)list[0]).EnableMoveButtons(1);
+                    ((BaseFilter)list[list.Count - 1]).EnableMoveButtons(2);
+                }
+            }
+        }
+
+        public void RenderList()
+        {
+            filtersFlowPanel.Controls.Clear();
+            filtersFlowPanel.Controls.AddRange(Meter.FilterList.ToArray());
+            EnableMoveButtons();
         }
     }
 }

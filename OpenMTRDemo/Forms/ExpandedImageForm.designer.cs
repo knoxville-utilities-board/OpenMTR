@@ -35,36 +35,15 @@
             this.label1 = new System.Windows.Forms.Label();
             this.WidthTextBox = new System.Windows.Forms.TextBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.blurBox = new System.Windows.Forms.GroupBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.gaussianVerticalSlider = new System.Windows.Forms.TrackBar();
-            this.gaussianHorizontalSlider = new System.Windows.Forms.TrackBar();
-            this.edgeFindingBox = new System.Windows.Forms.GroupBox();
-            this.cannySettingsPanel = new System.Windows.Forms.Panel();
-            this.CannyThreshold2Slider = new System.Windows.Forms.TrackBar();
-            this.CannyThreshold1Slider = new System.Windows.Forms.TrackBar();
-            this.CannyThreshold1Number = new System.Windows.Forms.NumericUpDown();
-            this.CannyThreshold2Number = new System.Windows.Forms.NumericUpDown();
-            this.sobelRadio = new System.Windows.Forms.RadioButton();
-            this.cannyRadio = new System.Windows.Forms.RadioButton();
-            this.FilterListBox = new System.Windows.Forms.ListBox();
+            this.filtersComboBox = new System.Windows.Forms.ComboBox();
+            this.addFilterButton = new System.Windows.Forms.Button();
+            this.filtersFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.OutputImageBox)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.blurBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gaussianVerticalSlider)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gaussianHorizontalSlider)).BeginInit();
-            this.edgeFindingBox.SuspendLayout();
-            this.cannySettingsPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.CannyThreshold2Slider)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.CannyThreshold1Slider)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.CannyThreshold1Number)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.CannyThreshold2Number)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -108,7 +87,7 @@
             this.HeightTextBox.BackColor = System.Drawing.Color.White;
             this.HeightTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.HeightTextBox.Location = new System.Drawing.Point(69, 33);
-            this.HeightTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.HeightTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.HeightTextBox.Name = "HeightTextBox";
             this.HeightTextBox.ReadOnly = true;
             this.HeightTextBox.Size = new System.Drawing.Size(167, 15);
@@ -129,7 +108,7 @@
             this.WidthTextBox.BackColor = System.Drawing.Color.White;
             this.WidthTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.WidthTextBox.Location = new System.Drawing.Point(69, 17);
-            this.WidthTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.WidthTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.WidthTextBox.Name = "WidthTextBox";
             this.WidthTextBox.ReadOnly = true;
             this.WidthTextBox.Size = new System.Drawing.Size(167, 15);
@@ -137,229 +116,50 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.blurBox);
-            this.tabPage1.Controls.Add(this.edgeFindingBox);
-            this.tabPage1.Controls.Add(this.FilterListBox);
+            this.tabPage1.Controls.Add(this.filtersComboBox);
+            this.tabPage1.Controls.Add(this.addFilterButton);
+            this.tabPage1.Controls.Add(this.filtersFlowPanel);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage1.Size = new System.Drawing.Size(333, 458);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Filters";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // blurBox
+            // filtersComboBox
             // 
-            this.blurBox.Controls.Add(this.label5);
-            this.blurBox.Controls.Add(this.label4);
-            this.blurBox.Controls.Add(this.label3);
-            this.blurBox.Controls.Add(this.gaussianVerticalSlider);
-            this.blurBox.Controls.Add(this.gaussianHorizontalSlider);
-            this.blurBox.Enabled = false;
-            this.blurBox.Location = new System.Drawing.Point(7, 239);
-            this.blurBox.Margin = new System.Windows.Forms.Padding(4);
-            this.blurBox.Name = "blurBox";
-            this.blurBox.Padding = new System.Windows.Forms.Padding(4);
-            this.blurBox.Size = new System.Drawing.Size(317, 116);
-            this.blurBox.TabIndex = 8;
-            this.blurBox.TabStop = false;
-            this.blurBox.Text = "Gaussian Blur";
+            this.filtersComboBox.DisplayMember = "FilterName";
+            this.filtersComboBox.FormattingEnabled = true;
+            this.filtersComboBox.Location = new System.Drawing.Point(4, 5);
+            this.filtersComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.filtersComboBox.Name = "filtersComboBox";
+            this.filtersComboBox.Size = new System.Drawing.Size(211, 24);
+            this.filtersComboBox.TabIndex = 4;
+            this.filtersComboBox.SelectedIndexChanged += new System.EventHandler(this.filtersComboBox_SelectedIndexChanged);
             // 
-            // label5
+            // addFilterButton
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(80, 53);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(16, 17);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "5";
+            this.addFilterButton.Enabled = false;
+            this.addFilterButton.Location = new System.Drawing.Point(224, 5);
+            this.addFilterButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.addFilterButton.Name = "addFilterButton";
+            this.addFilterButton.Size = new System.Drawing.Size(100, 26);
+            this.addFilterButton.TabIndex = 3;
+            this.addFilterButton.Text = "Add";
+            this.addFilterButton.UseVisualStyleBackColor = true;
+            this.addFilterButton.Click += new System.EventHandler(this.addFilterButton_Click);
             // 
-            // label4
+            // filtersFlowPanel
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(80, 25);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(16, 17);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "7";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(80, 81);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(16, 17);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "3";
-            // 
-            // gaussianVerticalSlider
-            // 
-            this.gaussianVerticalSlider.BackColor = System.Drawing.Color.White;
-            this.gaussianVerticalSlider.LargeChange = 2;
-            this.gaussianVerticalSlider.Location = new System.Drawing.Point(45, 16);
-            this.gaussianVerticalSlider.Margin = new System.Windows.Forms.Padding(4);
-            this.gaussianVerticalSlider.Maximum = 3;
-            this.gaussianVerticalSlider.Minimum = 1;
-            this.gaussianVerticalSlider.Name = "gaussianVerticalSlider";
-            this.gaussianVerticalSlider.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.gaussianVerticalSlider.Size = new System.Drawing.Size(56, 92);
-            this.gaussianVerticalSlider.TabIndex = 3;
-            this.gaussianVerticalSlider.TickFrequency = 2;
-            this.gaussianVerticalSlider.Value = 1;
-            this.gaussianVerticalSlider.Scroll += new System.EventHandler(this.Render);
-            // 
-            // gaussianHorizontalSlider
-            // 
-            this.gaussianHorizontalSlider.BackColor = System.Drawing.Color.White;
-            this.gaussianHorizontalSlider.LargeChange = 2;
-            this.gaussianHorizontalSlider.Location = new System.Drawing.Point(8, 16);
-            this.gaussianHorizontalSlider.Margin = new System.Windows.Forms.Padding(4);
-            this.gaussianHorizontalSlider.Maximum = 3;
-            this.gaussianHorizontalSlider.Minimum = 1;
-            this.gaussianHorizontalSlider.Name = "gaussianHorizontalSlider";
-            this.gaussianHorizontalSlider.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.gaussianHorizontalSlider.Size = new System.Drawing.Size(56, 92);
-            this.gaussianHorizontalSlider.TabIndex = 3;
-            this.gaussianHorizontalSlider.TickFrequency = 2;
-            this.gaussianHorizontalSlider.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.gaussianHorizontalSlider.Value = 1;
-            this.gaussianHorizontalSlider.Scroll += new System.EventHandler(this.Render);
-            // 
-            // edgeFindingBox
-            // 
-            this.edgeFindingBox.Controls.Add(this.cannySettingsPanel);
-            this.edgeFindingBox.Controls.Add(this.sobelRadio);
-            this.edgeFindingBox.Controls.Add(this.cannyRadio);
-            this.edgeFindingBox.Enabled = false;
-            this.edgeFindingBox.Location = new System.Drawing.Point(7, 82);
-            this.edgeFindingBox.Margin = new System.Windows.Forms.Padding(4);
-            this.edgeFindingBox.Name = "edgeFindingBox";
-            this.edgeFindingBox.Padding = new System.Windows.Forms.Padding(4);
-            this.edgeFindingBox.Size = new System.Drawing.Size(317, 149);
-            this.edgeFindingBox.TabIndex = 2;
-            this.edgeFindingBox.TabStop = false;
-            this.edgeFindingBox.Text = "Edge Finding";
-            // 
-            // cannySettingsPanel
-            // 
-            this.cannySettingsPanel.BackColor = System.Drawing.Color.Transparent;
-            this.cannySettingsPanel.Controls.Add(this.CannyThreshold2Slider);
-            this.cannySettingsPanel.Controls.Add(this.CannyThreshold1Slider);
-            this.cannySettingsPanel.Controls.Add(this.CannyThreshold1Number);
-            this.cannySettingsPanel.Controls.Add(this.CannyThreshold2Number);
-            this.cannySettingsPanel.Location = new System.Drawing.Point(1, 49);
-            this.cannySettingsPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.cannySettingsPanel.Name = "cannySettingsPanel";
-            this.cannySettingsPanel.Size = new System.Drawing.Size(316, 94);
-            this.cannySettingsPanel.TabIndex = 3;
-            // 
-            // CannyThreshold2Slider
-            // 
-            this.CannyThreshold2Slider.BackColor = System.Drawing.Color.White;
-            this.CannyThreshold2Slider.LargeChange = 50;
-            this.CannyThreshold2Slider.Location = new System.Drawing.Point(4, 36);
-            this.CannyThreshold2Slider.Margin = new System.Windows.Forms.Padding(4);
-            this.CannyThreshold2Slider.Maximum = 255;
-            this.CannyThreshold2Slider.Name = "CannyThreshold2Slider";
-            this.CannyThreshold2Slider.Size = new System.Drawing.Size(244, 56);
-            this.CannyThreshold2Slider.TabIndex = 5;
-            this.CannyThreshold2Slider.TickFrequency = 17;
-            this.CannyThreshold2Slider.Value = 150;
-            this.CannyThreshold2Slider.Scroll += new System.EventHandler(this.cannyThreshold_ValueChanged);
-            // 
-            // CannyThreshold1Slider
-            // 
-            this.CannyThreshold1Slider.BackColor = System.Drawing.Color.White;
-            this.CannyThreshold1Slider.LargeChange = 50;
-            this.CannyThreshold1Slider.Location = new System.Drawing.Point(4, 4);
-            this.CannyThreshold1Slider.Margin = new System.Windows.Forms.Padding(4);
-            this.CannyThreshold1Slider.Maximum = 255;
-            this.CannyThreshold1Slider.Name = "CannyThreshold1Slider";
-            this.CannyThreshold1Slider.Size = new System.Drawing.Size(244, 56);
-            this.CannyThreshold1Slider.TabIndex = 4;
-            this.CannyThreshold1Slider.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.CannyThreshold1Slider.Value = 100;
-            this.CannyThreshold1Slider.Scroll += new System.EventHandler(this.cannyThreshold_ValueChanged);
-            // 
-            // CannyThreshold1Number
-            // 
-            this.CannyThreshold1Number.Location = new System.Drawing.Point(256, 4);
-            this.CannyThreshold1Number.Margin = new System.Windows.Forms.Padding(4);
-            this.CannyThreshold1Number.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.CannyThreshold1Number.Name = "CannyThreshold1Number";
-            this.CannyThreshold1Number.Size = new System.Drawing.Size(56, 22);
-            this.CannyThreshold1Number.TabIndex = 1;
-            this.CannyThreshold1Number.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.CannyThreshold1Number.ValueChanged += new System.EventHandler(this.cannyThreshold_ValueChanged);
-            // 
-            // CannyThreshold2Number
-            // 
-            this.CannyThreshold2Number.Location = new System.Drawing.Point(256, 36);
-            this.CannyThreshold2Number.Margin = new System.Windows.Forms.Padding(4);
-            this.CannyThreshold2Number.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.CannyThreshold2Number.Name = "CannyThreshold2Number";
-            this.CannyThreshold2Number.Size = new System.Drawing.Size(56, 22);
-            this.CannyThreshold2Number.TabIndex = 3;
-            this.CannyThreshold2Number.Value = new decimal(new int[] {
-            150,
-            0,
-            0,
-            0});
-            this.CannyThreshold2Number.ValueChanged += new System.EventHandler(this.cannyThreshold_ValueChanged);
-            // 
-            // sobelRadio
-            // 
-            this.sobelRadio.AutoSize = true;
-            this.sobelRadio.Location = new System.Drawing.Point(83, 22);
-            this.sobelRadio.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.sobelRadio.Name = "sobelRadio";
-            this.sobelRadio.Size = new System.Drawing.Size(65, 21);
-            this.sobelRadio.TabIndex = 7;
-            this.sobelRadio.Text = "Sobel";
-            this.sobelRadio.UseVisualStyleBackColor = true;
-            // 
-            // cannyRadio
-            // 
-            this.cannyRadio.AutoSize = true;
-            this.cannyRadio.Checked = true;
-            this.cannyRadio.Location = new System.Drawing.Point(8, 22);
-            this.cannyRadio.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.cannyRadio.Name = "cannyRadio";
-            this.cannyRadio.Size = new System.Drawing.Size(69, 21);
-            this.cannyRadio.TabIndex = 6;
-            this.cannyRadio.TabStop = true;
-            this.cannyRadio.Text = "Canny";
-            this.cannyRadio.UseVisualStyleBackColor = true;
-            this.cannyRadio.CheckedChanged += new System.EventHandler(this.cannyRadio_CheckedChanged);
-            // 
-            // FilterListBox
-            // 
-            this.FilterListBox.FormattingEnabled = true;
-            this.FilterListBox.ItemHeight = 16;
-            this.FilterListBox.Items.AddRange(new object[] {
-            "Gaussian Blur",
-            "Black and White",
-            "Edge Finding"});
-            this.FilterListBox.Location = new System.Drawing.Point(7, 6);
-            this.FilterListBox.Margin = new System.Windows.Forms.Padding(4);
-            this.FilterListBox.Name = "FilterListBox";
-            this.FilterListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.FilterListBox.Size = new System.Drawing.Size(316, 68);
-            this.FilterListBox.TabIndex = 0;
-            this.FilterListBox.SelectedIndexChanged += new System.EventHandler(this.filterListBox_SelectedIndexChanged);
+            this.filtersFlowPanel.AutoScroll = true;
+            this.filtersFlowPanel.Location = new System.Drawing.Point(0, 38);
+            this.filtersFlowPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.filtersFlowPanel.Name = "filtersFlowPanel";
+            this.filtersFlowPanel.Size = new System.Drawing.Size(331, 417);
+            this.filtersFlowPanel.TabIndex = 1;
+            this.filtersFlowPanel.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.Render);
+            this.filtersFlowPanel.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.Render);
             // 
             // tabControl1
             // 
@@ -374,7 +174,7 @@
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(918, 528);
+            this.cancelButton.Location = new System.Drawing.Point(917, 528);
             this.cancelButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(101, 34);
@@ -385,7 +185,7 @@
             // 
             // okButton
             // 
-            this.okButton.Location = new System.Drawing.Point(1025, 528);
+            this.okButton.Location = new System.Drawing.Point(1024, 528);
             this.okButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(101, 34);
@@ -406,6 +206,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "ExpandedImageForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "OpenMTR Demo";
             this.Load += new System.EventHandler(this.ExpandedImageForm_Load);
             this.Controls.SetChildIndex(this.OutputImageBox, 0);
@@ -416,18 +217,6 @@
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.tabPage1.ResumeLayout(false);
-            this.blurBox.ResumeLayout(false);
-            this.blurBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gaussianVerticalSlider)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gaussianHorizontalSlider)).EndInit();
-            this.edgeFindingBox.ResumeLayout(false);
-            this.edgeFindingBox.PerformLayout();
-            this.cannySettingsPanel.ResumeLayout(false);
-            this.cannySettingsPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.CannyThreshold2Slider)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.CannyThreshold1Slider)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.CannyThreshold1Number)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.CannyThreshold2Number)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -438,28 +227,16 @@
         private System.Windows.Forms.PictureBox OutputImageBox;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.GroupBox edgeFindingBox;
-        private System.Windows.Forms.TrackBar CannyThreshold2Slider;
-        private System.Windows.Forms.TrackBar CannyThreshold1Slider;
-        private System.Windows.Forms.NumericUpDown CannyThreshold2Number;
-        private System.Windows.Forms.NumericUpDown CannyThreshold1Number;
-        private System.Windows.Forms.ListBox FilterListBox;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox HeightTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox WidthTextBox;
-        private System.Windows.Forms.RadioButton sobelRadio;
-        private System.Windows.Forms.RadioButton cannyRadio;
-        private System.Windows.Forms.Panel cannySettingsPanel;
         private System.Windows.Forms.Button cancelButton;
-        private System.Windows.Forms.GroupBox blurBox;
-        private System.Windows.Forms.TrackBar gaussianVerticalSlider;
-        private System.Windows.Forms.TrackBar gaussianHorizontalSlider;
         private System.Windows.Forms.Button okButton;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.FlowLayoutPanel filtersFlowPanel;
+        private System.Windows.Forms.Button addFilterButton;
+        private System.Windows.Forms.ComboBox filtersComboBox;
     }
 }
 

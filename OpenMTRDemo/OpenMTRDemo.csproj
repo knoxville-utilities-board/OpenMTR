@@ -60,6 +60,48 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Filters\BaseFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Filters\BaseFilter.Designer.cs">
+      <DependentUpon>BaseFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Filters\BnWFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Filters\BnWFilter.Designer.cs">
+      <DependentUpon>BnWFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Filters\CannyFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Filters\CannyFilter.Designer.cs">
+      <DependentUpon>CannyFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Filters\GaussianFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Filters\GaussianFilter.Designer.cs">
+      <DependentUpon>GaussianFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Filters\LaplacianFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Filters\LaplacianFilter.Designer.cs">
+      <DependentUpon>LaplacianFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Filters\ScharrFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Filters\ScharrFilter.Designer.cs">
+      <DependentUpon>ScharrFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Filters\SobelFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Filters\SobelFilter.Designer.cs">
+      <DependentUpon>SobelFilter.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,6 +126,18 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Filters\BaseFilter.resx">
+      <DependentUpon>BaseFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Filters\CannyFilter.resx">
+      <DependentUpon>CannyFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Filters\GaussianFilter.resx">
+      <DependentUpon>GaussianFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Filters\LaplacianFilter.resx">
+      <DependentUpon>LaplacianFilter.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\BaseForm.resx">
       <DependentUpon>BaseForm.cs</DependentUpon>
     </EmbeddedResource>
