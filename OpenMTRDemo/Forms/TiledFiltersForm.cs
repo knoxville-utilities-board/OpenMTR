@@ -15,18 +15,13 @@ namespace OpenMTRDemo.Forms
 {
     public partial class TiledFiltersForm : BaseForm
     {
+        
         private MeterImage _meter;
         private MeterImage _cannyMat;
         private MeterImage _grayMat;
         private MeterImage _sobelMat;
         private MeterImage _laplacianMat;
         private MeterImage _scharrMat;
-        private MeterImage _meterPane1;
-        private MeterImage _meterPane2;
-        private MeterImage _meterPane3;
-        private MeterImage _meterPane4;
-        private MeterImage _meterPane5;
-        private MeterImage _meterPane6;
         private List<KeyValPair<PictureBox>> _meterList;
 
         public TiledFiltersForm()
@@ -40,43 +35,9 @@ namespace OpenMTRDemo.Forms
             if (loadSaveDialog.openBrowser.ShowDialog() == DialogResult.OK)
             {
                 _meter = new MeterImage(loadSaveDialog.openBrowser.FileName, new Mat(loadSaveDialog.openBrowser.FileName));
-                LoadAllImagePanes();
                 LoadKeyValueList();
+                LoadAllImagePanes();
             }
-        }
-
-        private void LoadAllImagePanes()
-        {
-            _cannyMat = _meter.Clone();
-            _grayMat = _meter.Clone();
-            _sobelMat = _meter.Clone();
-            _laplacianMat = _meter.Clone();
-            _scharrMat = _meter.Clone();
-            _meterPane1 = _meter.Clone();
-            _meterPane2 = _meter.Clone();
-            _meterPane3 = _meter.Clone();
-            _meterPane4 = _meter.Clone();
-            _meterPane5 = _meter.Clone();
-            _meterPane6 = _meter.Clone();
-
-            _cannyMat.Add(new CannyFilter());
-            _grayMat.Add(new GrayFilter());
-            _sobelMat.Add(new SobelFilter());
-            _laplacianMat.Add(new LaplacianFilter());
-            _scharrMat.Add(new ScharrFilter());
-            
-            DemoUtilities.loadImage(pictureBoxSource, _meter.ModifiedImage);
-            DemoUtilities.loadImage(pictureBoxPane1, _meterPane1.ModifiedImage);
-            DemoUtilities.loadImage(pictureBoxPane2, _meterPane2.ModifiedImage);
-            DemoUtilities.loadImage(pictureBoxPane3, _meterPane3.ModifiedImage);
-            DemoUtilities.loadImage(pictureBoxPane4, _meterPane4.ModifiedImage);
-            DemoUtilities.loadImage(pictureBoxPane5, _meterPane5.ModifiedImage);
-            DemoUtilities.loadImage(pictureBoxPane6, _meterPane6.ModifiedImage);
-            DemoUtilities.loadImage(pictureBoxGray, _grayMat.ModifiedImage);
-            DemoUtilities.loadImage(pictureBoxSobel, _sobelMat.ModifiedImage);
-            DemoUtilities.loadImage(pictureBoxCanny, _cannyMat.ModifiedImage);
-            DemoUtilities.loadImage(pictureBoxLaplace, _laplacianMat.ModifiedImage);
-            DemoUtilities.loadImage(pictureBoxScharr, _scharrMat.ModifiedImage);
         }
 
         private void LoadKeyValueList()
@@ -84,17 +45,37 @@ namespace OpenMTRDemo.Forms
             _meterList = new List<KeyValPair<PictureBox>>();
 
             _meterList.Add(new KeyValPair<PictureBox>(pictureBoxSource, _meter));
-            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxPane1, _meterPane1));
-            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxPane2, _meterPane2));
-            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxPane3, _meterPane3));
-            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxPane4, _meterPane4));
-            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxPane5, _meterPane5));
-            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxPane6, _meterPane6));
-            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxGray, _grayMat));
-            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxSobel, _sobelMat));
-            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxCanny, _cannyMat));
-            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxLaplace, _laplacianMat));
-            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxScharr, _scharrMat));
+            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxPane1, _meter.Clone()));
+            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxPane2, _meter.Clone()));
+            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxPane3, _meter.Clone()));
+            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxPane4, _meter.Clone()));
+            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxPane5, _meter.Clone()));
+            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxPane6, _meter.Clone()));
+            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxGray, _meter.Clone()));
+            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxSobel, _meter.Clone()));
+            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxCanny, _meter.Clone()));
+            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxLaplace, _meter.Clone()));
+            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxScharr, _meter.Clone()));
+        }
+
+        private void LoadAllImagePanes()
+        {
+            _grayMat = _meterList[7].Meter;
+            _sobelMat = _meterList[8].Meter;
+            _cannyMat = _meterList[9].Meter;
+            _laplacianMat = _meterList[10].Meter;
+            _scharrMat = _meterList[11].Meter;
+
+            _grayMat.Add(new GrayFilter());
+            _sobelMat.Add(new SobelFilter());
+            _cannyMat.Add(new CannyFilter());
+            _laplacianMat.Add(new LaplacianFilter());
+            _scharrMat.Add(new ScharrFilter());
+
+            foreach (KeyValPair<PictureBox> kvp in _meterList)
+            {
+                DemoUtilities.loadImage(kvp.Id, kvp.Meter.ModifiedImage);
+            }
         }
 
         private void Pane_DblClickHandler(object sender, EventArgs e)
