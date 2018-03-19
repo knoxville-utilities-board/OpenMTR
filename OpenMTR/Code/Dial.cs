@@ -15,22 +15,7 @@ namespace OpenMTR
 
         private static List<CircleSegment> SortDials(List<CircleSegment> dials)
         {
-            int n = dials.Count();
-            for (int i = 0; i < n - 1; i++)
-            {
-                int index = i;
-                for (int j = i + 1; j < n; j++)
-                {
-                    if (dials[index].Center.X > dials[j].Center.X)
-                    {
-                        CircleSegment temp = dials[index];
-                        CircleSegment temp1 = dials[j];
-                        dials[index] = temp1;
-                        dials[j] = temp;
-                    }
-                }
-            }
-            return dials;
+            return dials.OrderBy(dial => dial.Center.X).ToList();
         }
 
         private static Point DetectNeedleTip(Mat dial, Point centerOfNeedle)
