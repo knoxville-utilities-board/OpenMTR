@@ -46,9 +46,9 @@ namespace OpenMTR
             Cv2.WarpAffine(sourceImage, destinationImage, rotationMatrix, sourceImage.Size());
         }
 
-        public static float DetectImageSkew(Mat sourceImage, Mat destinationImage)
+        public static float DetectImageSkew(Mat image)
         {
-            LineSegmentPolar[] lines = Cv2.HoughLines(destinationImage, 1, Cv2.PI / 180f, 330);
+            LineSegmentPolar[] lines = Cv2.HoughLines(image, 1, Cv2.PI / 180f, 330);
             return FilterImageSkew(lines);
         }
 
