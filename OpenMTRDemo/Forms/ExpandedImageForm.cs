@@ -35,7 +35,8 @@ namespace OpenMTRDemo.Forms
                 new CannyFilter(this, Meter),
                 new SobelFilter(this, Meter),
                 new ScharrFilter(this, Meter),
-                new LaplacianFilter(this, Meter)
+                new LaplacianFilter(this, Meter),
+                new PerspectiveFilter(this, Meter)
             };
             filtersComboBox.Items.AddRange(filters);
             for (int i = 0; i < Meter.FilterList.Count; i++)
