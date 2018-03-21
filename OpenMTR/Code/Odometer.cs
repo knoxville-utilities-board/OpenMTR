@@ -30,7 +30,7 @@ namespace OpenMTR
             List<Rect> digits = new List<Rect>();
 
             ImageUtils.ColorToGray(image, image);
-            ImageUtils.ApplyGaussianBlur(image, image);
+            Cv2.GaussianBlur(image, image, new Size(5, 5), 0);
             Cv2.AdaptiveThreshold(image, image, 250, AdaptiveThresholdTypes.GaussianC, ThresholdTypes.Binary, 5, -1.2);
             Cv2.MorphologyEx(image, image, MorphTypes.Open, ImageUtils.GetKernel(new Size(3,3)));
             Cv2.FindContours(image, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.List, ContourApproximationModes.ApproxSimple);
