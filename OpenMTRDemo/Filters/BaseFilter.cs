@@ -63,7 +63,8 @@ namespace OpenMTRDemo.Filters
         }
 
         private void moveButton_Click(object sender, EventArgs e)
-        {try
+        {
+            try
             {
                 int oldIndex = Meter.FilterList.IndexOf(this);
                 int newIndex = oldIndex + ((sender == moveUpButton) ? -1 : 1);

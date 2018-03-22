@@ -7,11 +7,11 @@ namespace OpenMTRDemo.Filters
 {
     public partial class ScharrFilter : BaseFilter
     {
-        public ScharrFilter(ExpandedImageForm Editor = null, MeterImage meter = null)
+        public ScharrFilter(ExpandedImageForm Editor = null, MeterImage Meter = null)
         {
             InitializeComponent();
             this.Editor = Editor;
-            this.Meter = meter;
+            this.Meter = Meter;
             FilterName = "Scharr Filter";
         }
 

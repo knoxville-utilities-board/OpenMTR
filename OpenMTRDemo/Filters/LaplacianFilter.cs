@@ -7,11 +7,11 @@ namespace OpenMTRDemo.Filters
 {
     public partial class LaplacianFilter : BaseFilter
     {
-        public LaplacianFilter(ExpandedImageForm Editor = null, MeterImage meter = null, int kernelSize = 0, int delta = 1)
+        public LaplacianFilter(ExpandedImageForm Editor = null, MeterImage Meter = null, int kernelSize = 0, int delta = 1)
         {
             InitializeComponent();
             this.Editor = Editor;
-            this.Meter = meter;
+            this.Meter = Meter;
             FilterName = "Laplacian Filter";
             kSizeTrackBar.Value = kernelSize;
             deltaTrackBar.Value = delta;

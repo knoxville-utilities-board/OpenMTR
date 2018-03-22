@@ -37,7 +37,8 @@ namespace OpenMTRDemo.Forms
                 new ScharrFilter(this, Meter),
                 new LaplacianFilter(this, Meter),
                 new PerspectiveFilter(this, Meter),
-                new AffineFilter(this, Meter)
+                new AffineFilter(this, Meter),
+                new IsolateFilter(this, Meter)
             };
             filtersComboBox.Items.AddRange(filters);
             for (int i = 0; i < Meter.FilterList.Count; i++)

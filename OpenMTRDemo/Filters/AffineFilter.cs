@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using OpenMTRDemo.Forms;
 using OpenMTRDemo.Models;
@@ -15,11 +8,11 @@ namespace OpenMTRDemo.Filters
 {
     public partial class AffineFilter : BaseFilter
     {
-        public AffineFilter(ExpandedImageForm Editor = null, MeterImage meter = null, int horizontal = 0, int vertical = 0, int angle = 0)
+        public AffineFilter(ExpandedImageForm Editor = null, MeterImage Meter = null, int horizontal = 0, int vertical = 0, int angle = 0)
         {
             InitializeComponent();
             this.Editor = Editor;
-            Meter = meter;
+            this.Meter = Meter;
             FilterName = "Affine";
             horizontalNumeric.Value = horizontal;
             horizontalTrackBar.Value = horizontal;

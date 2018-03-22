@@ -84,6 +84,12 @@
     <Compile Include="Filters\GaussianFilter.Designer.cs">
       <DependentUpon>GaussianFilter.cs</DependentUpon>
     </Compile>
+    <Compile Include="Filters\IsolateFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Filters\IsolateFilter.Designer.cs">
+      <DependentUpon>IsolateFilter.cs</DependentUpon>
+    </Compile>
     <Compile Include="Filters\LaplacianFilter.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -146,6 +152,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Filters\GaussianFilter.resx">
       <DependentUpon>GaussianFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Filters\IsolateFilter.resx">
+      <DependentUpon>IsolateFilter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Filters\LaplacianFilter.resx">
       <DependentUpon>LaplacianFilter.cs</DependentUpon>

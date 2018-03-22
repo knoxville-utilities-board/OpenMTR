@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using OpenMTRDemo.Forms;
 using OpenMTRDemo.Models;
@@ -15,11 +8,11 @@ namespace OpenMTRDemo.Filters
 {
     public partial class PerspectiveFilter : BaseFilter
     {
-        public PerspectiveFilter(ExpandedImageForm Editor = null, MeterImage meter = null, int horizontal = 0, int vertical = 0)
+        public PerspectiveFilter(ExpandedImageForm Editor = null, MeterImage Meter = null, int horizontal = 0, int vertical = 0)
         {
             InitializeComponent();
             this.Editor = Editor;
-            Meter = meter;
+            this.Meter = Meter;
             FilterName = "Perspective Filter";
             horizontalNumeric.Value = horizontal;
             horizontalTrackBar.Value = horizontal;

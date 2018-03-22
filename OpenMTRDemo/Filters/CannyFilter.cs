@@ -7,11 +7,11 @@ namespace OpenMTRDemo.Filters
 {
     public partial class CannyFilter : BaseFilter
     {
-        public CannyFilter(ExpandedImageForm Editor = null, MeterImage meter = null, int threshold1 = 85, int threshold2 = 170)
+        public CannyFilter(ExpandedImageForm Editor = null, MeterImage Meter = null, int threshold1 = 85, int threshold2 = 170)
         {
             InitializeComponent();
             this.Editor = Editor;
-            Meter = meter;
+            this.Meter = Meter;
             FilterName = "Canny Filter";
             thresholdTrackBar1.Value = threshold1;
             thresholdTrackBar2.Value = threshold2;
