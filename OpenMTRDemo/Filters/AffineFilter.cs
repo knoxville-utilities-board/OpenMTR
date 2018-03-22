@@ -13,18 +13,20 @@ using OpenCvSharp;
 
 namespace OpenMTRDemo.Filters
 {
-    public partial class ShearFilter : BaseFilter
+    public partial class AffineFilter : BaseFilter
     {
-        public ShearFilter(ExpandedImageForm Editor = null, MeterImage meter = null, int horizontal = 0, int vertical = 0)
+        public AffineFilter(ExpandedImageForm Editor = null, MeterImage meter = null, int horizontal = 0, int vertical = 0, int angle = 0)
         {
             InitializeComponent();
             this.Editor = Editor;
             Meter = meter;
-            FilterName = "Shear";
+            FilterName = "Affine";
             horizontalNumeric.Value = horizontal;
             horizontalTrackBar.Value = horizontal;
             verticalNumeric.Value = vertical;
             verticalTrackBar.Value = vertical;
+            angleNumeric.Value = angle;
+            angleTrackBar.Value = angle;
         }
 
         public override void ApplyFilter(Mat image)
@@ -44,12 +46,13 @@ namespace OpenMTRDemo.Filters
             Mat transform = Cv2.GetAffineTransform(src, dst);
 
             Cv2.WarpAffine(image, image, transform, new OpenCvSharp.Size(image.Width, image.Height));
+            Cv2.WarpAffine(image, image, Cv2.GetRotationMatrix2D(new Point2f(image.Width / 2, image.Height / 2), -angleTrackBar.Value, 1), new OpenCvSharp.Size(image.Width, image.Height));
         }
 
         private void transform_ValueChanged(object sender, EventArgs e)
         {
             int value;
-            if (sender == horizontalNumeric || sender == verticalNumeric)
+            if (sender == horizontalNumeric || sender == verticalNumeric || sender == angleNumeric)
             {
                 value = (int)((NumericUpDown)sender).Value;
             }
@@ -62,17 +65,22 @@ namespace OpenMTRDemo.Filters
                 horizontalTrackBar.Value = value;
                 horizontalNumeric.Value = value;
             }
-            else
+            else if (sender == verticalTrackBar || sender == verticalNumeric)
             {
                 verticalTrackBar.Value = value;
                 verticalNumeric.Value = value;
+            }
+            else
+            {
+                angleTrackBar.Value = value;
+                angleNumeric.Value = value;
             }
             Render();
         }
 
         public override BaseFilter Clone()
         {
-            return new ShearFilter(Editor, Meter, horizontalTrackBar.Value, verticalTrackBar.Value);
+            return new AffineFilter(Editor, Meter, horizontalTrackBar.Value, verticalTrackBar.Value, angleTrackBar.Value);
         }
     }
 }
