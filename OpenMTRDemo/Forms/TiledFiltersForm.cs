@@ -101,9 +101,9 @@ namespace OpenMTRDemo.Forms
                 }
                 expandedImageForm.Close();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show(ex.Message + "\n\r" + ex.ToString());
+                MessageBox.Show("Error Opening Image", "Error", MessageBoxButtons.OK);
             }
         }
 
