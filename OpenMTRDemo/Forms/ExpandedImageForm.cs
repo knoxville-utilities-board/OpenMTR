@@ -102,6 +102,7 @@ namespace OpenMTRDemo.Forms
             Meter.Add(filter);
             filtersFlowPanel.Controls.Add(filter);
             EnableMoveButtons();
+            Render();
         }
 
         private void filtersComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -144,6 +145,7 @@ namespace OpenMTRDemo.Forms
             filtersFlowPanel.Controls.Clear();
             filtersFlowPanel.Controls.AddRange(Meter.FilterList.ToArray());
             EnableMoveButtons();
+            Render();
         }
     }
 }
