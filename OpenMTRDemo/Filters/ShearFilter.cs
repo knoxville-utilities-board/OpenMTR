@@ -13,14 +13,14 @@ using OpenCvSharp;
 
 namespace OpenMTRDemo.Filters
 {
-    public partial class PerspectiveFilter : BaseFilter
+    public partial class ShearFilter : BaseFilter
     {
-        public PerspectiveFilter(ExpandedImageForm Editor = null, MeterImage meter = null, int horizontal = 0, int vertical = 0)
+        public ShearFilter(ExpandedImageForm Editor = null, MeterImage meter = null, int horizontal = 0, int vertical = 0)
         {
             InitializeComponent();
             this.Editor = Editor;
             Meter = meter;
-            FilterName = "Perspective Filter";
+            FilterName = "Shear";
             horizontalNumeric.Value = horizontal;
             horizontalTrackBar.Value = horizontal;
             verticalNumeric.Value = vertical;
@@ -29,30 +29,21 @@ namespace OpenMTRDemo.Filters
 
         public override void ApplyFilter(Mat image)
         {
-            Point2f topLeft, topRight, bottomLeft, bottomRight, mTopLeft, mTopRight, mBottomLeft, mBottomRight;
+            Point2f center, right, down, mRight, mDown;
+            center = new Point2f(image.Width/2, image.Width/2);
+            
+            right = new Point2f(center.X + 100, center.Y);
+            down = new Point2f(center.X, center.Y + 100);
+            
+            mRight = new Point2f(right.X, right.Y + verticalTrackBar.Value);
+            mDown = new Point2f(down.X + horizontalTrackBar.Value, down.Y);
 
-            float width = image.Width;
-            float height = image.Height;
+            Point2f[] src = { center, right, down };
+            Point2f[] dst = { center, mRight, mDown };
 
-            float widthChange = width / 800 * verticalTrackBar.Value;
-            float heightChange = height / 800 * horizontalTrackBar.Value;
+            Mat transform = Cv2.GetAffineTransform(src, dst);
 
-            topLeft = new Point2f(0, 0);
-            topRight = new Point2f(width, 0);
-            bottomLeft = new Point2f(0, height);
-            bottomRight = new Point2f(width, height);
-
-            mTopLeft = new Point2f(0 - widthChange, 0 - heightChange);
-            mTopRight = new Point2f(width + widthChange, heightChange);
-            mBottomLeft = new Point2f(widthChange, height + heightChange);
-            mBottomRight = new Point2f(width - widthChange, height - heightChange);
-
-            Point2f[] src = { topLeft, topRight, bottomLeft, bottomRight };
-            Point2f[] dst = { mTopLeft, mTopRight, mBottomLeft, mBottomRight };
-
-            Mat transform = Cv2.GetPerspectiveTransform(src, dst);
-
-            Cv2.WarpPerspective(image, image, transform, new OpenCvSharp.Size(image.Width, image.Height));
+            Cv2.WarpAffine(image, image, transform, new OpenCvSharp.Size(image.Width, image.Height));
         }
 
         private void transform_ValueChanged(object sender, EventArgs e)
@@ -81,7 +72,7 @@ namespace OpenMTRDemo.Filters
 
         public override BaseFilter Clone()
         {
-            return new PerspectiveFilter(Editor, Meter, horizontalTrackBar.Value, verticalTrackBar.Value);
+            return new ShearFilter(Editor, Meter, horizontalTrackBar.Value, verticalTrackBar.Value);
         }
     }
 }

@@ -90,6 +90,12 @@
     <Compile Include="Filters\LaplacianFilter.Designer.cs">
       <DependentUpon>LaplacianFilter.cs</DependentUpon>
     </Compile>
+    <Compile Include="Filters\ShearFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Filters\ShearFilter.Designer.cs">
+      <DependentUpon>ShearFilter.cs</DependentUpon>
+    </Compile>
     <Compile Include="Filters\ScharrFilter.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -143,6 +149,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Filters\LaplacianFilter.resx">
       <DependentUpon>LaplacianFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Filters\ShearFilter.resx">
+      <DependentUpon>ShearFilter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Filters\PerspectiveFilter.resx">
       <DependentUpon>PerspectiveFilter.cs</DependentUpon>

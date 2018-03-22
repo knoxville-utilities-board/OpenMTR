@@ -1,6 +1,6 @@
 ﻿namespace OpenMTRDemo.Filters
 {
-    partial class PerspectiveFilter
+    partial class ShearFilter
     {
         /// <summary> 
         /// Required designer variable.
