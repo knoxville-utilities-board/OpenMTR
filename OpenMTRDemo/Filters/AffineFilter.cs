@@ -51,15 +51,7 @@ namespace OpenMTRDemo.Filters
 
         private void transform_ValueChanged(object sender, EventArgs e)
         {
-            int value;
-            if (sender == horizontalNumeric || sender == verticalNumeric || sender == angleNumeric)
-            {
-                value = (int)((NumericUpDown)sender).Value;
-            }
-            else
-            {
-                value = ((TrackBar)sender).Value;
-            }
+            int value = (sender == horizontalNumeric || sender == verticalNumeric || sender == angleNumeric) ? (int)((NumericUpDown)sender).Value : ((TrackBar)sender).Value;
             if (sender == horizontalTrackBar || sender == horizontalNumeric)
             {
                 horizontalTrackBar.Value = value;
