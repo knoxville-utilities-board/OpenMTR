@@ -7,11 +7,11 @@ namespace OpenMTRDemo.Filters
 {
     public partial class GaussianFilter : BaseFilter
     {
-        public GaussianFilter(ExpandedImageForm Editor = null, MeterImage meter = null, int hRadius = 1, int vRadius = 1)
+        public GaussianFilter(ExpandedImageForm Editor = null, MeterImage Meter = null, int hRadius = 1, int vRadius = 1)
         {
             InitializeComponent();
             this.Editor = Editor;
-            Meter = meter;
+            this.Meter = Meter;
             FilterName = "Gaussian Blur";
             horizontalTrackBar.Value = hRadius;
             verticalTrackBar.Value = vRadius;

@@ -7,11 +7,11 @@ namespace OpenMTRDemo.Filters
 {
     public partial class SobelFilter : BaseFilter
     {
-        public SobelFilter(ExpandedImageForm Editor = null, MeterImage meter = null)
+        public SobelFilter(ExpandedImageForm Editor = null, MeterImage Meter = null)
         {
             InitializeComponent();
             this.Editor = Editor;
-            Meter = meter;
+            this.Meter = Meter;
             FilterName = "Sobel Filter";
         }
 

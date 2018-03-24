@@ -84,11 +84,23 @@
     <Compile Include="Filters\GaussianFilter.Designer.cs">
       <DependentUpon>GaussianFilter.cs</DependentUpon>
     </Compile>
+    <Compile Include="Filters\IsolateFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Filters\IsolateFilter.Designer.cs">
+      <DependentUpon>IsolateFilter.cs</DependentUpon>
+    </Compile>
     <Compile Include="Filters\LaplacianFilter.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Filters\LaplacianFilter.Designer.cs">
       <DependentUpon>LaplacianFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Filters\AffineFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Filters\AffineFilter.Designer.cs">
+      <DependentUpon>AffineFilter.cs</DependentUpon>
     </Compile>
     <Compile Include="Filters\ScharrFilter.cs">
       <SubType>UserControl</SubType>
@@ -101,6 +113,12 @@
     </Compile>
     <Compile Include="Filters\SobelFilter.Designer.cs">
       <DependentUpon>SobelFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Filters\PerspectiveFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Filters\PerspectiveFilter.Designer.cs">
+      <DependentUpon>PerspectiveFilter.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\BaseForm.cs">
       <SubType>Form</SubType>
@@ -135,8 +153,17 @@
     <EmbeddedResource Include="Filters\GaussianFilter.resx">
       <DependentUpon>GaussianFilter.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Filters\IsolateFilter.resx">
+      <DependentUpon>IsolateFilter.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Filters\LaplacianFilter.resx">
       <DependentUpon>LaplacianFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Filters\AffineFilter.resx">
+      <DependentUpon>AffineFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Filters\PerspectiveFilter.resx">
+      <DependentUpon>PerspectiveFilter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\BaseForm.resx">
       <DependentUpon>BaseForm.cs</DependentUpon>

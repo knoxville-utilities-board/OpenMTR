@@ -7,11 +7,11 @@ namespace OpenMTRDemo.Filters
 {
     public partial class GrayFilter : BaseFilter
     {
-        public GrayFilter(ExpandedImageForm Editor = null, MeterImage meter = null)
+        public GrayFilter(ExpandedImageForm Editor = null, MeterImage Meter = null)
         {
             InitializeComponent();
             this.Editor = Editor;
-            Meter = meter;
+            this.Meter = Meter;
             FilterName = "Black and White";
         }
 
