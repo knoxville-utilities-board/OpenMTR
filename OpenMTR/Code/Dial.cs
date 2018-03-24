@@ -78,7 +78,7 @@ namespace OpenMTR
                     { '6', new List<Point>() { new Point(center.X + (center.X * 0.65), dial.Height), new Point(dial.Width, center.Y + (center.Y * 0.30)) } },
                     { '7', new List<Point>() { new Point(dial.Width, center.Y + (center.Y * 0.30)), new Point(dial.Width, center.Y * 0.65) } },
                     { '8', new List<Point>() { new Point(dial.Width, center.Y * 0.65), new Point(center.X + (center.X * 0.70), 0) } },
-                    { '9', new List<Point>() { new Point(center.X + (center.X * 0.70), 0), new Point(center.X * 0.30, 0) } }
+                    { '9', new List<Point>() { new Point(center.X + (center.X * 0.70), 0), new Point(center.X, 0) } }
                 };
 
                 foreach (KeyValuePair<char, List<Point>> numberPosition in (MathUtils.IsEven(i)) ? counterClockwise : clockwise)
