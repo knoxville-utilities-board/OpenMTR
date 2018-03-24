@@ -50,22 +50,7 @@ namespace OpenMTR
 
         private static List<Rect> SortDigits(List<Rect> digits)
         {
-            int n = digits.Count();
-            for (int i = 0; i < n - 1; i++)
-            {
-                int index = i;
-                for (int j = i + 1; j < n; j++)
-                {
-                    if (digits[index].X > digits[j].X)
-                    {
-                        Rect temp = digits[index];
-                        Rect temp1 = digits[j];
-                        digits[index] = temp1;
-                        digits[j] = temp;
-                    }
-                }
-            }
-            return digits;
+            return digits.OrderBy(digit => digit.X).ToList();
         }
 
         private static int[] DetectSegmentStates(Mat regionOfInterest, List<List<int>> segments)
