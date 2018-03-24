@@ -35,7 +35,7 @@ namespace OpenMTRDemo.Filters
         {
             if (Editor != null)
             {
-                Editor.Render();
+                Editor.Render(this);
             }
         }
 
@@ -60,6 +60,7 @@ namespace OpenMTRDemo.Filters
             Meter.FilterList.TrimExcess();
             this.Dispose(true);
             Editor.EnableMoveButtons();
+            Editor.Render();
         }
 
         private void moveButton_Click(object sender, EventArgs e)
