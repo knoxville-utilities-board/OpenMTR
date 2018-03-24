@@ -16,5 +16,10 @@ namespace OpenMTRDemo.Forms
         {
             InitializeComponent();
         }
+
+        private void labelTitle_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
