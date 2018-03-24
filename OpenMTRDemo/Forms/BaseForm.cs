@@ -56,7 +56,8 @@ namespace OpenMTRDemo.Forms
         private void aboutOpenMTRToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AboutForm aboutForm = new AboutForm();
-            aboutForm.Show();
+            aboutForm.StartPosition = FormStartPosition.CenterParent;
+            aboutForm.ShowDialog(this);
         }
     }
 }
