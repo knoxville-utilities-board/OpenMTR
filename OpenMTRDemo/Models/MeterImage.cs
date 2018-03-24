@@ -17,6 +17,7 @@ namespace OpenMTRDemo.Models
             get
             {
                 Mat output = SourceImage.Clone();
+                GC.Collect();
                 foreach (var filter in FilterList)
                 {
                     filter.ApplyFilter(output);
