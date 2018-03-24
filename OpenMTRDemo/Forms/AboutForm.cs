@@ -17,9 +17,14 @@ namespace OpenMTRDemo.Forms
             InitializeComponent();
         }
 
-        private void labelTitle_Click(object sender, EventArgs e)
+        private void buttonOk_Click(object sender, EventArgs e)
         {
+            this.Close();
+        }
 
+        private void linkLabel_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(linkLabel.Text);
         }
     }
 }
