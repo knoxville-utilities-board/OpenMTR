@@ -52,5 +52,12 @@ namespace OpenMTRDemo.Forms
             TiledFiltersForm tiledFiltersForm = new TiledFiltersForm();
             tiledFiltersForm.ShowDialog();
         }
+
+        private void aboutOpenMTRToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutForm aboutForm = new AboutForm();
+            aboutForm.StartPosition = FormStartPosition.CenterParent;
+            aboutForm.ShowDialog(this);
+        }
     }
 }
