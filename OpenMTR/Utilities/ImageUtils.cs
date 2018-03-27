@@ -27,43 +27,38 @@ namespace OpenMTR
             return Cv2.GetStructuringElement(MorphShapes.Rect, size);
         }
 
+        public static void AdjustImageSkew(Meter meter)
+        {
+            RotateImage(meter.SourceImage, meter.ModifiedImage, GetAngle(meter.SourceImage));
+        }
+
         public static void RotateImage(Mat sourceImage, Mat destinationImage, double degrees)
         {
             Mat rotationMatrix = Cv2.GetRotationMatrix2D(new Point2f(sourceImage.Cols / 2, sourceImage.Rows / 2), degrees, 1);
             Cv2.WarpAffine(sourceImage, destinationImage, rotationMatrix, sourceImage.Size());
         }
 
-        public static float DetectImageSkew(Mat image)
+        private static double GetAngle(Mat image)
         {
-            LineSegmentPolar[] lines = Cv2.HoughLines(image, 1, Cv2.PI / 180f, 330);
-            return FilterImageSkew(lines);
-        }
+            Mat handler = image.Clone();
+            List<double> angles = new List<double>();
+            double sumOfAngles = 0;
+            ColorToGray(handler, handler);
+            Cv2.Canny(handler, handler, 100, 100, 3);
+            LineSegmentPoint[] lineSegmentPoints = Cv2.HoughLinesP(handler, 1, Cv2.PI / 180.0, 100, minLineLength: 100, maxLineGap: 5);
 
-        private static float FilterImageSkew(LineSegmentPolar[] lines)
-        {
-            List<LineSegmentPolar> filteredLines = new List<LineSegmentPolar>();
-
-            float theta_min = (float)(60f * Cv2.PI / 180f),
-                  theta_max = (float)(120f * Cv2.PI / 180f),
-                  theta_avr = 0f,
-                  theta_deg = 0f;
-
-            foreach (LineSegmentPolar line in lines)
+            foreach (LineSegmentPoint lsp in lineSegmentPoints)
             {
-                if (line.Theta >= theta_min && line.Theta <= theta_max)
-                {
-                    filteredLines.Add(line);
-                    theta_avr += line.Theta;
-                }
+                Point point1 = lsp.P1;
+                Point point2 = lsp.P2;
+                Cv2.Line(handler, point1.X, point1.Y, point2.X, point2.Y, new Scalar(0, 255, 0), (int)LineTypes.Link8, 0);
+                angles.Add(Math.Atan2(point2.Y - point1.Y, point2.X - point1.X) * (180 / Math.PI));
             }
-
-            if (filteredLines.Count > 0)
+            foreach (Double dbl in angles)
             {
-                theta_avr /= filteredLines.Count;
-                theta_deg = (float)(theta_avr / Cv2.PI * 180f) - 90;
+                sumOfAngles += dbl;
             }
-
-            return theta_deg;
+            return sumOfAngles / angles.Count;
         }
     }
 }
