@@ -29,7 +29,9 @@ namespace OpenMTR
 
         public static void AdjustImageSkew(Meter meter)
         {
-            RotateImage(meter.SourceImage, meter.ModifiedImage, GetAngle(meter.SourceImage));
+            double angle = GetAngle(meter);
+            DebugUtils.Log($"{meter.FileName} Angle: {angle}");
+            RotateImage(meter.SourceImage, meter.ModifiedImage, angle);
         }
 
         public static void RotateImage(Mat sourceImage, Mat destinationImage, double degrees)
@@ -38,9 +40,9 @@ namespace OpenMTR
             Cv2.WarpAffine(sourceImage, destinationImage, rotationMatrix, sourceImage.Size());
         }
 
-        private static double GetAngle(Mat image)
+        private static double GetAngle(Meter meter)
         {
-            Mat handler = image.Clone();
+            Mat handler = meter.SourceImage.Clone();
             List<double> angles = new List<double>();
             double sumOfAngles = 0;
             ColorToGray(handler, handler);
@@ -58,6 +60,7 @@ namespace OpenMTR
             {
                 sumOfAngles += dbl;
             }
+            DebugUtils.ExportMatToFile(handler, meter.FileName);
             return sumOfAngles / angles.Count;
         }
     }

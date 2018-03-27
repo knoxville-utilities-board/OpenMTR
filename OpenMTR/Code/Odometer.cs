@@ -82,7 +82,7 @@ namespace OpenMTR
                     return number.Key;
                 }
             }
-            return "";
+            return "?";
         }
 
         private static string ReadDigits(Meter meter, List<Rect> digits)

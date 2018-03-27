@@ -13,7 +13,9 @@ namespace OpenMTR
         {
             Console.WriteLine("----------------------------------\n        Welcome to OpenMTR\n----------------------------------\nYou can exit by entering q or quit\n\n");
 
-            GetPathFromUser();
+            //GetPathFromUser();
+            //Program.DirectoryPath = @"C:\Users\Bryan\Desktop\OpenMTR\Bulk";
+            Program.DirectoryPath = @"C:\Users\bsdin\Desktop\OpenMTR\Bulk";
         }
 
 

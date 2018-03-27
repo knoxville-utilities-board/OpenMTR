@@ -26,23 +26,19 @@ namespace OpenMTR
 
         private static void ExtractDigitalReadout(Meter meter)
         {
-            ImageUtils.ColorToGray(meter.SourceImage, meter.ModifiedImage);
-            Cv2.Canny(meter.ModifiedImage, meter.ModifiedImage, 100, 200);
-            Cv2.FindContours(meter.ModifiedImage, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.External, ContourApproximationModes.ApproxSimple);
-            Rect rectangle = new Rect();
-            foreach (Point[] point in contours)
+            try
             {
-                double area = Cv2.ContourArea(point);
-
-                // This is hardcoded for the first meter read and will change later.
-                if (area == 11445)
+                if (American.FirstPass(meter))
                 {
-                    rectangle = Cv2.BoundingRect(point);
+                    throw new Exception(string.Format("{0}: Succesful Read", meter.FileName));
                 }
+
+                throw new Exception(string.Format("{0}: Failed Read", meter.FileName));
             }
-            meter.ModifiedImage = new Mat(meter.SourceImage.Clone(), rectangle);
-            string odometerValue = Odometer.Read(meter);
-            DebugUtils.Log(string.Format("Read value: {0} | Metadata Value: {1}", odometerValue, meter.MetaData.MeterRead));
+            catch (Exception ex)
+            {
+                DebugUtils.Log(ex.Message);
+            }
         }
 
         private static void ExtractDials(Meter meter)
