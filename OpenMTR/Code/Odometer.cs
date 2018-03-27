@@ -20,20 +20,20 @@ namespace OpenMTR
             { "9", new int[] {1,1,1,1,0,1,1 } }
         };
 
-        public static string Read(Mat sourceImage)
+        public static string Read(Meter meter)
         {
-            return ReadDigits(sourceImage, ExtractDigits(sourceImage));
+            return ReadDigits(meter, ExtractDigits(meter));
         }
 
-        private static List<Rect> ExtractDigits(Mat image)
+        private static List<Rect> ExtractDigits(Meter meter)
         {
             List<Rect> digits = new List<Rect>();
 
-            ImageUtils.ColorToGray(image, image);
-            Cv2.GaussianBlur(image, image, new Size(5, 5), 0);
-            Cv2.AdaptiveThreshold(image, image, 250, AdaptiveThresholdTypes.GaussianC, ThresholdTypes.Binary, 5, -1.2);
-            Cv2.MorphologyEx(image, image, MorphTypes.Open, ImageUtils.GetKernel(new Size(3,3)));
-            Cv2.FindContours(image, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.List, ContourApproximationModes.ApproxSimple);
+            ImageUtils.ColorToGray(meter.ModifiedImage, meter.ModifiedImage);
+            Cv2.GaussianBlur(meter.ModifiedImage, meter.ModifiedImage, new Size(5, 5), 0);
+            Cv2.AdaptiveThreshold(meter.ModifiedImage, meter.ModifiedImage, 250, AdaptiveThresholdTypes.GaussianC, ThresholdTypes.Binary, 5, -1.2);
+            Cv2.MorphologyEx(meter.ModifiedImage, meter.ModifiedImage, MorphTypes.Open, ImageUtils.GetKernel(new Size(3,3)));
+            Cv2.FindContours(meter.ModifiedImage, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.List, ContourApproximationModes.ApproxSimple);
 
             foreach (Point[] point in contours)
             {
@@ -85,12 +85,12 @@ namespace OpenMTR
             return "";
         }
 
-        private static string ReadDigits(Mat image, List<Rect> digits)
+        private static string ReadDigits(Meter meter, List<Rect> digits)
         {
             string digitRead = "";
             foreach (Rect digit in digits)
             {
-                Mat regionOfInterest = new Mat(image.Clone(), digit);
+                Mat regionOfInterest = new Mat(meter.ModifiedImage.Clone(), digit);
                 
                 int segW = (int)(regionOfInterest.Width * 0.25), segH = (int)(regionOfInterest.Height * 0.25);
 

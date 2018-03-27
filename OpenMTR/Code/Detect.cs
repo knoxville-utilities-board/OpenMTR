@@ -41,7 +41,7 @@ namespace OpenMTR
                 }
             }
             meter.ModifiedImage = new Mat(meter.SourceImage.Clone(), rectangle);
-            string odometerValue = Odometer.Read(meter.ModifiedImage);
+            string odometerValue = Odometer.Read(meter);
             DebugUtils.Log(string.Format("Read value: {0} | Metadata Value: {1}", odometerValue, meter.MetaData.MeterRead));
         }
 
