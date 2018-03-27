@@ -23,7 +23,6 @@ namespace OpenMTR
             double distance = 0f;
             Point needlePoint = new Point();
             ImageUtils.ColorToGray(dial, dial);
-            ImageUtils.RotateImage(dial, dial, ImageUtils.DetectImageSkew(dial));
             Cv2.Dilate(dial, dial, ImageUtils.GetKernel(new Size(5, 5)));
             Cv2.MorphologyEx(dial, dial, MorphTypes.Open, ImageUtils.GetKernel(new Size(3, 3)));
             Cv2.MorphologyEx(dial, dial, MorphTypes.Close, ImageUtils.GetKernel(new Size(3, 3)));
