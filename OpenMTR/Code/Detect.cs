@@ -30,12 +30,12 @@ namespace OpenMTR
             {
                 if (American.FirstPass(meter))
                 {
-                    throw new Exception(string.Format("{0}: Succesful Read", meter.FileName));
+                    throw new PassFailedException(string.Format("{0}: Succesful Read", meter.FileName));
                 }
 
-                throw new Exception(string.Format("{0}: Failed Read", meter.FileName));
+                throw new PassFailedException(string.Format("{0}: Failed Read", meter.FileName));
             }
-            catch (Exception ex)
+            catch (PassFailedException ex)
             {
                 DebugUtils.Log(ex.Message);
             }

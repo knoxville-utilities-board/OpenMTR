@@ -20,32 +20,9 @@ namespace OpenMTR
             { "9", new int[] {1,1,1,1,0,1,1 } }
         };
 
-        public static string Read(Meter meter)
+        public static string Read(Meter meter, List<Rect> digits)
         {
-            return ReadDigits(meter, ExtractDigits(meter));
-        }
-
-        private static List<Rect> ExtractDigits(Meter meter)
-        {
-            List<Rect> digits = new List<Rect>();
-
-            ImageUtils.ColorToGray(meter.ModifiedImage, meter.ModifiedImage);
-            Cv2.GaussianBlur(meter.ModifiedImage, meter.ModifiedImage, new Size(5, 5), 0);
-            Cv2.AdaptiveThreshold(meter.ModifiedImage, meter.ModifiedImage, 250, AdaptiveThresholdTypes.GaussianC, ThresholdTypes.Binary, 5, -1.2);
-            Cv2.MorphologyEx(meter.ModifiedImage, meter.ModifiedImage, MorphTypes.Open, ImageUtils.GetKernel(new Size(3,3)));
-            Cv2.FindContours(meter.ModifiedImage, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.List, ContourApproximationModes.ApproxSimple);
-
-            foreach (Point[] point in contours)
-            {
-                double area = Cv2.ContourArea(point);
-
-                if (area >= 300 && area <= 550)
-                {
-                    digits.Add(Cv2.BoundingRect(point));                  
-                }
-            }
-
-            return SortDigits(digits);
+            return ReadDigits(meter, SortDigits(digits));
         }
 
         private static List<Rect> SortDigits(List<Rect> digits)
@@ -82,7 +59,7 @@ namespace OpenMTR
                     return number.Key;
                 }
             }
-            return "?";
+            return "";
         }
 
         private static string ReadDigits(Meter meter, List<Rect> digits)
@@ -90,11 +67,15 @@ namespace OpenMTR
             string digitRead = "";
             foreach (Rect digit in digits)
             {
-                Mat regionOfInterest = new Mat(meter.ModifiedImage.Clone(), digit);
-                
+                Mat regionOfInterest = new Mat(meter.SourceImage.Clone(), digit);
+                DebugUtils.ExportMatToFile(regionOfInterest, meter.FileName + "FUCKKKKKKKK");
                 int segW = (int)(regionOfInterest.Width * 0.25), segH = (int)(regionOfInterest.Height * 0.25);
-
-                Cv2.MorphologyEx(regionOfInterest, regionOfInterest, MorphTypes.Close, ImageUtils.GetKernel(new Size(3, 3)));
+                ImageUtils.ColorToGray(regionOfInterest, regionOfInterest);
+                Cv2.GaussianBlur(regionOfInterest, regionOfInterest, new Size(5, 5), 0);
+                Cv2.AdaptiveThreshold(regionOfInterest, regionOfInterest, 250, AdaptiveThresholdTypes.GaussianC, ThresholdTypes.Binary, 3, 0);
+                Cv2.MorphologyEx(regionOfInterest, regionOfInterest, MorphTypes.Open, ImageUtils.GetKernel(new Size(3, 3)));
+                //Cv2.MorphologyEx(regionOfInterest, regionOfInterest, MorphTypes.Close, ImageUtils.GetKernel(new Size(3, 3)));
+                
 
                 List<List<int>> segments = new List<List<int>>
                 {
