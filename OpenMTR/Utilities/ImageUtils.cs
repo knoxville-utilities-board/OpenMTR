@@ -45,15 +45,15 @@ namespace OpenMTR
             Cv2.Canny(handler, handler, 100, 100, 3);
             LineSegmentPoint[] lineSegmentPoints = Cv2.HoughLinesP(handler, 1, Cv2.PI / 180.0, 100, minLineLength: 100, maxLineGap: 5);
 
-            if (lineSegmentPoints.Count() == 0)
+            for(int i = 0; i < lineSegmentPoints.Length; i++)
             {
-                return 0;
+                if(lineSegmentPoints[i].P1 == null || lineSegmentPoints[i].P2 == null)
+                {
+                    continue;
+                }
+                return Math.Atan2(lineSegmentPoints[i].P2.Y - lineSegmentPoints[i].P1.Y, lineSegmentPoints[i].P2.X - lineSegmentPoints[i].P1.X) * (180 / Math.PI);
             }
-
-            Point point1 = lineSegmentPoints[0].P1;
-            Point point2 = lineSegmentPoints[0].P2;
-
-            return Math.Atan2(point2.Y - point1.Y, point2.X - point1.X) * (180 / Math.PI);
+            return 0; 
         }
     }
 }
