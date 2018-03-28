@@ -65,10 +65,11 @@ namespace OpenMTR
         private static string ReadDigits(Meter meter, List<Rect> digits)
         {
             string digitRead = "";
+            int count = 0;
             foreach (Rect digit in digits)
             {
                 Mat regionOfInterest = new Mat(meter.SourceImage.Clone(), digit);
-                DebugUtils.ExportMatToFile(regionOfInterest, meter.FileName + "FUCKKKKKKKK");
+                //DebugUtils.ExportMatToFile(regionOfInterest, meter.FileName + "FUCKKKKKKKK" + count);
                 int segW = (int)(regionOfInterest.Width * 0.25), segH = (int)(regionOfInterest.Height * 0.25);
                 ImageUtils.ColorToGray(regionOfInterest, regionOfInterest);
                 Cv2.GaussianBlur(regionOfInterest, regionOfInterest, new Size(5, 5), 0);
@@ -89,6 +90,7 @@ namespace OpenMTR
                 };
 
                 digitRead += ReadDigitFromStates(DetectSegmentStates(regionOfInterest, segments));
+                count++;
             }
 
             return digitRead;

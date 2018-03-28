@@ -1,29 +1,45 @@
 ﻿using OpenCvSharp;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenMTR
 {
     public static class American
     {
-        public static bool FirstPass(Meter meter)
+        public static void ProcessDigitalMeter(Meter meter)
+        {
+            try
+            {
+                if (ExtractionFirstPass(meter))
+                {
+                    throw new PassFailException(string.Format("{0}: Succesful Read", meter.FileName));
+                }
+
+                throw new PassFailException(string.Format("{0}: Failed Read", meter.FileName));
+            }
+            catch (PassFailException ex)
+            {
+                DebugUtils.Log(ex.Message);
+            }
+        }
+
+        private static bool ExtractionFirstPass(Meter meter)
         {
             ImageUtils.AdjustImageSkew(meter);
+            Mat test = meter.ModifiedImage.Clone();
             ImageUtils.ColorToGray(meter.ModifiedImage, meter.ModifiedImage);
-            Cv2.Canny(meter.ModifiedImage, meter.ModifiedImage, 100, 200);
-            //Cv2.Dilate(meter.ModifiedImage, meter.ModifiedImage, ImageUtils.GetKernel(new Size(1, 1)));
-            Cv2.MorphologyEx(meter.ModifiedImage, meter.ModifiedImage, MorphTypes.Open, ImageUtils.GetKernel(new Size(1, 1)));
+            Cv2.MorphologyEx(meter.ModifiedImage, meter.ModifiedImage, MorphTypes.Close, ImageUtils.GetKernel(new Size(3, 3)));
+            Cv2.Dilate(meter.ModifiedImage, meter.ModifiedImage, ImageUtils.GetKernel(new Size(5, 5)));
+            Cv2.Dilate(meter.ModifiedImage, meter.ModifiedImage, ImageUtils.GetKernel(new Size(5, 5)));
+            Cv2.Canny(meter.ModifiedImage, meter.ModifiedImage, 100, 300);
             Cv2.FindContours(meter.ModifiedImage, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.External, ContourApproximationModes.ApproxSimple);
             List<Rect> rectangles = new List<Rect>();
-            Mat test = meter.ModifiedImage.Clone();
+            
             foreach (Point[] point in contours)
             {
                 Rect rect = Cv2.BoundingRect(point);
                 double area = rect.Width * rect.Height;
-                if (area >= 300 && area <= 1000)
+                if (area >= 400 && area <= 1000)
                 {
                     Cv2.Rectangle(test, rect, new Scalar(255, 0, 0), 2);
                     rectangles.Add(rect);

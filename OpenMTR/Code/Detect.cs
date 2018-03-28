@@ -11,12 +11,13 @@ namespace OpenMTR
             switch (meter.MetaData.ReadType)
             {
                 case "DIGITAL":
-                    ExtractDigitalReadout(meter);
+                    ProcessDigitalManufacturer(meter);
                     break;
                 case "DIALS":
-                    ExtractDials(meter);
+                    ProcessDialManufacturer(meter);
                     break;
                 case "AMI":
+                    ProcessAMIManufacturer(meter);
                     break;
                 default:
                     Console.WriteLine(string.Format("Unexpected read type of '{0}'. Please check the metadata json file for '{1}' and ensure this is correct", meter.MetaData.ReadType, meter.FileName));
@@ -24,20 +25,62 @@ namespace OpenMTR
             }
         }
 
-        private static void ExtractDigitalReadout(Meter meter)
+        private static void ProcessDigitalManufacturer(Meter meter)
         {
-            try
+            switch (meter.MetaData.Manufacturer)
             {
-                if (American.FirstPass(meter))
-                {
-                    throw new PassFailedException(string.Format("{0}: Succesful Read", meter.FileName));
-                }
-
-                throw new PassFailedException(string.Format("{0}: Failed Read", meter.FileName));
+                case "AMERICAN":
+                    American.ProcessDigitalMeter(meter);
+                    break;
+                case "NEPTUNE":
+                    break;
+                case "SENSUS":
+                    break;
+                case "ROOTS":
+                    break;
+                default:
+                    Console.WriteLine(string.Format("Unexpected meter manufacturer of '{0}'. Please check the metadata json file for '{1}' and ensure this is correct", meter.MetaData.Manufacturer, meter.FileName));
+                    break;
             }
-            catch (PassFailedException ex)
+        }
+
+        private static void ProcessDialManufacturer(Meter meter)
+        { 
+            switch (meter.MetaData.Manufacturer)
             {
-                DebugUtils.Log(ex.Message);
+                case "NEPTUNE":
+                    break;
+                case "TRIDENT":
+                    break;
+                case "SPRAGUE":
+                    break;
+                case "AMERICAN":
+                    break;
+                case "BADGER":
+                    break;
+                case "EMCO":
+                    break;
+                default:
+                    Console.WriteLine(string.Format("Unexpected meter manufacturer of '{0}'. Please check the metadata json file for '{1}' and ensure this is correct", meter.MetaData.Manufacturer, meter.FileName));
+                    break;
+            }
+        }
+
+        private static void ProcessAMIManufacturer(Meter meter)
+        {
+            switch (meter.MetaData.Manufacturer)
+            {
+                case "SENSUS":
+                    break;
+                case "NEPTUNE":
+                    break;
+                case "TRIDENT":
+                    break;
+                case "AMERICAN":
+                    break;
+                default:
+                    Console.WriteLine(string.Format("Unexpected meter manufacturer of '{0}'. Please check the metadata json file for '{1}' and ensure this is correct", meter.MetaData.Manufacturer, meter.FileName));
+                    break;
             }
         }
 
