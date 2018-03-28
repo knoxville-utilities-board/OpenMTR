@@ -45,9 +45,9 @@ namespace OpenMTR
             Cv2.Canny(handler, handler, 100, 100, 3);
             LineSegmentPoint[] lineSegmentPoints = Cv2.HoughLinesP(handler, 1, Cv2.PI / 180.0, 100, minLineLength: 100, maxLineGap: 5);
 
-            for(int i = 0; i < lineSegmentPoints.Length; i++)
+            for (int i = 0; i < lineSegmentPoints.Length; i++)
             {
-                if(lineSegmentPoints[i].P1 == null || lineSegmentPoints[i].P2 == null)
+                if (lineSegmentPoints[i].P1 == null || lineSegmentPoints[i].P2 == null)
                 {
                     continue;
                 }
