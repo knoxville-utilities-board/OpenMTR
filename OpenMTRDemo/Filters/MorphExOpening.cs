@@ -31,7 +31,7 @@ namespace OpenMTRDemo.Filters
 
         public override BaseFilter Clone()
         {
-            return new MorphExClosing(Editor, Meter);
+            return new MorphExOpening(Editor, Meter);
         }
     }
 }
