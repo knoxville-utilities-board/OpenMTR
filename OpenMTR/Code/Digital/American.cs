@@ -12,7 +12,7 @@ namespace OpenMTR
             {
                 if (ExtractionFirstPass(meter))
                 {
-                    throw new PassFailException(string.Format("{0}: Succesful Read", meter.FileName));
+                    throw new PassFailException(string.Format("{0}: Successful Read", meter.FileName));
                 }
 
                 throw new PassFailException(string.Format("{0}: Failed Read", meter.FileName));
@@ -26,57 +26,99 @@ namespace OpenMTR
         private static bool ExtractionFirstPass(Meter meter)
         {
             ImageUtils.AdjustImageSkew(meter);
-            Mat test = meter.ModifiedImage.Clone();
+            meter.ModifiedImage = new Mat(meter.ModifiedImage, new Rect(0, 0, meter.ModifiedImage.Width, meter.ModifiedImage.Height / 2));
             ImageUtils.ColorToGray(meter.ModifiedImage, meter.ModifiedImage);
+            Cv2.GaussianBlur(meter.ModifiedImage, meter.ModifiedImage, new Size(3, 3), 0);
             Cv2.MorphologyEx(meter.ModifiedImage, meter.ModifiedImage, MorphTypes.Close, ImageUtils.GetKernel(new Size(3, 3)));
-            Cv2.Dilate(meter.ModifiedImage, meter.ModifiedImage, ImageUtils.GetKernel(new Size(5, 5)));
-            Cv2.Dilate(meter.ModifiedImage, meter.ModifiedImage, ImageUtils.GetKernel(new Size(5, 5)));
-            Cv2.Canny(meter.ModifiedImage, meter.ModifiedImage, 100, 300);
-            Cv2.FindContours(meter.ModifiedImage, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.External, ContourApproximationModes.ApproxSimple);
-            List<Rect> rectangles = new List<Rect>();
-            
-            foreach (Point[] point in contours)
-            {
-                Rect rect = Cv2.BoundingRect(point);
-                double area = rect.Width * rect.Height;
-                if (area >= 400 && area <= 1000)
-                {
-                    Cv2.Rectangle(test, rect, new Scalar(255, 0, 0), 2);
-                    rectangles.Add(rect);
-                }
-            }
+            Cv2.Canny(meter.ModifiedImage, meter.ModifiedImage, 100, 200);
+            List<Rect> readouts = ExtractReadouts(meter);
 
-            DebugUtils.ExportMatToFile(test, meter.FileName);
-
-            List<Rect> filteredRect = new List<Rect>();
-            for (int i = 0; i < rectangles.Count; i++)
-            {
-                Rect rect = rectangles[i];
-                int count = 0;
-                foreach (Rect otherRect in rectangles)
-                {
-                    if (!rect.Equals(otherRect))
-                    {
-                        if (Math.Abs(rect.TopLeft.Y - otherRect.TopLeft.Y) < 10)
-                        {
-                            count++;
-                        }
-                    }
-                }
-                if (count == 3)
-                {
-                    filteredRect.Add(rect);
-                }
-            }
-
-            if (filteredRect.Count != 4)
+            if (readouts.Count == 0)
             {
                 return false;
             }
 
-            string odometerValue = Odometer.Read(meter, filteredRect);
+            List<Rect> extractedDigits = ExtractDigits(meter, readouts);
+            string odometerValue = Odometer.Read(meter, extractedDigits);
             DebugUtils.Log($"{meter.FileName}: Read {odometerValue}");
-            return (odometerValue.Equals(meter.MetaData.MeterRead));
+            //return (odometerValue.Equals(meter.MetaData.MeterRead));
+            return false;
+        }
+
+        private static List<Rect> ExtractReadouts(Meter meter)
+        {
+            Cv2.FindContours(meter.ModifiedImage, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.External, ContourApproximationModes.ApproxSimple);
+            List<Rect> readouts = new List<Rect>();
+            foreach (Point[] point in contours)
+            {
+                Rect rect = Cv2.BoundingRect(point);
+                double area = rect.Height * rect.Width; 
+                if (area > 4000 && area < 10000)
+                {
+                    if (rect.Width > (rect.Height * 2) && rect.Width < (rect.Height * 3))
+                    {
+                        readouts.Add(rect);
+                    }
+                }
+            }
+            return readouts;
+        }
+
+        private static List<Rect> ExtractDigits(Meter meter, List<Rect> readouts)
+        {
+            List<Rect> rectangles = new List<Rect>();
+            List<Rect> filteredRect = new List<Rect>();
+            foreach (Rect readout in readouts)
+            {
+                Mat roi = new Mat(meter.SourceImage, readout);
+                ImageUtils.AdjustImageSkew(roi);
+                ImageUtils.ColorToGray(roi, roi);
+                Cv2.GaussianBlur(roi, roi, new Size(3, 3), 0);
+                Cv2.MorphologyEx(roi, roi, MorphTypes.Close, ImageUtils.GetKernel(new Size(3, 3)));
+                Cv2.Canny(roi, roi, 50, 150);
+                Cv2.FindContours(roi, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.List, ContourApproximationModes.ApproxSimple);
+
+                foreach (Point[] point in contours)
+                {
+                    Rect rect = Cv2.BoundingRect(point);
+                    double area = rect.Height * rect.Width;
+                    if (area > 175 && area < 500)
+                    {
+                        if (rect.Height > rect.Width)
+                        {
+                            rectangles.Add(rect);
+                        } 
+                    }
+                }
+                Odometer.SortDigits(rectangles);
+                filteredRect = new List<Rect>();
+                for (int i = 0; i < rectangles.Count; i++)
+                {
+                    Rect rect = rectangles[i];
+                    int count = 0;
+                    foreach (Rect otherRect in rectangles)
+                    {
+                        if (!rect.Equals(otherRect))
+                        {
+                            if (Math.Abs(rect.TopLeft.Y - otherRect.TopLeft.Y) < 5)
+                            {
+                                count++;
+                            }
+                        }
+                    }
+                    if (count > 3)
+                    {
+                        filteredRect.Add(rect);
+                    }
+                }
+
+                if (filteredRect.Count >= 4)
+                {
+                    return filteredRect;
+                }
+            }
+
+            return filteredRect;
         }
     }
 }
