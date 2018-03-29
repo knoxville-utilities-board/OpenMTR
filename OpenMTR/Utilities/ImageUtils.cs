@@ -29,18 +29,23 @@ namespace OpenMTR
 
         public static void AdjustImageSkew(Meter meter)
         {
-            RotateImage(meter.SourceImage, meter.ModifiedImage, GetAngle(meter));
+            RotateImage(meter.SourceImage, meter.ModifiedImage, GetAngle(meter.SourceImage));
         }
 
-        public static void RotateImage(Mat sourceImage, Mat destinationImage, double degrees)
+        public static void AdjustImageSkew(Mat imageToAdjust)
+        {
+            RotateImage(imageToAdjust, imageToAdjust, GetAngle(imageToAdjust));
+        }
+
+        private static void RotateImage(Mat sourceImage, Mat destinationImage, double degrees)
         {
             Mat rotationMatrix = Cv2.GetRotationMatrix2D(new Point2f(sourceImage.Cols / 2, sourceImage.Rows / 2), degrees, 1);
             Cv2.WarpAffine(sourceImage, destinationImage, rotationMatrix, sourceImage.Size());
         }
 
-        private static double GetAngle(Meter meter)
+        private static double GetAngle(Mat imageToAdjust)
         {
-            Mat handler = meter.SourceImage.Clone();
+            Mat handler = imageToAdjust.Clone();
             ColorToGray(handler, handler);
             Cv2.Canny(handler, handler, 100, 100, 3);
             LineSegmentPoint[] lineSegmentPoints = Cv2.HoughLinesP(handler, 1, Cv2.PI / 180.0, 100, minLineLength: 100, maxLineGap: 5);
