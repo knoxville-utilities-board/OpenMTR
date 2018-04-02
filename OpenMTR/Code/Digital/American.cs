@@ -69,10 +69,10 @@ namespace OpenMTR
 
         private static List<Rect> ExtractDigits(Meter meter, List<Rect> readouts)
         {
-            List<Rect> rectangles = new List<Rect>();
-            List<Rect> filteredRect = new List<Rect>();
+            List<Rect> rectangles = new List<Rect>(); 
             foreach (Rect readout in readouts)
             {
+                List<Rect> filteredRect = new List<Rect>();
                 Mat roi = new Mat(meter.SourceImage.Clone(), readout);
                 ImageUtils.AdjustImageSkew(roi);
                 ImageUtils.ColorToGray(roi, roi);
@@ -84,41 +84,16 @@ namespace OpenMTR
                 {
                     Rect rect = Cv2.BoundingRect(point);
                     double area = rect.Height * rect.Width;
-                    if (area > 175 && area < 500)
+                    if ((area > 175 && area < 500) && (rect.Height > rect.Width))
                     {
-                        if (rect.Height > rect.Width)
+                        if (rectangles.Where(r => (r.X == rect.X && r.Y == rect.Y)).ToList().Count == 0)
                         {
-                            if (rectangles.Where(r => (r.X == rect.X && r.Y == rect.Y)).ToList().Count == 0)
-                            {
-                                rectangles.Add(rect);
-                            }                           
-                        } 
-                    }
-                }
-
-                Odometer.SortDigits(rectangles);
-
-                filteredRect = new List<Rect>();
-                for (int i = 0; i < rectangles.Count; i++)
-                {
-                    Rect rect = rectangles[i];
-                    int count = 0;
-                    foreach (Rect otherRect in rectangles)
-                    {
-                        if (!rect.Equals(otherRect))
-                        {
-                            if (Math.Abs(rect.TopLeft.Y - otherRect.TopLeft.Y) < 5)
-                            {
-                                count++;
-                            }
+                            rectangles.Add(rect);
                         }
                     }
-                    if (count == 3)
-                    {
-                        filteredRect.Add(rect);
-                    }
                 }
-
+                Odometer.SortDigits(rectangles);
+                filteredRect = rectangles.Where(rect => rectangles.Where(otherRect => (!rect.Equals(otherRect) && (Math.Abs(rect.TopLeft.Y - otherRect.TopLeft.Y) < 5))).Count() == 3).ToList();
                 if (filteredRect.Count == 4)
                 {                 
                     meter.ModifiedImage = new Mat(meter.SourceImage.Clone(), readout);
@@ -127,7 +102,7 @@ namespace OpenMTR
                 }
             }
 
-            return filteredRect;
+            return new List<Rect>();
         }
     }
 }
