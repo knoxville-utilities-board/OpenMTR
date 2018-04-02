@@ -86,7 +86,7 @@ namespace OpenMTR
                     double area = rect.Height * rect.Width;
                     if ((area > 175 && area < 500) && (rect.Height > rect.Width))
                     {
-                        if (rectangles.Where(r => (r.X == rect.X && r.Y == rect.Y)).ToList().Count == 0)
+                        if (rectangles.Where(r => (r.X == rect.X && r.Y == rect.Y)).Count() == 0)
                         {
                             rectangles.Add(rect);
                         }
