@@ -69,29 +69,16 @@ namespace OpenMTR
 
         private static List<Rect> ExtractDigits(Meter meter, List<Rect> readouts)
         {
-            List<Rect> rectangles = new List<Rect>(); 
             foreach (Rect readout in readouts)
             {
                 List<Rect> filteredRect = new List<Rect>();
-                Mat roi = new Mat(meter.SourceImage.Clone(), readout);
-                ImageUtils.AdjustImageSkew(roi);
-                ImageUtils.ColorToGray(roi, roi);
-                Cv2.GaussianBlur(roi, roi, new Size(3, 3), 0);
-                Cv2.MorphologyEx(roi, roi, MorphTypes.Close, ImageUtils.GetKernel(new Size(3, 3)));
-                Cv2.Canny(roi, roi, 50, 150);
-                Cv2.FindContours(roi, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.Tree, ContourApproximationModes.ApproxSimple);
-                foreach (Point[] point in contours)
-                {
-                    Rect rect = Cv2.BoundingRect(point);
-                    double area = rect.Height * rect.Width;
-                    if ((area > 175 && area < 500) && (rect.Height > rect.Width))
-                    {
-                        if (rectangles.Where(r => (r.X == rect.X && r.Y == rect.Y)).Count() == 0)
-                        {
-                            rectangles.Add(rect);
-                        }
-                    }
-                }
+                Mat regionOfInterest = new Mat(meter.SourceImage.Clone(), readout);
+                ImageUtils.AdjustImageSkew(regionOfInterest);
+                ImageUtils.ColorToGray(regionOfInterest, regionOfInterest);
+                Cv2.GaussianBlur(regionOfInterest, regionOfInterest, new Size(3, 3), 0);
+                Cv2.MorphologyEx(regionOfInterest, regionOfInterest, MorphTypes.Close, ImageUtils.GetKernel(new Size(3, 3)));
+                Cv2.Canny(regionOfInterest, regionOfInterest, 50, 150);
+                List<Rect> rectangles = FindDigits(regionOfInterest);
                 Odometer.SortDigits(rectangles);
                 filteredRect = rectangles.Where(rect => rectangles.Where(otherRect => (!rect.Equals(otherRect) && (Math.Abs(rect.TopLeft.Y - otherRect.TopLeft.Y) < 5))).Count() == 3).ToList();
                 if (filteredRect.Count == 4)
@@ -101,8 +88,26 @@ namespace OpenMTR
                     return filteredRect;
                 }
             }
-
             return new List<Rect>();
+        }
+
+        private static List<Rect> FindDigits(Mat regionOfInterest)
+        {
+            List<Rect> rectangles = new List<Rect>();
+            Cv2.FindContours(regionOfInterest, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.Tree, ContourApproximationModes.ApproxSimple);
+            foreach (Point[] point in contours)
+            {
+                Rect rect = Cv2.BoundingRect(point);
+                double area = rect.Height * rect.Width;
+                if ((area > 175 && area < 500) && (rect.Height > rect.Width))
+                {
+                    if (rectangles.Where(r => (r.X == rect.X && r.Y == rect.Y)).Count() == 0)
+                    {
+                        rectangles.Add(rect);
+                    }
+                }
+            }
+            return rectangles;
         }
     }
 }
