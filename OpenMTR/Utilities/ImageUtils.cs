@@ -46,7 +46,11 @@ namespace OpenMTR
         private static double GetAngle(Mat imageToAdjust)
         {
             Mat handler = imageToAdjust.Clone();
-            ColorToGray(handler, handler);
+            if (imageToAdjust.Type().ToString() != "CV_8UC1")
+            {
+                ColorToGray(handler, handler);
+            }
+            
             Cv2.Canny(handler, handler, 100, 100, 3);
             LineSegmentPoint[] lineSegmentPoints = Cv2.HoughLinesP(handler, 1, Cv2.PI / 180.0, 100, minLineLength: 100, maxLineGap: 5);
 
