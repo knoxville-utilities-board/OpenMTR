@@ -38,7 +38,11 @@ namespace OpenMTRDemo.Forms
                 new LaplacianFilter(this, Meter),
                 new PerspectiveFilter(this, Meter),
                 new AffineFilter(this, Meter),
-                new IsolateFilter(this, Meter)
+                new IsolateFilter(this, Meter),
+                new ErodeMorph(this, Meter),
+                new DilateMorph(this, Meter),
+                new MorphExClosing(this, Meter),
+                new MorphExOpening(this, Meter)
             };
             filtersComboBox.Items.AddRange(filters);
             for (int i = 0; i < Meter.FilterList.Count; i++)
