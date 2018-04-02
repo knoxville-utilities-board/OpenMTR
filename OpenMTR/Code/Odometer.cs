@@ -28,7 +28,6 @@ namespace OpenMTR
         private static string ReadDigits(Meter meter, List<Rect> digits)
         {
             string digitRead = "";
-            int count = 0;
             foreach (Rect digit in digits)
             {
                 Mat regionOfInterest = new Mat(meter.ModifiedImage.Clone(), digit);
@@ -52,7 +51,6 @@ namespace OpenMTR
                 };
 
                 digitRead += ReadDigitFromStates(DetectSegmentStates(regionOfInterest, segments));
-                count++;
             }
 
             return digitRead;
