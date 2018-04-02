@@ -20,37 +20,42 @@ namespace OpenMTR
             { "9", new int[] {1,1,1,1,0,1,1 } }
         };
 
-        public static string Read(Mat sourceImage)
+        public static string Read(Meter meter, List<Rect> digits)
         {
-            return ReadDigits(sourceImage, ExtractDigits(sourceImage));
+            return ReadDigits(meter, SortDigits(digits));
         }
 
-        private static List<Rect> ExtractDigits(Mat image)
+        private static string ReadDigits(Meter meter, List<Rect> digits)
         {
-            List<Rect> digits = new List<Rect>();
-
-            ImageUtils.ColorToGray(image, image);
-            Cv2.GaussianBlur(image, image, new Size(5, 5), 0);
-            Cv2.AdaptiveThreshold(image, image, 250, AdaptiveThresholdTypes.GaussianC, ThresholdTypes.Binary, 5, -1.2);
-            Cv2.MorphologyEx(image, image, MorphTypes.Open, ImageUtils.GetKernel(new Size(3, 3)));
-            Cv2.FindContours(image, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.List, ContourApproximationModes.ApproxSimple);
-
-            foreach (Point[] point in contours)
+            string digitRead = "";
+            int count = 0;
+            foreach (Rect digit in digits)
             {
-                double area = Cv2.ContourArea(point);
+                Mat regionOfInterest = new Mat(meter.ModifiedImage.Clone(), digit);
+                int segW = (int)(regionOfInterest.Width * 0.25), segH = (int)(regionOfInterest.Height * 0.25);
+                ImageUtils.ColorToGray(regionOfInterest, regionOfInterest);
+                Cv2.GaussianBlur(regionOfInterest, regionOfInterest, new Size(5, 5), 0);
+                Cv2.AdaptiveThreshold(regionOfInterest, regionOfInterest, 200, AdaptiveThresholdTypes.GaussianC, ThresholdTypes.Binary, 3, -1);
+                Cv2.Erode(regionOfInterest, regionOfInterest, ImageUtils.GetKernel(new Size(1, 1)));
+                Cv2.Dilate(regionOfInterest, regionOfInterest, ImageUtils.GetKernel(new Size(1, 1)));
+                Cv2.MorphologyEx(regionOfInterest, regionOfInterest, MorphTypes.Close, ImageUtils.GetKernel(new Size(1, 1)));
 
-                if (area >= 300 && area <= 550)
+                List<List<int>> segments = new List<List<int>>
                 {
-                    digits.Add(Cv2.BoundingRect(point));
-                }
+                    new List<int> {segW, 0, digit.Width - (2 * segW), segH },                                    // Top
+                    new List<int> {0, 0, segW, digit.Height / 2 },                                               // Top left
+                    new List<int> { digit.Width - segW, 0, segW, digit.Height / 2 },                             // Top right
+                    new List<int> {segW, digit.Height / 2 - (segH / 2), digit.Width - (2 * segW), segH },        // Center
+                    new List<int> {0, digit.Height / 2, segW, digit.Height / 2 },                                // bottom left
+                    new List<int> {digit.Width - segW, digit.Height / 2, segW, digit.Height / 2 },               // Bottom right
+                    new List<int> {segW, digit.Height - segH, digit.Width - (2 * segW), segH },                  // bottom
+                };
+
+                digitRead += ReadDigitFromStates(DetectSegmentStates(regionOfInterest, segments));
+                count++;
             }
 
-            return SortDigits(digits);
-        }
-
-        private static List<Rect> SortDigits(List<Rect> digits)
-        {
-            return digits.OrderBy(digit => digit.X).ToList();
+            return digitRead;
         }
 
         private static int[] DetectSegmentStates(Mat regionOfInterest, List<List<int>> segments)
@@ -85,32 +90,9 @@ namespace OpenMTR
             return "";
         }
 
-        private static string ReadDigits(Mat image, List<Rect> digits)
+        public static List<Rect> SortDigits(List<Rect> digits)
         {
-            string digitRead = "";
-            foreach (Rect digit in digits)
-            {
-                Mat regionOfInterest = new Mat(image.Clone(), digit);
-
-                int segW = (int)(regionOfInterest.Width * 0.25), segH = (int)(regionOfInterest.Height * 0.25);
-
-                Cv2.MorphologyEx(regionOfInterest, regionOfInterest, MorphTypes.Close, ImageUtils.GetKernel(new Size(3, 3)));
-
-                List<List<int>> segments = new List<List<int>>
-                {
-                    new List<int> {segW, 0, digit.Width - (2 * segW), segH },                                    // Top
-                    new List<int> {0, 0, segW, digit.Height / 2 },                                               // Top left
-                    new List<int> { digit.Width - segW, 0, segW, digit.Height / 2 },                             // Top right
-                    new List<int> {segW, digit.Height / 2 - (segH / 2), digit.Width - (2 * segW), segH },        // Center
-                    new List<int> {0, digit.Height / 2, segW, digit.Height / 2 },                                // bottom left
-                    new List<int> {digit.Width - segW, digit.Height / 2, segW, digit.Height / 2 },               // Bottom right
-                    new List<int> {segW, digit.Height - segH, digit.Width - (2 * segW), segH },                  // bottom
-                };
-
-                digitRead += ReadDigitFromStates(DetectSegmentStates(regionOfInterest, segments));
-            }
-
-            return digitRead;
+            return digits.OrderBy(digit => digit.X).ToList();
         }
     }
 }
