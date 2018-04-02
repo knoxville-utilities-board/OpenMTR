@@ -1,6 +1,7 @@
 ﻿using OpenCvSharp;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OpenMTR
 {
@@ -26,23 +27,25 @@ namespace OpenMTR
         private static bool ExtractionFirstPass(Meter meter)
         {
             ImageUtils.AdjustImageSkew(meter);
-            meter.ModifiedImage = new Mat(meter.ModifiedImage, new Rect(0, 0, meter.ModifiedImage.Width, meter.ModifiedImage.Height / 2));
+            meter.ModifiedImage = new Mat(meter.ModifiedImage.Clone(), new Rect(0, 0, meter.ModifiedImage.Width, meter.ModifiedImage.Height / 2));
             ImageUtils.ColorToGray(meter.ModifiedImage, meter.ModifiedImage);
             Cv2.GaussianBlur(meter.ModifiedImage, meter.ModifiedImage, new Size(3, 3), 0);
             Cv2.MorphologyEx(meter.ModifiedImage, meter.ModifiedImage, MorphTypes.Close, ImageUtils.GetKernel(new Size(3, 3)));
             Cv2.Canny(meter.ModifiedImage, meter.ModifiedImage, 100, 200);
             List<Rect> readouts = ExtractReadouts(meter);
-
             if (readouts.Count == 0)
             {
                 return false;
             }
-
             List<Rect> extractedDigits = ExtractDigits(meter, readouts);
-            string odometerValue = Odometer.Read(meter, extractedDigits);
-            DebugUtils.Log($"{meter.FileName}: Read {odometerValue}");
+            if (extractedDigits.Count != 4)
+            {
+                return false;
+            }
+            //string odometerValue = Odometer.Read(meter, extractedDigits);
+            //DebugUtils.Log($"{meter.FileName}: Read {odometerValue}");
             //return (odometerValue.Equals(meter.MetaData.MeterRead));
-            return false;
+            return true;
         }
 
         private static List<Rect> ExtractReadouts(Meter meter)
@@ -70,14 +73,13 @@ namespace OpenMTR
             List<Rect> filteredRect = new List<Rect>();
             foreach (Rect readout in readouts)
             {
-                Mat roi = new Mat(meter.SourceImage, readout);
+                Mat roi = new Mat(meter.SourceImage.Clone(), readout);
                 ImageUtils.AdjustImageSkew(roi);
                 ImageUtils.ColorToGray(roi, roi);
                 Cv2.GaussianBlur(roi, roi, new Size(3, 3), 0);
                 Cv2.MorphologyEx(roi, roi, MorphTypes.Close, ImageUtils.GetKernel(new Size(3, 3)));
                 Cv2.Canny(roi, roi, 50, 150);
-                Cv2.FindContours(roi, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.List, ContourApproximationModes.ApproxSimple);
-
+                Cv2.FindContours(roi, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.Tree, ContourApproximationModes.ApproxSimple);
                 foreach (Point[] point in contours)
                 {
                     Rect rect = Cv2.BoundingRect(point);
@@ -86,11 +88,16 @@ namespace OpenMTR
                     {
                         if (rect.Height > rect.Width)
                         {
-                            rectangles.Add(rect);
+                            if (rectangles.Where(r => (r.X == rect.X && r.Y == rect.Y)).ToList().Count == 0)
+                            {
+                                rectangles.Add(rect);
+                            }                           
                         } 
                     }
                 }
+
                 Odometer.SortDigits(rectangles);
+
                 filteredRect = new List<Rect>();
                 for (int i = 0; i < rectangles.Count; i++)
                 {
@@ -106,14 +113,16 @@ namespace OpenMTR
                             }
                         }
                     }
-                    if (count > 3)
+                    if (count == 3)
                     {
                         filteredRect.Add(rect);
                     }
                 }
 
-                if (filteredRect.Count >= 4)
-                {
+                if (filteredRect.Count == 4)
+                {                 
+                    meter.ModifiedImage = new Mat(meter.SourceImage.Clone(), readout);
+                    ImageUtils.AdjustImageSkew(meter.ModifiedImage);
                     return filteredRect;
                 }
             }
