@@ -12,7 +12,6 @@ namespace OpenMTR
         public static void WelcomeUser()
         {
             Console.WriteLine("----------------------------------\n        Welcome to OpenMTR\n----------------------------------\nYou can exit by entering q or quit\n\n");
-
             GetPathFromUser();
         }
 

@@ -11,12 +11,13 @@ namespace OpenMTR
             switch (meter.MetaData.ReadType)
             {
                 case "DIGITAL":
-                    ExtractDigitalReadout(meter);
+                    ProcessDigitalManufacturer(meter);
                     break;
                 case "DIALS":
-                    ExtractDials(meter);
+                    ProcessDialManufacturer(meter);
                     break;
                 case "AMI":
+                    ProcessAMIManufacturer(meter);
                     break;
                 default:
                     Console.WriteLine(string.Format("Unexpected read type of '{0}'. Please check the metadata json file for '{1}' and ensure this is correct", meter.MetaData.ReadType, meter.FileName));
@@ -24,25 +25,63 @@ namespace OpenMTR
             }
         }
 
-        private static void ExtractDigitalReadout(Meter meter)
+        private static void ProcessDigitalManufacturer(Meter meter)
         {
-            ImageUtils.ColorToGray(meter.SourceImage, meter.ModifiedImage);
-            Cv2.Canny(meter.ModifiedImage, meter.ModifiedImage, 100, 200);
-            Cv2.FindContours(meter.ModifiedImage, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.External, ContourApproximationModes.ApproxSimple);
-            Rect rectangle = new Rect();
-            foreach (Point[] point in contours)
+            switch (meter.MetaData.Manufacturer)
             {
-                double area = Cv2.ContourArea(point);
-
-                // This is hardcoded for the first meter read and will change later.
-                if (area == 11445)
-                {
-                    rectangle = Cv2.BoundingRect(point);
-                }
+                case "AMERICAN":
+                    American.ProcessDigitalMeter(meter);
+                    break;
+                case "NEPTUNE":
+                    break;
+                case "SENSUS":
+                    break;
+                case "ROOTS":
+                    break;
+                default:
+                    Console.WriteLine(string.Format("Unexpected meter manufacturer of '{0}'. Please check the metadata json file for '{1}' and ensure this is correct", meter.MetaData.Manufacturer, meter.FileName));
+                    break;
             }
-            meter.ModifiedImage = new Mat(meter.SourceImage.Clone(), rectangle);
-            string odometerValue = Odometer.Read(meter.ModifiedImage);
-            DebugUtils.Log(string.Format("Read value: {0} | Metadata Value: {1}", odometerValue, meter.MetaData.MeterRead));
+        }
+
+        private static void ProcessDialManufacturer(Meter meter)
+        { 
+            switch (meter.MetaData.Manufacturer)
+            {
+                case "NEPTUNE":
+                    break;
+                case "TRIDENT":
+                    break;
+                case "SPRAGUE":
+                    break;
+                case "AMERICAN":
+                    break;
+                case "BADGER":
+                    break;
+                case "EMCO":
+                    break;
+                default:
+                    Console.WriteLine(string.Format("Unexpected meter manufacturer of '{0}'. Please check the metadata json file for '{1}' and ensure this is correct", meter.MetaData.Manufacturer, meter.FileName));
+                    break;
+            }
+        }
+
+        private static void ProcessAMIManufacturer(Meter meter)
+        {
+            switch (meter.MetaData.Manufacturer)
+            {
+                case "SENSUS":
+                    break;
+                case "NEPTUNE":
+                    break;
+                case "TRIDENT":
+                    break;
+                case "AMERICAN":
+                    break;
+                default:
+                    Console.WriteLine(string.Format("Unexpected meter manufacturer of '{0}'. Please check the metadata json file for '{1}' and ensure this is correct", meter.MetaData.Manufacturer, meter.FileName));
+                    break;
+            }
         }
 
         private static void ExtractDials(Meter meter)

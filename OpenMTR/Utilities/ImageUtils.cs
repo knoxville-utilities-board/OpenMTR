@@ -27,43 +27,42 @@ namespace OpenMTR
             return Cv2.GetStructuringElement(MorphShapes.Rect, size);
         }
 
-        public static void RotateImage(Mat sourceImage, Mat destinationImage, double degrees)
+        public static void AdjustImageSkew(Meter meter)
+        {
+            RotateImage(meter.SourceImage, meter.ModifiedImage, GetAngle(meter.SourceImage));
+        }
+
+        public static void AdjustImageSkew(Mat imageToAdjust)
+        {
+            RotateImage(imageToAdjust, imageToAdjust, GetAngle(imageToAdjust));
+        }
+
+        private static void RotateImage(Mat sourceImage, Mat destinationImage, double degrees)
         {
             Mat rotationMatrix = Cv2.GetRotationMatrix2D(new Point2f(sourceImage.Cols / 2, sourceImage.Rows / 2), degrees, 1);
             Cv2.WarpAffine(sourceImage, destinationImage, rotationMatrix, sourceImage.Size());
         }
 
-        public static float DetectImageSkew(Mat image)
+        private static double GetAngle(Mat imageToAdjust)
         {
-            LineSegmentPolar[] lines = Cv2.HoughLines(image, 1, Cv2.PI / 180f, 330);
-            return FilterImageSkew(lines);
-        }
-
-        private static float FilterImageSkew(LineSegmentPolar[] lines)
-        {
-            List<LineSegmentPolar> filteredLines = new List<LineSegmentPolar>();
-
-            float theta_min = (float)(60f * Cv2.PI / 180f),
-                  theta_max = (float)(120f * Cv2.PI / 180f),
-                  theta_avr = 0f,
-                  theta_deg = 0f;
-
-            foreach (LineSegmentPolar line in lines)
+            Mat handler = imageToAdjust.Clone();
+            if (imageToAdjust.Type().ToString() != "CV_8UC1")
             {
-                if (line.Theta >= theta_min && line.Theta <= theta_max)
+                ColorToGray(handler, handler);
+            }
+            
+            Cv2.Canny(handler, handler, 100, 100, 3);
+            LineSegmentPoint[] lineSegmentPoints = Cv2.HoughLinesP(handler, 1, Cv2.PI / 180.0, 100, minLineLength: 100, maxLineGap: 5);
+
+            for (int i = 0; i < lineSegmentPoints.Length; i++)
+            {
+                if (lineSegmentPoints[i].P1 == null || lineSegmentPoints[i].P2 == null)
                 {
-                    filteredLines.Add(line);
-                    theta_avr += line.Theta;
+                    continue;
                 }
+                return Math.Atan2(lineSegmentPoints[i].P2.Y - lineSegmentPoints[i].P1.Y, lineSegmentPoints[i].P2.X - lineSegmentPoints[i].P1.X) * (180 / Math.PI);
             }
-
-            if (filteredLines.Count > 0)
-            {
-                theta_avr /= filteredLines.Count;
-                theta_deg = (float)(theta_avr / Cv2.PI * 180f) - 90;
-            }
-
-            return theta_deg;
+            return 0; 
         }
     }
 }

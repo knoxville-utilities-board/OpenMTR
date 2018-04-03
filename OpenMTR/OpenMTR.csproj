@@ -63,7 +63,9 @@
   <ItemGroup>
     <Compile Include="Code\Detect.cs" />
     <Compile Include="Code\Dial.cs" />
+    <Compile Include="Code\Digital\American.cs" />
     <Compile Include="Code\Odometer.cs" />
+    <Compile Include="Exceptions\PassFailException.cs" />
     <Compile Include="Models\Meter.cs" />
     <Compile Include="Models\MeterMetaData.cs" />
     <Compile Include="Utilities\ImageUtils.cs" />
