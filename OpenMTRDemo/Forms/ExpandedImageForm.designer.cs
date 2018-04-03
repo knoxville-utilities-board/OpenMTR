@@ -50,7 +50,7 @@
             // OutputImageBox
             // 
             this.OutputImageBox.Location = new System.Drawing.Point(0, 24);
-            this.OutputImageBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.OutputImageBox.Margin = new System.Windows.Forms.Padding(2);
             this.OutputImageBox.Name = "OutputImageBox";
             this.OutputImageBox.Size = new System.Drawing.Size(588, 441);
             this.OutputImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -64,9 +64,9 @@
             this.tabPage3.Controls.Add(this.label1);
             this.tabPage3.Controls.Add(this.WidthTextBox);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage3.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(2);
             this.tabPage3.Size = new System.Drawing.Size(248, 370);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Properties";
@@ -132,6 +132,7 @@
             this.filtersComboBox.Size = new System.Drawing.Size(159, 21);
             this.filtersComboBox.TabIndex = 4;
             this.filtersComboBox.SelectedIndexChanged += new System.EventHandler(this.filtersComboBox_SelectedIndexChanged);
+            this.filtersComboBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.filtersComboBox_KeyUp);
             // 
             // addFilterButton
             // 
@@ -157,7 +158,7 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(592, 26);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(256, 396);
@@ -166,7 +167,7 @@
             // cancelButton
             // 
             this.cancelButton.Location = new System.Drawing.Point(688, 429);
-            this.cancelButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cancelButton.Margin = new System.Windows.Forms.Padding(2);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(76, 28);
             this.cancelButton.TabIndex = 5;
@@ -177,7 +178,7 @@
             // okButton
             // 
             this.okButton.Location = new System.Drawing.Point(768, 429);
-            this.okButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.okButton.Margin = new System.Windows.Forms.Padding(2);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(76, 28);
             this.okButton.TabIndex = 6;
@@ -195,7 +196,7 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.OutputImageBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ExpandedImageForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "OpenMTR Demo";

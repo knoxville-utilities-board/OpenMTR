@@ -96,11 +96,17 @@
     <Compile Include="Filters\GaussianFilter.Designer.cs">
       <DependentUpon>GaussianFilter.cs</DependentUpon>
     </Compile>
-    <Compile Include="Filters\IsolateFilter.cs">
+    <Compile Include="Filters\IsolateDialsFilter.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Filters\IsolateFilter.Designer.cs">
-      <DependentUpon>IsolateFilter.cs</DependentUpon>
+    <Compile Include="Filters\IsolateDialsFilter.Designer.cs">
+      <DependentUpon>IsolateDialsFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Filters\IsolateOdoFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Filters\IsolateOdoFilter.Designer.cs">
+      <DependentUpon>IsolateOdoFilter.cs</DependentUpon>
     </Compile>
     <Compile Include="Filters\LaplacianFilter.cs">
       <SubType>UserControl</SubType>
@@ -186,8 +192,11 @@
     <EmbeddedResource Include="Filters\GaussianFilter.resx">
       <DependentUpon>GaussianFilter.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Filters\IsolateFilter.resx">
-      <DependentUpon>IsolateFilter.cs</DependentUpon>
+    <EmbeddedResource Include="Filters\IsolateDialsFilter.resx">
+      <DependentUpon>IsolateDialsFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Filters\IsolateOdoFilter.resx">
+      <DependentUpon>IsolateOdoFilter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Filters\LaplacianFilter.resx">
       <DependentUpon>LaplacianFilter.cs</DependentUpon>

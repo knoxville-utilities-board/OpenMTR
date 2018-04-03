@@ -13,6 +13,7 @@ namespace OpenMTRDemo.Filters
             this.Editor = Editor;
             this.Meter = Meter;
             FilterName = "Black and White";
+            Type = 0;
         }
 
         public override void ApplyFilter(Mat image)

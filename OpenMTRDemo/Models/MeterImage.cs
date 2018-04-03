@@ -17,13 +17,26 @@ namespace OpenMTRDemo.Models
             get
             {
                 Mat output = SourceImage.Clone();
-                GC.Collect();
                 foreach (var filter in FilterList)
                 {
                     filter.ApplyFilter(output);
                 }
+                GC.Collect();
                 return output;
             }
+        }
+        public Mat CascadeImage(int[] types)
+        {
+            Mat output = SourceImage.Clone();
+            foreach (var filter in FilterList)
+            {
+                if (types.Contains(filter.Type))
+                {
+                    filter.Cascade(output);
+                }
+            }
+            GC.Collect();
+            return output;
         }
         public List<BaseFilter> FilterList { get; set; }
         
@@ -39,11 +52,10 @@ namespace OpenMTRDemo.Models
             return new MeterImage(filename, source, filters);
         }
 
-        public MeterImage() { }
-        public MeterImage(string fileName, Mat sourceImage, List<BaseFilter> filterList = null)
+        public MeterImage(string fileName = "", Mat sourceImage = null, List<BaseFilter> filterList = null)
         {
             this.FileName = fileName;
-            this.SourceImage = sourceImage;
+            this.SourceImage = (sourceImage == null) ? new Mat() : sourceImage;
             this.FilterList = (filterList == null) ? new List<BaseFilter>() : filterList;
         }
 

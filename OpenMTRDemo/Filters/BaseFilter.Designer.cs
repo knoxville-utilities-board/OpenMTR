@@ -39,20 +39,20 @@
             // nameLabel
             // 
             this.nameLabel.AutoSize = true;
-            this.nameLabel.Location = new System.Drawing.Point(3, 3);
-            this.nameLabel.Margin = new System.Windows.Forms.Padding(3);
+            this.nameLabel.Location = new System.Drawing.Point(4, 4);
+            this.nameLabel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.nameLabel.Name = "nameLabel";
-            this.nameLabel.Size = new System.Drawing.Size(29, 13);
+            this.nameLabel.Size = new System.Drawing.Size(39, 17);
             this.nameLabel.TabIndex = 0;
             this.nameLabel.Text = "Filter";
             // 
             // removeButton
             // 
             this.removeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.removeButton.Location = new System.Drawing.Point(200, 3);
-            this.removeButton.Margin = new System.Windows.Forms.Padding(1, 3, 3, 3);
+            this.removeButton.Location = new System.Drawing.Point(267, 4);
+            this.removeButton.Margin = new System.Windows.Forms.Padding(1, 4, 4, 4);
             this.removeButton.Name = "removeButton";
-            this.removeButton.Size = new System.Drawing.Size(13, 13);
+            this.removeButton.Size = new System.Drawing.Size(17, 16);
             this.removeButton.TabIndex = 0;
             this.removeButton.Text = "X";
             this.removeButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -65,10 +65,10 @@
             // moveUpButton
             // 
             this.moveUpButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.moveUpButton.Location = new System.Drawing.Point(170, 3);
-            this.moveUpButton.Margin = new System.Windows.Forms.Padding(1, 3, 1, 3);
+            this.moveUpButton.Location = new System.Drawing.Point(227, 4);
+            this.moveUpButton.Margin = new System.Windows.Forms.Padding(1, 4, 1, 4);
             this.moveUpButton.Name = "moveUpButton";
-            this.moveUpButton.Size = new System.Drawing.Size(13, 13);
+            this.moveUpButton.Size = new System.Drawing.Size(17, 16);
             this.moveUpButton.TabIndex = 1;
             this.moveUpButton.Text = "˄";
             this.moveUpButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -81,10 +81,10 @@
             // moveDownButton
             // 
             this.moveDownButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.moveDownButton.Location = new System.Drawing.Point(185, 3);
-            this.moveDownButton.Margin = new System.Windows.Forms.Padding(1, 3, 1, 3);
+            this.moveDownButton.Location = new System.Drawing.Point(247, 4);
+            this.moveDownButton.Margin = new System.Windows.Forms.Padding(1, 4, 1, 4);
             this.moveDownButton.Name = "moveDownButton";
-            this.moveDownButton.Size = new System.Drawing.Size(13, 13);
+            this.moveDownButton.Size = new System.Drawing.Size(17, 16);
             this.moveDownButton.TabIndex = 2;
             this.moveDownButton.Text = "˅";
             this.moveDownButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -96,17 +96,18 @@
             // 
             // BaseFilter
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.Controls.Add(this.moveDownButton);
             this.Controls.Add(this.moveUpButton);
             this.Controls.Add(this.removeButton);
             this.Controls.Add(this.nameLabel);
-            this.MaximumSize = new System.Drawing.Size(220, 100);
-            this.MinimumSize = new System.Drawing.Size(220, 21);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.MaximumSize = new System.Drawing.Size(292, 122);
+            this.MinimumSize = new System.Drawing.Size(292, 25);
             this.Name = "BaseFilter";
-            this.Size = new System.Drawing.Size(216, 17);
+            this.Size = new System.Drawing.Size(288, 21);
             this.Load += new System.EventHandler(this.BaseFilter_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
