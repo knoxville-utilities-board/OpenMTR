@@ -13,14 +13,18 @@ namespace OpenMTR
             {
                 if (ExtractionFirstPass(meter))
                 {
-                    throw new PassFailException(string.Format("{0}: Successful Read", meter.FileName));
+                    throw new SuccessfulReadException();
                 }
 
-                throw new PassFailException(string.Format("{0}: Failed Read", meter.FileName));
+                throw new FailReadException();
             }
-            catch (PassFailException ex)
+            catch (SuccessfulReadException)
             {
-                DebugUtils.Log(ex.Message);
+                Report.AddSuccessfulRead(meter);
+            }
+            catch (FailReadException)
+            {
+                Report.AddFailedRead(meter);
             }
         }
 

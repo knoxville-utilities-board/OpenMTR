@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>OpenMTR Report</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.41/css/uikit.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.41/js/uikit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.41/js/uikit-icons.min.js"></script>
+    <style>
+        .uk-list>li:nth-child(n+2), .uk-list>li>ul
+        {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="uk-section uk-section-default">
+        <div class="uk-container uk-margin-large">
+            <h1 class="uk-heading-primary">OpenMTR OCR Report</h1>
+            <ul class="uk-list">
+                <li>OCR started at: {{OCR_START_TIME}}</li>
+                <li>OCR finished at: {{OCR_END_TIME}}</li>
+                <li>Total Meters: {{METER_COUNT}}</li>
+                <li>Meter Types:</li>
+                <ul class="uk-list uk-list-bullet">
+                    {{METER_TYPES_PROCESSED}}
+                </ul>
+                <li>Meter Manufacturers:</li>
+                <ul class="uk-list uk-list-bullet">
+                    {{METER_MANUFACTURERS_PROCESSED}}
+                </ul>
+                <li>Successful reads: {{SUCCESSFUL_READS}}</li>
+                <li>Failed reads: {{FAILED_READS}}</li>
+                <li>Failed filenames:</li>
+                <ul>
+                    {{FAILED_READS_LIST}}
+                </ul>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
