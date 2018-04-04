@@ -21,10 +21,12 @@ namespace OpenMTR
         private string currentText = string.Empty;
         private bool disposed = false;
         private int animationIndex = 0;
+        private string _title = "";
 
-        public ProgressBar()
+        public ProgressBar(string title = "")
         {
             timer = new Timer(TimerHandler);
+            _title = title;
 
             // A progress bar is only for temporary display in a console window.
             // If the console output is redirected to a file, draw nothing.
@@ -50,7 +52,8 @@ namespace OpenMTR
 
                 int progressBlockCount = (int)(currentProgress * blockCount);
                 int percent = (int)(currentProgress * 100);
-                string text = string.Format("[{0}{1}] {2,3}% {3}",
+                string text = string.Format("{0} [{1}{2}] {3,4}% {4}",
+                    _title,
                     new string('#', progressBlockCount), new string('-', blockCount - progressBlockCount),
                     percent,
                     animation[animationIndex++ % animation.Length]);
