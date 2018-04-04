@@ -13,6 +13,7 @@ namespace OpenMTRDemo.Filters
             this.Editor = Editor;
             this.Meter = Meter;
             FilterName = "Scharr Filter";
+            Type = 1;
         }
 
         public override void ApplyFilter(Mat image)

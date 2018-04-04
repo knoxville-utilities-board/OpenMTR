@@ -13,6 +13,7 @@ namespace OpenMTRDemo.Filters
         public ExpandedImageForm Editor { get; set; }
         public MeterImage Meter { get; set; }
         public string FilterName { get; set; }
+        public short Type { get; set; }
 
         public BaseFilter()
         {
@@ -22,6 +23,11 @@ namespace OpenMTRDemo.Filters
         private void BaseFilter_Load(object sender, EventArgs e)
         {
             nameLabel.Text = FilterName;
+        }
+
+        public virtual void Cascade(Mat image)
+        {
+            ApplyFilter(image);
         }
 
         public virtual void ApplyFilter(Mat image) { }

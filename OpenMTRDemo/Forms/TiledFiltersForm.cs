@@ -16,12 +16,7 @@ namespace OpenMTRDemo.Forms
     public partial class TiledFiltersForm : BaseForm
     {
         
-        private MeterImage _meter;
-        private MeterImage _cannyMat;
-        private MeterImage _grayMat;
-        private MeterImage _sobelMat;
-        private MeterImage _laplacianMat;
-        private MeterImage _scharrMat;
+        private MeterImage _sourceMeter;
         private List<KeyValPair<PictureBox>> _meterList;
 
         public TiledFiltersForm()
@@ -34,78 +29,76 @@ namespace OpenMTRDemo.Forms
             LoadSaveDialog loadSaveDialog = new LoadSaveDialog();
             if (loadSaveDialog.openBrowser.ShowDialog() == DialogResult.OK)
             {
-                _meter = new MeterImage(loadSaveDialog.openBrowser.FileName, new Mat(loadSaveDialog.openBrowser.FileName));
-                LoadKeyValueList();
+                _sourceMeter = new MeterImage(loadSaveDialog.openBrowser.FileName, new Mat(loadSaveDialog.openBrowser.FileName));
                 LoadAllImagePanes();
             }
         }
 
-        private void LoadKeyValueList()
-        {
-            _meterList = new List<KeyValPair<PictureBox>>();
-
-            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxSource, _meter));
-            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxPane1, _meter.Clone()));
-            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxPane2, _meter.Clone()));
-            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxPane3, _meter.Clone()));
-            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxPane4, _meter.Clone()));
-            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxPane5, _meter.Clone()));
-            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxPane6, _meter.Clone()));
-            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxGray, _meter.Clone()));
-            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxSobel, _meter.Clone()));
-            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxCanny, _meter.Clone()));
-            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxLaplace, _meter.Clone()));
-            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxScharr, _meter.Clone()));
-        }
-
         private void LoadAllImagePanes()
         {
-            _grayMat = _meterList[7].Meter;
-            _sobelMat = _meterList[8].Meter;
-            _cannyMat = _meterList[9].Meter;
-            _laplacianMat = _meterList[10].Meter;
-            _scharrMat = _meterList[11].Meter;
-
-            _grayMat.Add(new GrayFilter());
-            _sobelMat.Add(new SobelFilter());
-            _cannyMat.Add(new CannyFilter());
-            _laplacianMat.Add(new LaplacianFilter());
-            _scharrMat.Add(new ScharrFilter());
-
-            foreach (KeyValPair<PictureBox> kvp in _meterList)
-            {
-                DemoUtilities.loadImage(kvp.Id, kvp.Meter.ModifiedImage);
-            }
+            _meterList = new List<KeyValPair<PictureBox>>();
+            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxSource, _sourceMeter));
+            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxIsolated, _sourceMeter.Clone()));
+            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxDial1, _sourceMeter.Clone()));
+            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxDial2, _sourceMeter.Clone()));
+            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxDial3, _sourceMeter.Clone()));
+            _meterList.Add(new KeyValPair<PictureBox>(pictureBoxDial4, _sourceMeter.Clone()));
+            DemoUtilities.loadImage(pictureBoxSource, _sourceMeter.ModifiedImage);
         }
 
         private void Pane_DblClickHandler(object sender, EventArgs e)
         {
-            try
+            KeyValPair<PictureBox> kvp = FindKvp(sender);
+            var expandedImageForm = new ExpandedImageForm(kvp.Meter.Clone());
+            if (expandedImageForm.ShowDialog() == DialogResult.OK)
             {
-                ExpandedImageForm expandedImageForm;
-                KeyValPair<PictureBox> meterPair = null;
-                foreach (KeyValPair<PictureBox> kvp in _meterList)
+                kvp.Meter = expandedImageForm.Meter;
+                DemoUtilities.loadImage((PictureBox)sender, kvp.Meter.ModifiedImage);
+                
+                if (expandedImageForm.Cascade)
                 {
-                    if (sender == kvp.Id)
+                    int[] typeList = { 2, 3 }; //types 2 and 3 are warp and isolate filters, respectively
+                    _meterList[1].Meter = new MeterImage("Isolated Image", expandedImageForm.Meter.CascadeImage(typeList));
+                    try
                     {
-                        meterPair = kvp;
-                        break;
+                        pictureBoxIsolated.Enabled = false;
+                        dialsBox.Enabled = true;
+                        dialsBox.Visible = true;
+                        LoadDials(expandedImageForm);
+                    }
+                    catch (NullReferenceException)
+                    {
+                        pictureBoxIsolated.Enabled = true;
+                        dialsBox.Enabled = false;
+                        dialsBox.Visible = false;
+                        DemoUtilities.loadImage(pictureBoxIsolated, _meterList[1].Meter.ModifiedImage);
                     }
                 }
-
-                expandedImageForm = new ExpandedImageForm(meterPair.Meter);
-                expandedImageForm.ShowDialog();
-                if(expandedImageForm.DialogResult == DialogResult.OK)
-                {
-                    DemoUtilities.loadImage(meterPair.Id, meterPair.Meter.ModifiedImage);
-                }
-                expandedImageForm.Close();
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Error Opening Image", "Error", MessageBoxButtons.OK);
             }
         }
 
+        private KeyValPair<PictureBox> FindKvp(object sender)
+        {
+            foreach(var kvp in _meterList)
+            {
+                if (sender == kvp.Id)
+                {
+                    return kvp;
+                }
+            }
+            throw new NullReferenceException();
+        }
+
+        private void LoadDials(ExpandedImageForm expandedImageForm)
+        {
+            _meterList[2].Meter = expandedImageForm.Dials[0];
+            _meterList[3].Meter = expandedImageForm.Dials[1];
+            _meterList[4].Meter = expandedImageForm.Dials[2];
+            _meterList[5].Meter = expandedImageForm.Dials[3];
+            DemoUtilities.loadImage(pictureBoxDial1, _meterList[2].Meter.ModifiedImage);
+            DemoUtilities.loadImage(pictureBoxDial2, _meterList[3].Meter.ModifiedImage);
+            DemoUtilities.loadImage(pictureBoxDial3, _meterList[4].Meter.ModifiedImage);
+            DemoUtilities.loadImage(pictureBoxDial4, _meterList[5].Meter.ModifiedImage);
+        }
     }
 }
