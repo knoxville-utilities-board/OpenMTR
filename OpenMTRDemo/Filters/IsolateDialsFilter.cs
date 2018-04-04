@@ -72,7 +72,6 @@ namespace OpenMTRDemo.Filters
                 SortCircles();
                 for (int i = 0; i < 4; i++)
                 {
-                    
                     Point center = _circleList[i].Center;
                     int diameter = (int)(_circleList[i].Radius * 2 + 1);
                     Mat output = new Mat();
