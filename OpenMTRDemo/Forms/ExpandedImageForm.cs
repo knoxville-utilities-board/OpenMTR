@@ -10,12 +10,15 @@ namespace OpenMTRDemo.Forms
     public partial class ExpandedImageForm : BaseForm
     {
         public MeterImage Meter;
+        public bool Cascade;
         private Models.LoadSaveDialog _loadSaveDialog;
+        public MeterImage[] Dials;
 
         public ExpandedImageForm(MeterImage meter)
         {
             this.Meter = meter;
             this.DialogResult = DialogResult.Cancel;
+            Cascade = false;
             InitializeComponent();
         }
 
@@ -25,6 +28,7 @@ namespace OpenMTRDemo.Forms
             SetDisableableControls(true);
             LoadFilters();
             Render();
+            this.Text = Text + (new Random()).NextDouble();
         }
 
         private void LoadFilters()
@@ -38,7 +42,8 @@ namespace OpenMTRDemo.Forms
                 new LaplacianFilter(this, Meter),
                 new PerspectiveFilter(this, Meter),
                 new AffineFilter(this, Meter),
-                new IsolateFilter(this, Meter),
+                new IsolateOdoFilter(this, Meter),
+                new IsolateDialsFilter(this, Meter),
                 new ErodeMorph(this, Meter),
                 new DilateMorph(this, Meter),
                 new MorphExClosing(this, Meter),
@@ -103,7 +108,7 @@ namespace OpenMTRDemo.Forms
             Close();
         }
 
-        private void addFilterButton_Click(object sender, EventArgs e)
+        private void addFilterButton_Click(object sender = null, EventArgs e = null)
         {
             BaseFilter filter = ((BaseFilter)filtersComboBox.SelectedItem).Clone();
             Meter.Add(filter);
@@ -124,6 +129,11 @@ namespace OpenMTRDemo.Forms
                 return Meter.ModifiedImage;
             }
             return Meter.SourceImage;
+        }
+
+        public Mat CascadeImage(int[] type)
+        {
+            return Meter.CascadeImage(type);
         }
 
         public void EnableMoveButtons()
@@ -153,6 +163,14 @@ namespace OpenMTRDemo.Forms
             filtersFlowPanel.Controls.AddRange(Meter.FilterList.ToArray());
             EnableMoveButtons();
             Render();
+        }
+
+        private void filtersComboBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                addFilterButton_Click();
+            }
         }
     }
 }

@@ -14,6 +14,7 @@ namespace OpenMTRDemo.Filters
             this.Editor = Editor;
             this.Meter = Meter;
             FilterName = "Affine";
+            Type = 2;
             horizontalNumeric.Value = horizontal;
             horizontalTrackBar.Value = horizontal;
             verticalNumeric.Value = vertical;

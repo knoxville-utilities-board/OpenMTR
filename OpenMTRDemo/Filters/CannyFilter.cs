@@ -13,6 +13,7 @@ namespace OpenMTRDemo.Filters
             this.Editor = Editor;
             this.Meter = Meter;
             FilterName = "Canny Filter";
+            Type = 1;
             thresholdTrackBar1.Value = threshold1;
             thresholdTrackBar2.Value = threshold2;
         }

@@ -7,18 +7,26 @@ using System.Collections.Generic;
 
 namespace OpenMTRDemo.Filters
 {
-    public partial class IsolateFilter : BaseFilter
+    public partial class IsolateOdoFilter : BaseFilter
     {
         private bool _preventDoubleRender = true;
+        private Rect _cascadeRect;
 
-        public IsolateFilter(ExpandedImageForm Editor, MeterImage Meter, int threshold = 300)
+        public IsolateOdoFilter(ExpandedImageForm Editor, MeterImage Meter, int threshold = 300, Rect cascadeRect = new Rect())
         {
             this.Editor = Editor;
             this.Meter = Meter;
             InitializeComponent();
-            FilterName = "Isolate";
+            FilterName = "Isolate Odometer";
+            Type = 3;
             thresholdTrackBar.Value = threshold;
             thresholdNumeric.Value = threshold * (decimal).01;
+            this._cascadeRect = cascadeRect;
+        }
+
+        public override void Cascade(Mat image)
+        {
+            Cv2.GetRectSubPix(image, _cascadeRect.Size, new Point2f(_cascadeRect.X + _cascadeRect.Width / 2, _cascadeRect.Y + _cascadeRect.Height / 2), image);
         }
 
         public override void ApplyFilter(Mat image)
@@ -39,7 +47,8 @@ namespace OpenMTRDemo.Filters
                         rect = Cv2.BoundingRect(point);
                     }
                 }
-                Cv2.GetRectSubPix(image, rect.Size, new Point2f(rect.X + rect.Width / 2, rect.Y + rect.Height / 2), image);
+                Cv2.Rectangle(image, rect, new Scalar(255, 0, 0), 3);
+                _cascadeRect = rect;
             }
         }
 
@@ -57,7 +66,14 @@ namespace OpenMTRDemo.Filters
 
         public override BaseFilter Clone()
         {
-            return new IsolateFilter(Editor, Meter, thresholdTrackBar.Value);
+            return new IsolateOdoFilter(Editor, Meter, thresholdTrackBar.Value, _cascadeRect);
+        }
+
+        private void isolateButton_Click(object sender, EventArgs e)
+        {
+            Editor.DialogResult = DialogResult.OK;
+            Editor.Cascade = true;
+            Editor.Close();
         }
     }
 }

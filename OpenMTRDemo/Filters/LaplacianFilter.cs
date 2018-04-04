@@ -13,6 +13,7 @@ namespace OpenMTRDemo.Filters
             this.Editor = Editor;
             this.Meter = Meter;
             FilterName = "Laplacian Filter";
+            Type = 1;
             kSizeTrackBar.Value = kernelSize;
             deltaTrackBar.Value = delta;
         }

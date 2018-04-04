@@ -13,6 +13,7 @@ namespace OpenMTRDemo.Filters
             this.Editor = Editor;
             this.Meter = Meter;
             FilterName = "Gaussian Blur";
+            Type = 0;
             horizontalTrackBar.Value = hRadius;
             verticalTrackBar.Value = vRadius;
         }
