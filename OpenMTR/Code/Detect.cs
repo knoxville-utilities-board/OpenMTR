@@ -53,6 +53,7 @@ namespace OpenMTR
                 case "TRIDENT":
                     break;
                 case "SPRAGUE":
+                    ExtractDials(meter);
                     break;
                 case "AMERICAN":
                     break;
