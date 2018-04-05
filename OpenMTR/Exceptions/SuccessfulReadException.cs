@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace OpenMTR
 {
-    public class PassFailException : Exception
+    public class SuccessfulReadException : Exception
     {
-        public PassFailException()
+        public SuccessfulReadException()
         {
         }
 
-        public PassFailException(string message)
+        public SuccessfulReadException(string message)
             : base(message)
         {
         }
 
-        public PassFailException(string message, Exception inner)
+        public SuccessfulReadException(string message, Exception inner)
             : base(message, inner)
         {
         }

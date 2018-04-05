@@ -13,13 +13,19 @@ namespace OpenMTR
         public static List<Meter> GetMeterList(string directoryPath)
         {
             List<Meter> data = new List<Meter>();
-            foreach (string filePath in Directory.GetFiles(directoryPath))
+            ProgressBar progressBar = new ProgressBar("Processing files...");
+            string[] files = Directory.GetFiles(directoryPath);
+            double dirSize = files.Length, progress = 1;
+            foreach (string filePath in files)
             {
                 if (Regex.IsMatch(filePath, @"\.(jpe?g|png)$", RegexOptions.IgnoreCase))
                 {
                     data.Add(GetMeter(filePath));
                 }
+                progressBar.Report(progress / dirSize);
+                progress++;
             }
+            progressBar.Dispose();
             return data;
         }
         public static void GetMeterList(string directoryPath, List<Meter> data)

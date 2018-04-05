@@ -65,9 +65,12 @@
     <Compile Include="Code\Dial.cs" />
     <Compile Include="Code\Digital\American.cs" />
     <Compile Include="Code\Odometer.cs" />
-    <Compile Include="Exceptions\PassFailException.cs" />
+    <Compile Include="Code\Report.cs" />
+    <Compile Include="Exceptions\SuccessfulReadException.cs" />
+    <Compile Include="Exceptions\FailReadException.cs" />
     <Compile Include="Models\Meter.cs" />
     <Compile Include="Models\MeterMetaData.cs" />
+    <Compile Include="Models\ProgressBar.cs" />
     <Compile Include="Utilities\ImageUtils.cs" />
     <Compile Include="Utilities\DebugUtils.cs" />
     <Compile Include="Code\ReadData.cs" />

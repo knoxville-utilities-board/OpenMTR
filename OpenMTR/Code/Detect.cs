@@ -113,7 +113,15 @@ namespace OpenMTR
                 }
             }
             string dialValue = Dial.Read(meter, filteredCircles);
-            DebugUtils.Log(string.Format("Read value: {0} | Metadata Value: {1}", dialValue, meter.MetaData.MeterRead));
+            //DebugUtils.Log(string.Format("Read value: {0} | Metadata Value: {1}", dialValue, meter.MetaData.MeterRead));
+            if (dialValue == meter.MetaData.MeterRead)
+            {
+                Report.AddSuccessfulRead(meter);
+            }
+            else
+            {
+                Report.AddFailedRead(meter);
+            }
         }
     }
 }
