@@ -32,11 +32,16 @@ namespace OpenMTR
                 case "AMERICAN":
                     American.ProcessDigitalMeter(meter);
                     break;
+                case "TRIDENT":
                 case "NEPTUNE":
                     break;
                 case "SENSUS":
                     break;
                 case "ROOTS":
+                    break;
+                case "EMCO":
+                    break;
+                case "BADGER":
                     break;
                 default:
                     Console.WriteLine(string.Format("Unexpected meter manufacturer of '{0}'. Please check the metadata json file for '{1}' and ensure this is correct", meter.MetaData.Manufacturer, meter.FileName));
@@ -48,18 +53,15 @@ namespace OpenMTR
         { 
             switch (meter.MetaData.Manufacturer)
             {
-                case "NEPTUNE":
-                    break;
-                case "TRIDENT":
-                    break;
                 case "SPRAGUE":
                     ExtractDials(meter);
                     break;
-                case "AMERICAN":
-                    break;
-                case "BADGER":
-                    break;
                 case "EMCO":
+                case "BADGER":
+                case "TRIDENT":
+                case "NEPTUNE":
+                case "AMERICAN":
+                    ProcessDigitalManufacturer(meter);
                     break;
                 default:
                     Console.WriteLine(string.Format("Unexpected meter manufacturer of '{0}'. Please check the metadata json file for '{1}' and ensure this is correct", meter.MetaData.Manufacturer, meter.FileName));
@@ -72,12 +74,12 @@ namespace OpenMTR
             switch (meter.MetaData.Manufacturer)
             {
                 case "SENSUS":
-                    break;
                 case "NEPTUNE":
-                    break;
                 case "TRIDENT":
+                    ProcessDigitalManufacturer(meter);
                     break;
                 case "AMERICAN":
+                    // A dial meter?
                     break;
                 default:
                     Console.WriteLine(string.Format("Unexpected meter manufacturer of '{0}'. Please check the metadata json file for '{1}' and ensure this is correct", meter.MetaData.Manufacturer, meter.FileName));
