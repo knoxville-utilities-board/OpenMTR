@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Code\Detect.cs" />
     <Compile Include="Code\Dial.cs" />
+    <Compile Include="Code\Dial\Sprague.cs" />
     <Compile Include="Code\Digital\American.cs" />
     <Compile Include="Code\Odometer.cs" />
     <Compile Include="Code\Report.cs" />
