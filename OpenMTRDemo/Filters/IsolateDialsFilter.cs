@@ -107,9 +107,12 @@ namespace OpenMTRDemo.Filters
 
         private void isolateButton_Click(object sender, EventArgs e)
         {
-            Editor.DialogResult = DialogResult.OK;
-            Editor.Cascade = true;
-            Editor.Close();
+            if (_circleList.Count == 4)
+            {
+                Editor.DialogResult = DialogResult.OK;
+                Editor.Cascade = true;
+                Editor.Close();
+            }
         }
     }
 }
