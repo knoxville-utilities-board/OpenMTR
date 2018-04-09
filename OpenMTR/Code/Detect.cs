@@ -54,7 +54,7 @@ namespace OpenMTR
             switch (meter.MetaData.Manufacturer)
             {
                 case "SPRAGUE":
-                    ExtractDials(meter);
+                    Sprague.ReadMeter(meter);
                     break;
                 case "EMCO":
                 case "BADGER":
@@ -84,45 +84,6 @@ namespace OpenMTR
                 default:
                     Console.WriteLine(string.Format("Unexpected meter manufacturer of '{0}'. Please check the metadata json file for '{1}' and ensure this is correct", meter.MetaData.Manufacturer, meter.FileName));
                     break;
-            }
-        }
-
-        private static void ExtractDials(Meter meter)
-        {
-            List<CircleSegment> filteredCircles = new List<CircleSegment>();
-            ImageUtils.ColorToGray(meter.SourceImage, meter.ModifiedImage);
-            Cv2.MorphologyEx(meter.ModifiedImage, meter.ModifiedImage, MorphTypes.Open, ImageUtils.GetKernel(new Size(3, 3)));
-            Cv2.GaussianBlur(meter.ModifiedImage, meter.ModifiedImage, new Size(3, 3), 1);
-            CircleSegment[] circles = Cv2.HoughCircles(meter.ModifiedImage, HoughMethods.Gradient, 1, meter.ModifiedImage.Rows / 20, 250, 100, 0, 0);
-            for (int i = 0; i < circles.Length; i++)
-            {
-                CircleSegment circle = circles[i];
-                Point center = circle.Center;
-                int count = 0;
-                foreach (CircleSegment otherCircle in circles)
-                {
-                    if (!circle.Equals(otherCircle))
-                    {
-                        if (Math.Abs(center.Y - otherCircle.Center.Y) < 10)
-                        {
-                            count++;
-                        }
-                    }
-                }
-                if (count == 3)
-                {
-                    filteredCircles.Add(circle);
-                }
-            }
-            string dialValue = Dial.Read(meter, filteredCircles);
-            //DebugUtils.Log(string.Format("Read value: {0} | Metadata Value: {1}", dialValue, meter.MetaData.MeterRead));
-            if (dialValue == meter.MetaData.MeterRead)
-            {
-                Report.AddSuccessfulRead(meter);
-            }
-            else
-            {
-                Report.AddFailedRead(meter);
             }
         }
     }
