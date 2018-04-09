@@ -61,8 +61,9 @@ namespace OpenMTR
             {
                 return false;
             }
-
-            return Dial.Read(meter, filteredCircles) == meter.MetaData.MeterRead;
+            string ret = Dial.Read(meter, filteredCircles);
+            DebugUtils.Log($"{meter.FileName} | {ret} | {meter.MetaData.MeterRead}");
+            return ret == meter.MetaData.MeterRead;
         }
     }
 }

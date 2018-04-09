@@ -13,35 +13,6 @@ namespace OpenMTR
             return ExtractDialDigits(meter, SortDials(dials));
         }
 
-        private static List<CircleSegment> SortDials(List<CircleSegment> dials)
-        {
-            return dials.OrderBy(dial => dial.Center.X).ToList();
-        }
-
-        private static Point DetectNeedleTip(Mat dial, Point centerOfNeedle)
-        {
-            double distance = 0f;
-            Point needlePoint = new Point();
-            ImageUtils.ColorToGray(dial, dial);
-            Cv2.Dilate(dial, dial, ImageUtils.GetKernel(new Size(5, 5)));
-            Cv2.MorphologyEx(dial, dial, MorphTypes.Open, ImageUtils.GetKernel(new Size(3, 3)));
-            Cv2.MorphologyEx(dial, dial, MorphTypes.Close, ImageUtils.GetKernel(new Size(3, 3)));
-            Cv2.Canny(dial, dial, 100, 200);
-            Cv2.FindContours(dial, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.External, ContourApproximationModes.ApproxNone);
-            foreach (Point[] points in contours)
-            {
-                foreach (Point point in points)
-                {
-                    if (centerOfNeedle.DistanceTo(point) > distance)
-                    {
-                        needlePoint = point;
-                        distance = centerOfNeedle.DistanceTo(point);
-                    }
-                }
-            }
-            return needlePoint;
-        }
-
         private static string ExtractDialDigits(Meter meter, List<CircleSegment> circles)
         {
             StringBuilder readValue = new StringBuilder("????");
@@ -60,18 +31,64 @@ namespace OpenMTR
                 {
                     rectW = (rectY + rectH) - meter.SourceImage.Height;
                 }
-                Mat dial = new Mat(meter.SourceImage, new Rect(rectX, rectY, rectW, rectH));
-                Point center = new Point(dial.Width / 2, dial.Height / 2);
-                Point needleTip = DetectNeedleTip(dial, center);
-                foreach (KeyValuePair<char, List<Point>> numberPosition in (MathUtils.IsEven(i)) ? CreateCounterClockwiseSegments(dial, center) : CreateClockwiseSegments(dial, center))
+                meter.ModifiedImage = new Mat(meter.SourceImage.Clone(), new Rect(rectX, rectY, rectW, rectH));
+                Mat test = meter.ModifiedImage.Clone();
+                Point center = new Point(meter.ModifiedImage.Width / 2, meter.ModifiedImage.Height / 2);
+                Point needleTip = DetectNeedleTip(meter, center);
+                Cv2.Circle(test, center, 1, new Scalar(255, 0, 0), 2);
+                Cv2.Circle(test, needleTip, 1, new Scalar(0, 255, 0), 2);
+                DebugUtils.Log($"Processing for {meter.FileName}_{i}");
+                foreach (KeyValuePair<char, List<Point>> numberPosition in (MathUtils.IsEven(i)) ? CreateCounterClockwiseSegments(meter.ModifiedImage, center) : CreateClockwiseSegments(meter.ModifiedImage, center))
                 {
+                    Cv2.Line(test, center, numberPosition.Value[1], new Scalar(0, 0, 255));
+                    //Point centerTri = new Point((center.X + numberPosition.Value[0].X + numberPosition.Value[1].X) / 3, (center.Y + numberPosition.Value[0].Y + numberPosition.Value[1].Y) / 3);
+                    //Cv2.PutText(test, $"{numberPosition.Key}", centerTri, HersheyFonts.HersheyComplex, 0.5, new Scalar(255, 0, 0));
+
                     if (MathUtils.IsPointInTriangle(needleTip, center, numberPosition.Value[0], numberPosition.Value[1]))
                     {
                         readValue[i] = numberPosition.Key;
+                        break;
+                    }
+
+                    if (MathUtils.IsPointNearLine(needleTip, center, numberPosition.Value[0]))
+                    {
+                        readValue[i] = numberPosition.Key;
+                        break;
                     }
                 }
+                //DebugUtils.ExportMatToFile(meter.ModifiedImage, $"{meter.FileName}_{i}");
             }
             return readValue.ToString();
+        }
+
+        private static Point DetectNeedleTip(Meter meter, Point centerOfNeedle)
+        {
+            double distance = 0f;
+            Point needlePoint = new Point();
+            ImageUtils.ColorToGray(meter.ModifiedImage, meter.ModifiedImage);
+            Cv2.Dilate(meter.ModifiedImage, meter.ModifiedImage, ImageUtils.GetKernel(new Size(3, 3)));
+            Cv2.Dilate(meter.ModifiedImage, meter.ModifiedImage, ImageUtils.GetKernel(new Size(3, 3)));
+            Cv2.Dilate(meter.ModifiedImage, meter.ModifiedImage, ImageUtils.GetKernel(new Size(3, 3)));
+            Cv2.Canny(meter.ModifiedImage, meter.ModifiedImage, 100, 200);
+            Cv2.FindContours(meter.ModifiedImage, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.External, ContourApproximationModes.ApproxNone);
+            foreach (Point[] points in contours)
+            {
+                Rect rect = Cv2.BoundingRect(points);
+                double area = rect.Height * rect.Width;
+                if (area > 1000)
+                {
+                    foreach (Point point in points)
+                    {
+                        if (centerOfNeedle.DistanceTo(point) > distance)
+                        {
+                            needlePoint = point;
+                            distance = centerOfNeedle.DistanceTo(point);
+                        }
+                    }
+                    break;
+                }
+            }
+            return needlePoint;
         }
 
         private static Dictionary<char, List<Point>> CreateClockwiseSegments(Mat dial, Point center)
@@ -106,6 +123,11 @@ namespace OpenMTR
                 { '8', new List<Point>() { new Point(dial.Width, center.Y * 0.65), new Point(center.X + (center.X * 0.70), 0) } },
                 { '9', new List<Point>() { new Point(center.X + (center.X * 0.70), 0), new Point(center.X, 0) } }
             };
+        }
+
+        private static List<CircleSegment> SortDials(List<CircleSegment> dials)
+        {
+            return dials.OrderBy(dial => dial.Center.X).ToList();
         }
     }
 }

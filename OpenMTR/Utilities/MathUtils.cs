@@ -26,5 +26,21 @@ namespace OpenMTR
         {
             return (number % 2 == 0);
         }
+
+        private static int DotProduct(Point a, Point b, Point c)
+        {
+            Point AB = new Point(b.X - a.X, b.Y - a.Y);
+            Point BC = new Point(c.X - b.X, c.Y - b.Y);
+            return AB.X * BC.X + AB.Y * BC.Y;
+        }
+
+        public static bool IsPointNearLine(Point point, Point center, Point pointA)
+        {
+            // https://stackoverflow.com/a/910916
+            // https://www.topcoder.com/community/data-science/data-science-tutorials/geometry-concepts-basic-concepts/
+            double distance = Math.Abs(((pointA.X - center.X) * (center.Y - point.Y)) - ((center.X - point.X) * (pointA.Y - center.Y))) / Math.Sqrt(Math.Pow((pointA.X - center.X), 2) + Math.Pow((pointA.Y - center.Y), 2));
+            bool isBetween = DotProduct(center, pointA, point) < 0 && DotProduct(pointA, center, point) < 0;
+            return isBetween && distance >= -5 && distance <= 5;
+        }
     }
 }

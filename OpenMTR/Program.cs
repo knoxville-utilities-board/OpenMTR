@@ -15,19 +15,20 @@ namespace OpenMTR
 
         static void Main(string[] args)
         {
-            Welcome.WelcomeUser();
+            //Welcome.WelcomeUser();
+            DirectoryPath = @"C:\Users\bsdin\Desktop\OpenMTR\Bulk";
             Report.StartTimer();
             List<Meter> meters = ReadData.GetMeterList(DirectoryPath);
-            ProgressBar progressBar = new ProgressBar("Reading photos...");
+            //ProgressBar progressBar = new ProgressBar("Reading photos...");
             double meterCount = meters.Count, progress = 1;
             foreach (Meter meter in meters)
             {
                 Report.AddMeter(meter);
                 Detect.DetectType(meter);
-                progressBar.Report(progress / meterCount);
+                //progressBar.Report(progress / meterCount);
                 progress++;
             }
-            progressBar.Dispose();
+            //progressBar.Dispose();
             Report.EndTimer();
             Report.Export(meterCount);
             Console.WriteLine("Completed");
