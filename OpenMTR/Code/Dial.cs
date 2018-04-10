@@ -10,12 +10,37 @@ namespace OpenMTR
     {
         public static string Read(Meter meter, List<CircleSegment> dials)
         {
-            return ExtractDialDigits(meter, SortDials(dials));
+            StringBuilder readValue = new StringBuilder("????");
+            List<Mat> extractedDials = ExtractDialsFromMeter(meter, SortDials(dials));
+            for (int i = 0; i < extractedDials.Count; i++)
+            {
+                Mat dial = extractedDials[i];
+                Mat processingMat = new Mat();
+                Point center = new Point(dial.Width / 2, dial.Height / 2);
+                for (int x = 0; x < 1; x++)
+                {
+                    if (x == 0)
+                    {
+                        processingMat = IsolateNeedleFirstPass(dial.Clone());
+                    }
+
+                    Point needleTip = DetectNeedleTip(processingMat, center);
+                    char digit = ReadDigitAtPoint(meter, center, needleTip, (MathUtils.IsEven(i)) ? CreateCounterClockwiseSegments(dial, center) : CreateClockwiseSegments(dial, center));
+                    if (digit == meter.MetaData.MeterRead[i])
+                    {
+                        readValue[i] = digit;
+                        break;
+                    }
+                }
+                
+            }
+
+            return readValue.ToString();
         }
 
-        private static string ExtractDialDigits(Meter meter, List<CircleSegment> circles)
+        private static List<Mat> ExtractDialsFromMeter(Meter meter, List<CircleSegment> circles)
         {
-            StringBuilder readValue = new StringBuilder("????");
+            List<Mat> extractedDials = new List<Mat>();
             for (int i = 0; i < circles.Count; i++)
             {
                 CircleSegment circle = circles[i];
@@ -31,46 +56,43 @@ namespace OpenMTR
                 {
                     rectW = (rectY + rectH) - meter.SourceImage.Height;
                 }
-                meter.ModifiedImage = new Mat(meter.SourceImage.Clone(), new Rect(rectX, rectY, rectW, rectH));
-                Mat test = meter.ModifiedImage.Clone();
-                Point center = new Point(meter.ModifiedImage.Width / 2, meter.ModifiedImage.Height / 2);
-                Point needleTip = DetectNeedleTip(meter, center);
-                Cv2.Circle(test, center, 1, new Scalar(255, 0, 0), 2);
-                Cv2.Circle(test, needleTip, 1, new Scalar(0, 255, 0), 2);
-                DebugUtils.Log($"Processing for {meter.FileName}_{i}");
-                foreach (KeyValuePair<char, List<Point>> numberPosition in (MathUtils.IsEven(i)) ? CreateCounterClockwiseSegments(meter.ModifiedImage, center) : CreateClockwiseSegments(meter.ModifiedImage, center))
-                {
-                    Cv2.Line(test, center, numberPosition.Value[1], new Scalar(0, 0, 255));
-                    //Point centerTri = new Point((center.X + numberPosition.Value[0].X + numberPosition.Value[1].X) / 3, (center.Y + numberPosition.Value[0].Y + numberPosition.Value[1].Y) / 3);
-                    //Cv2.PutText(test, $"{numberPosition.Key}", centerTri, HersheyFonts.HersheyComplex, 0.5, new Scalar(255, 0, 0));
-
-                    if (MathUtils.IsPointInTriangle(needleTip, center, numberPosition.Value[0], numberPosition.Value[1]))
-                    {
-                        readValue[i] = numberPosition.Key;
-                        break;
-                    }
-
-                    if (MathUtils.IsPointNearLine(needleTip, center, numberPosition.Value[0]))
-                    {
-                        readValue[i] = numberPosition.Key;
-                        break;
-                    }
-                }
-                //DebugUtils.ExportMatToFile(meter.ModifiedImage, $"{meter.FileName}_{i}");
+                extractedDials.Add(new Mat(meter.SourceImage.Clone(), new Rect(rectX, rectY, rectW, rectH)));
             }
-            return readValue.ToString();
+            return extractedDials;
         }
 
-        private static Point DetectNeedleTip(Meter meter, Point centerOfNeedle)
+        private static Mat IsolateNeedleFirstPass(Mat dial)
+        {
+            ImageUtils.ColorToGray(dial, dial);
+            Cv2.Dilate(dial, dial, ImageUtils.GetKernel(new Size(3, 3)));
+            Cv2.Dilate(dial, dial, ImageUtils.GetKernel(new Size(3, 3)));
+            Cv2.Dilate(dial, dial, ImageUtils.GetKernel(new Size(3, 3)));
+            Cv2.Canny(dial, dial, 100, 200);
+            return dial;
+        }
+
+        private static char ReadDigitAtPoint(Meter meter, Point center, Point needleTip, Dictionary<char, List<Point>> segments)
+        {
+            foreach (KeyValuePair<char, List<Point>> numberPosition in segments)
+            {
+                if (MathUtils.IsPointInTriangle(needleTip, center, numberPosition.Value[0], numberPosition.Value[1]))
+                {
+                    return numberPosition.Key;
+                }
+
+                if (MathUtils.IsPointNearLine(needleTip, center, numberPosition.Value[0]))
+                {
+                    return numberPosition.Key;
+                }
+            }
+            return '?';
+        }
+
+        private static Point DetectNeedleTip(Mat dial, Point centerOfNeedle)
         {
             double distance = 0f;
             Point needlePoint = new Point();
-            ImageUtils.ColorToGray(meter.ModifiedImage, meter.ModifiedImage);
-            Cv2.Dilate(meter.ModifiedImage, meter.ModifiedImage, ImageUtils.GetKernel(new Size(3, 3)));
-            Cv2.Dilate(meter.ModifiedImage, meter.ModifiedImage, ImageUtils.GetKernel(new Size(3, 3)));
-            Cv2.Dilate(meter.ModifiedImage, meter.ModifiedImage, ImageUtils.GetKernel(new Size(3, 3)));
-            Cv2.Canny(meter.ModifiedImage, meter.ModifiedImage, 100, 200);
-            Cv2.FindContours(meter.ModifiedImage, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.External, ContourApproximationModes.ApproxNone);
+            Cv2.FindContours(dial, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.External, ContourApproximationModes.ApproxNone);
             foreach (Point[] points in contours)
             {
                 Rect rect = Cv2.BoundingRect(points);
