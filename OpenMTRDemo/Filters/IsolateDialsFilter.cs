@@ -49,10 +49,14 @@ namespace OpenMTRDemo.Filters
                 }
                 if (_circleList.Count == 4)
                 {
+                    SortCircles();
                     foreach (CircleSegment circle in _circleList)
                     {
-                        Cv2.Circle(image, circle.Center, (int)circle.Radius, new Scalar(255), (Math.Min(image.Height, image.Width) / 60));
+                        Cv2.Circle(image, circle.Center, (int)circle.Radius, new Scalar(255), (Math.Min(image.Height, image.Width) / 100));
                     }
+                    Point topLeft = new Point(_circleList[0].Center.X - _circleList[0].Radius, _circleList[0].Center.Y - _circleList[0].Radius);
+                    Point bottomRight = new Point(_circleList[3].Center.X + _circleList[3].Radius, _circleList[3].Center.Y + _circleList[3].Radius);
+                    Cv2.Rectangle(image, topLeft, bottomRight, new Scalar(255), (Math.Min(image.Height, image.Width) / 100));
                 }
                 else
                 {
@@ -69,7 +73,6 @@ namespace OpenMTRDemo.Filters
             if (_circleList.Count == 4)
             {
                 Editor.Dials = new MeterImage[4];
-                SortCircles();
                 for (int i = 0; i < 4; i++)
                 {
                     Point center = _circleList[i].Center;
@@ -104,9 +107,12 @@ namespace OpenMTRDemo.Filters
 
         private void isolateButton_Click(object sender, EventArgs e)
         {
-            Editor.DialogResult = DialogResult.OK;
-            Editor.Cascade = true;
-            Editor.Close();
+            if (_circleList.Count == 4)
+            {
+                Editor.DialogResult = DialogResult.OK;
+                Editor.Cascade = true;
+                Editor.Close();
+            }
         }
     }
 }
