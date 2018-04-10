@@ -204,6 +204,12 @@
     <EmbeddedResource Include="Filters\AffineFilter.resx">
       <DependentUpon>AffineFilter.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Filters\MorphExClosing.resx">
+      <DependentUpon>MorphExClosing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Filters\MorphExOpening.resx">
+      <DependentUpon>MorphExOpening.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Filters\PerspectiveFilter.resx">
       <DependentUpon>PerspectiveFilter.cs</DependentUpon>
     </EmbeddedResource>

@@ -16,22 +16,29 @@ namespace OpenMTRDemo.Filters
 {
     public partial class MorphExOpening : BaseFilter
     {
-        public MorphExOpening(ExpandedImageForm Editor = null, MeterImage Meter = null)
+        public MorphExOpening(ExpandedImageForm Editor = null, MeterImage Meter = null, int hSize = 1, int vSize = 1)
         {
             InitializeComponent();
             this.Editor = Editor;
             this.Meter = Meter;
             FilterName = "Morph Open";
+            horizontalTrackBar.Value = hSize;
+            verticalTrackBar.Value = vSize;
         }
 
         public override void ApplyFilter(Mat image)
         {
-            Cv2.MorphologyEx(image, image, MorphTypes.Open, ImageUtils.GetKernel(new OpenCvSharp.Size(3, 3)));
+            Cv2.MorphologyEx(image, image, MorphTypes.Open, ImageUtils.GetKernel(new OpenCvSharp.Size(1 + 2 * horizontalTrackBar.Value, 1 + 2 * verticalTrackBar.Value)));
         }
 
         public override BaseFilter Clone()
         {
-            return new MorphExOpening(Editor, Meter);
+            return new MorphExOpening(Editor, Meter, horizontalTrackBar.Value, verticalTrackBar.Value);
+        }
+
+        private void Render(object sender, EventArgs e)
+        {
+            Render();
         }
     }
 }
