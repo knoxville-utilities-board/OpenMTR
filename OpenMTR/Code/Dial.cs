@@ -17,15 +17,23 @@ namespace OpenMTR
                 Mat dial = extractedDials[i];
                 Mat processingMat = new Mat();
                 Point center = new Point(dial.Width / 2, dial.Height / 2);
-                for (int x = 0; x < 1; x++)
+                for (int x = 0; x < 3; x++)
                 {
-                    if (x == 0)
+                    switch (x)
                     {
-                        processingMat = IsolateNeedleFirstPass(dial.Clone());
+                        case 0:
+                            processingMat = IsolateNeedleFirstPass(dial.Clone());
+                            break;
+                        case 1:
+                            processingMat = IsolateNeedleSecondPass(dial.Clone());
+                            break;
+                        case 2:
+                            processingMat = IsolateNeedleThirdPass(dial.Clone());
+                            break;
                     }
-
                     Point needleTip = DetectNeedleTip(processingMat, center);
-                    char digit = ReadDigitAtPoint(meter, center, needleTip, (MathUtils.IsEven(i)) ? CreateCounterClockwiseSegments(dial, center) : CreateClockwiseSegments(dial, center));
+                    Cv2.Circle(dial, needleTip, 1, new Scalar(255, 0, 0), 2);
+                    char digit = ReadDigitAtPoint(meter, center, needleTip, (MathUtils.IsEven(i)) ? CreateCounterClockwiseSegments(dial, center) : CreateClockwiseSegments(dial, center), dial);
                     if (digit == meter.MetaData.MeterRead[i])
                     {
                         readValue[i] = digit;
@@ -65,13 +73,30 @@ namespace OpenMTR
         {
             ImageUtils.ColorToGray(dial, dial);
             Cv2.Dilate(dial, dial, ImageUtils.GetKernel(new Size(3, 3)));
+            Cv2.MorphologyEx(dial, dial, MorphTypes.Close, ImageUtils.GetKernel(new Size(3, 3)));
+            Cv2.Canny(dial, dial, 100, 200);
+            return dial;
+        }
+
+        private static Mat IsolateNeedleSecondPass(Mat dial)
+        {
+            ImageUtils.ColorToGray(dial, dial);         
+            Cv2.Dilate(dial, dial, ImageUtils.GetKernel(new Size(3, 3)));
             Cv2.Dilate(dial, dial, ImageUtils.GetKernel(new Size(3, 3)));
             Cv2.Dilate(dial, dial, ImageUtils.GetKernel(new Size(3, 3)));
             Cv2.Canny(dial, dial, 100, 200);
             return dial;
         }
 
-        private static char ReadDigitAtPoint(Meter meter, Point center, Point needleTip, Dictionary<char, List<Point>> segments)
+        private static Mat IsolateNeedleThirdPass(Mat dial)
+        {
+            ImageUtils.ColorToGray(dial, dial);
+            Cv2.Dilate(dial, dial, ImageUtils.GetKernel(new Size(5, 5)));
+            Cv2.Canny(dial, dial, 100, 200);
+            return dial;
+        }
+
+        private static char ReadDigitAtPoint(Meter meter, Point center, Point needleTip, Dictionary<char, List<Point>> segments, Mat dial)
         {
             foreach (KeyValuePair<char, List<Point>> numberPosition in segments)
             {
@@ -117,7 +142,7 @@ namespace OpenMTR
         {
             return new Dictionary<char, List<Point>>()
             {
-                { '0', new List<Point>() { new Point(center.X * 0.30, 0), new Point(center.X + (center.X * 0.70), 0) } },
+                { '0', new List<Point>() { new Point(center.X, 0), new Point(center.X + (center.X * 0.70), 0) } },
                 { '1', new List<Point>() { new Point(center.X + (center.X * 0.70), 0), new Point(dial.Width, center.Y * 0.65) } },
                 { '2', new List<Point>() { new Point(dial.Width, center.Y * 0.65), new Point(dial.Width, center.Y + (center.Y * 0.30)) } },
                 { '3', new List<Point>() { new Point(dial.Width, center.Y + (center.Y * 0.30)), new Point(center.X + (center.X * 0.65), dial.Height) } },
@@ -126,7 +151,7 @@ namespace OpenMTR
                 { '6', new List<Point>() { new Point(center.X * 0.20, dial.Height), new Point(0, center.Y + (center.Y * 0.30)) } },
                 { '7', new List<Point>() { new Point(0, center.Y + (center.Y * 0.30)), new Point(0, center.Y * 0.65) } },
                 { '8', new List<Point>() { new Point(0, center.Y * 0.65), new Point(center.X * 0.30, 0) } },
-                { '9', new List<Point>() { new Point(center.X * 0.30, 0), new Point(center.X, 0) } },
+                { '9', new List<Point>() { new Point(center.X * 0.30, 0), new Point(center.X, 0) } }
             };
         }
 
