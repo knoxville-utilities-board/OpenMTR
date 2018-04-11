@@ -14,25 +14,25 @@ namespace OpenMTR
             List<Mat> extractedDials = ExtractDialsFromMeter(meter, SortDials(dials));
             for (int i = 0; i < extractedDials.Count; i++)
             {
-                Mat dial = extractedDials[i];
+                meter.ModifiedImage = extractedDials[i];
                 Mat processingMat = new Mat();
-                Point center = new Point(dial.Width / 2, dial.Height / 2);
+                Point center = new Point(meter.ModifiedImage.Width / 2, meter.ModifiedImage.Height / 2);
                 for (int x = 0; x < 3; x++)
                 {
                     switch (x)
                     {
                         case 0:
-                            processingMat = IsolateNeedleFirstPass(dial.Clone());
+                            processingMat = IsolateNeedleFirstPass(meter.ModifiedImage.Clone());
                             break;
                         case 1:
-                            processingMat = IsolateNeedleSecondPass(dial.Clone());
+                            processingMat = IsolateNeedleSecondPass(meter.ModifiedImage.Clone());
                             break;
                         case 2:
-                            processingMat = IsolateNeedleThirdPass(dial.Clone());
+                            processingMat = IsolateNeedleThirdPass(meter.ModifiedImage.Clone());
                             break;
                     }
                     Point needleTip = DetectNeedleTip(processingMat, center);
-                    char digit = ReadDigitAtPoint(meter, center, needleTip, (MathUtils.IsEven(i)) ? CreateCounterClockwiseSegments(dial, center) : CreateClockwiseSegments(dial, center), i);
+                    char digit = ReadDigitAtPoint(meter, center, needleTip, i);
                     if (digit == meter.MetaData.MeterRead[i])
                     {
                         readValue[i] = digit;
@@ -93,9 +93,9 @@ namespace OpenMTR
             return dial;
         }
 
-        private static char ReadDigitAtPoint(Meter meter, Point center, Point needleTip, Dictionary<char, List<Point>> segments, int index)
+        private static char ReadDigitAtPoint(Meter meter, Point center, Point needleTip, int index)
         {
-            foreach (KeyValuePair<char, List<Point>> numberPosition in segments)
+            foreach (KeyValuePair<char, List<Point>> numberPosition in (MathUtils.IsEven(index)) ? CreateCounterClockwiseSegments(meter.ModifiedImage, center) : CreateClockwiseSegments(meter.ModifiedImage, center))
             {
                 if (MathUtils.IsPointInTriangle(needleTip, center, numberPosition.Value[0], numberPosition.Value[1]))
                 {
