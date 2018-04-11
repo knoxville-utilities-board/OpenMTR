@@ -57,6 +57,15 @@ namespace OpenMTR
             output = output.Replace("{{FAILED_READS_LIST}}", DisplayFailedReads());
             File.WriteAllText(filename, output);
             Process.Start(filename);
+            Reset();
+        }
+
+        private static void Reset()
+        {
+            MeterTypes = new Dictionary<string, int>();
+            MeterManufacturers = new Dictionary<string, int>();
+            SuccessfulReads = new List<string>();
+            FailedReads = new List<string>();
         }
 
         private static string DisplayFailedReads()
