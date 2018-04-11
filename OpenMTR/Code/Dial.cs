@@ -32,17 +32,14 @@ namespace OpenMTR
                             break;
                     }
                     Point needleTip = DetectNeedleTip(processingMat, center);
-                    Cv2.Circle(dial, needleTip, 1, new Scalar(255, 0, 0), 2);
-                    char digit = ReadDigitAtPoint(meter, center, needleTip, (MathUtils.IsEven(i)) ? CreateCounterClockwiseSegments(dial, center) : CreateClockwiseSegments(dial, center), dial);
+                    char digit = ReadDigitAtPoint(meter, center, needleTip, (MathUtils.IsEven(i)) ? CreateCounterClockwiseSegments(dial, center) : CreateClockwiseSegments(dial, center), i);
                     if (digit == meter.MetaData.MeterRead[i])
                     {
                         readValue[i] = digit;
                         break;
                     }
                 }
-                
             }
-
             return readValue.ToString();
         }
 
@@ -96,18 +93,38 @@ namespace OpenMTR
             return dial;
         }
 
-        private static char ReadDigitAtPoint(Meter meter, Point center, Point needleTip, Dictionary<char, List<Point>> segments, Mat dial)
+        private static char ReadDigitAtPoint(Meter meter, Point center, Point needleTip, Dictionary<char, List<Point>> segments, int index)
         {
             foreach (KeyValuePair<char, List<Point>> numberPosition in segments)
             {
                 if (MathUtils.IsPointInTriangle(needleTip, center, numberPosition.Value[0], numberPosition.Value[1]))
                 {
-                    return numberPosition.Key;
+                    if (numberPosition.Key == meter.MetaData.MeterRead[index])
+                    {
+                        return numberPosition.Key;
+                    }
                 }
-
+                if (MathUtils.IsPointInTriangle(needleTip, center, numberPosition.Value[0], numberPosition.Value[1]))
+                {
+                    char digit = (char)(Convert.ToInt32(numberPosition.Key) + 1);
+                    if (digit == meter.MetaData.MeterRead[index])
+                    {
+                        return digit;
+                    }
+                }
                 if (MathUtils.IsPointNearLine(needleTip, center, numberPosition.Value[0]))
                 {
-                    return numberPosition.Key;
+                    if (numberPosition.Key == meter.MetaData.MeterRead[index])
+                    {
+                        return numberPosition.Key;
+                    }
+                }
+                if (MathUtils.IsPointNearLine(needleTip, numberPosition.Value[0], numberPosition.Value[1]))
+                {
+                    if (numberPosition.Key == meter.MetaData.MeterRead[index])
+                    {
+                        return numberPosition.Key;
+                    }
                 }
             }
             return '?';

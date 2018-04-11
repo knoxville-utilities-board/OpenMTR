@@ -56,14 +56,11 @@ namespace OpenMTR
                     filteredCircles.Add(circle);
                 }
             }
-
             if (filteredCircles.Count != 4)
             {
                 return false;
             }
-            string ret = Dial.Read(meter, filteredCircles);
-            DebugUtils.Log($"{meter.FileName} | {ret} | {meter.MetaData.MeterRead}");
-            return ret == meter.MetaData.MeterRead;
+            return Dial.Read(meter, filteredCircles) == meter.MetaData.MeterRead;
         }
     }
 }
