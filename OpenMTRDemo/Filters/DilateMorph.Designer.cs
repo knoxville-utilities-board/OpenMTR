@@ -28,10 +28,54 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.horizontalTrackBar = new System.Windows.Forms.TrackBar();
+            this.verticalTrackBar = new System.Windows.Forms.TrackBar();
+            ((System.ComponentModel.ISupportInitialize)(this.horizontalTrackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.verticalTrackBar)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // horizontalTrackBar
+            // 
+            this.horizontalTrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.horizontalTrackBar.Location = new System.Drawing.Point(7, 27);
+            this.horizontalTrackBar.Name = "horizontalTrackBar";
+            this.horizontalTrackBar.Size = new System.Drawing.Size(196, 56);
+            this.horizontalTrackBar.TabIndex = 3;
+            this.horizontalTrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.horizontalTrackBar.Value = 1;
+            this.horizontalTrackBar.ValueChanged += new System.EventHandler(this.valueChanged);
+            // 
+            // verticalTrackBar
+            // 
+            this.verticalTrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.verticalTrackBar.Location = new System.Drawing.Point(7, 59);
+            this.verticalTrackBar.Name = "verticalTrackBar";
+            this.verticalTrackBar.Size = new System.Drawing.Size(196, 56);
+            this.verticalTrackBar.TabIndex = 4;
+            this.verticalTrackBar.Value = 1;
+            this.verticalTrackBar.ValueChanged += new System.EventHandler(this.valueChanged);
+            // 
+            // DilateMorph
+            // 
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.Controls.Add(this.verticalTrackBar);
+            this.Controls.Add(this.horizontalTrackBar);
+            this.Name = "DilateMorph";
+            this.Size = new System.Drawing.Size(288, 101);
+            this.Controls.SetChildIndex(this.horizontalTrackBar, 0);
+            this.Controls.SetChildIndex(this.verticalTrackBar, 0);
+            ((System.ComponentModel.ISupportInitialize)(this.horizontalTrackBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.verticalTrackBar)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.TrackBar horizontalTrackBar;
+        private System.Windows.Forms.TrackBar verticalTrackBar;
     }
 }

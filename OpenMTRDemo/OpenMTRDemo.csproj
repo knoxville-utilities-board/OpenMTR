@@ -168,6 +168,12 @@
     <Compile Include="Forms\TiledFiltersForm.Designer.cs">
       <DependentUpon>TiledFiltersForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\HVKernelControls.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Models\HVKernelControls.Designer.cs">
+      <DependentUpon>HVKernelControls.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\KeyValPair.cs" />
     <Compile Include="Models\LoadSaveDialog.cs" />
     <Compile Include="Models\MeterImage.cs" />
@@ -185,6 +191,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Filters\CannyFilter.resx">
       <DependentUpon>CannyFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Filters\DilateMorph.resx">
+      <DependentUpon>DilateMorph.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Filters\ErodeMorph.resx">
       <DependentUpon>ErodeMorph.cs</DependentUpon>
@@ -224,6 +233,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ExpandedImageForm.resx">
       <DependentUpon>ExpandedImageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\HVKernelControls.resx">
+      <DependentUpon>HVKernelControls.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
