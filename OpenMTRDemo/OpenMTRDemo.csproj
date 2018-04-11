@@ -186,6 +186,9 @@
     <EmbeddedResource Include="Filters\CannyFilter.resx">
       <DependentUpon>CannyFilter.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Filters\DilateMorph.resx">
+      <DependentUpon>DilateMorph.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Filters\ErodeMorph.resx">
       <DependentUpon>ErodeMorph.cs</DependentUpon>
     </EmbeddedResource>
@@ -203,6 +206,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Filters\AffineFilter.resx">
       <DependentUpon>AffineFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Filters\MorphExClosing.resx">
+      <DependentUpon>MorphExClosing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Filters\MorphExOpening.resx">
+      <DependentUpon>MorphExOpening.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Filters\PerspectiveFilter.resx">
       <DependentUpon>PerspectiveFilter.cs</DependentUpon>
