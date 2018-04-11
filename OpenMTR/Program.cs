@@ -32,6 +32,7 @@ namespace OpenMTR
                 progressBar.Dispose();
                 Report.EndTimer();
                 Report.Export(meterCount);
+                Console.Clear();
             }
         }
     }
